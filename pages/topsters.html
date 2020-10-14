@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" type="text/css" href="http://localhost:8888/topsters3/css/top_styles.css" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <title>Music Topsters</title>
+  </head>
+  <body>
+    <div id="primary" class="content-area">
+      <main id="main" class="site-main">
+        <div class="set">
+          <fieldset>
+            <input class="top_input" type="text" name="" value="" />
+            <div class="input_suggs"></div>
+          </fieldset>
+
+          <button class="save" type="button" name="button">Save</button>
+          <button class="clear" type="button" name="button">New</button>
+          <input type="radio" class="chartNums" name="chartNums" value="true" /> Numbers?
+          <div class="saved"></div>
+        </div>
+
+        <div class="display">
+          <h1 class="chart_title">Chart Title:</h1>
+          <div class="top_wrapper">
+            <div class="top" rank="0" active="no">
+              <p class="frontRank">1</p>
+              <p class="frontDel">x</p>
+            </div>
+            <div class="top" rank="1" active="no">
+              <p class="frontRank">2</p>
+              <p class="frontDel">x</p>
+            </div>
+            <div class="top" rank="2" active="no">
+              <p class="frontRank">3</p>
+              <p class="frontDel">x</p>
+            </div>
+            <div class="top" rank="3" active="no">
+              <p class="frontRank">4</p>
+              <p class="frontDel">x</p>
+            </div>
+            <div class="top five" rank="4" active="no">
+              <p class="frontRank">5</p>
+              <p class="frontDel">x</p>
+            </div>
+            <div class="top" rank="5" active="no">
+              <p class="frontRank">6</p>
+              <p class="frontDel">x</p>
+            </div>
+            <div class="top" rank="6" active="no">
+              <p class="frontRank">7</p>
+              <p class="frontDel">x</p>
+            </div>
+            <div class="top" rank="7" active="no">
+              <p class="frontRank">8</p>
+              <p class="frontDel">x</p>
+            </div>
+            <div class="top" rank="8" active="no">
+              <p class="frontRank">9</p>
+              <p class="frontDel">x</p>
+            </div>
+            <div class="top ten" rank="9" active="no">
+              <p class="frontRank">10</p>
+              <p class="frontDel">x</p>
+            </div>
+          </div>
+
+          <div class="album_reccs"></div>
+        </div>
+
+        <div class="chart_names">
+          <p class="albumInfo" rank="0"></p>
+          <p class="albumInfo" rank="1"></p>
+          <p class="albumInfo" rank="2"></p>
+          <p class="albumInfo" rank="3"></p>
+          <p class="albumInfo" rank="4"></p>
+          <p class="albumInfo" rank="5"></p>
+          <p class="albumInfo" rank="6"></p>
+          <p class="albumInfo" rank="7"></p>
+          <p class="albumInfo" rank="8"></p>
+          <p class="albumInfo" rank="9"></p>
+        </div>
+
+        <form action="/logout" method="post">
+          <button type="submit">Logout</button>
+        </form>
+      </main>
+      <!-- #main -->
+    </div>
+    <!-- #primary -->
+
+    <script
+      src="https://code.jquery.com/jquery-3.4.1.js"
+      integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+      crossorigin="anonymous"
+    ></script>
+    <script type="text/javascript" src="http://localhost:8888/topsters3 - copy/js/trashTile.js"></script>
+    <script type="text/javascript" src="http://localhost:8888/topsters3 - copy/js/trashOrDisplay.js"></script>
+    <script type="text/javascript" src="http://localhost:8888/topsters3 - copy/js/saveOrUpdate.js"></script>
+    <script type="text/javascript" src="http://localhost:8888/topsters3 - copy/js/searchAndAdd.js"></script>
+    <script type="text/javascript" src="http://localhost:8888/topsters3 - copy/js/unsavedChart.js"></script>
+    <script type="text/javascript" src="http://localhost:8888/topsters3 - copy/js/userSettings.js"></script>
+    <script type="text/javascript" src="http://localhost:8888/topsters3 - copy/js/appExec.js"></script>
+  </body>
+</html>
