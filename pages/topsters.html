@@ -16,7 +16,9 @@
         <div class="set">
           <fieldset>
             <input class="top_input" type="text" name="" value="" />
-            <div class="input_suggs"></div>
+            <button class="add-btn">+</button>
+            <div class="input_suggs">
+            </div>
           </fieldset>
 
           <button class="save" type="button" name="button">Save</button>
@@ -28,67 +30,37 @@
         <div class="display">
           <h1 class="chart_title">Chart Title:</h1>
           <div class="top_wrapper">
-            <div class="top" rank="0" active="no">
-              <p class="frontRank">1</p>
-              <p class="frontDel">x</p>
-            </div>
-            <div class="top" rank="1" active="no">
-              <p class="frontRank">2</p>
-              <p class="frontDel">x</p>
-            </div>
-            <div class="top" rank="2" active="no">
-              <p class="frontRank">3</p>
-              <p class="frontDel">x</p>
-            </div>
-            <div class="top" rank="3" active="no">
-              <p class="frontRank">4</p>
-              <p class="frontDel">x</p>
-            </div>
-            <div class="top five" rank="4" active="no">
-              <p class="frontRank">5</p>
-              <p class="frontDel">x</p>
-            </div>
-            <div class="top" rank="5" active="no">
-              <p class="frontRank">6</p>
-              <p class="frontDel">x</p>
-            </div>
-            <div class="top" rank="6" active="no">
-              <p class="frontRank">7</p>
-              <p class="frontDel">x</p>
-            </div>
-            <div class="top" rank="7" active="no">
-              <p class="frontRank">8</p>
-              <p class="frontDel">x</p>
-            </div>
-            <div class="top" rank="8" active="no">
-              <p class="frontRank">9</p>
-              <p class="frontDel">x</p>
-            </div>
-            <div class="top ten" rank="9" active="no">
-              <p class="frontRank">11</p>
-              <p class="frontDel">x</p>
-            </div>
+
           </div>
 
           <div class="album_reccs"></div>
         </div>
 
         <div class="chart_names">
-          <p class="albumInfo" rank="0"></p>
-          <p class="albumInfo" rank="1"></p>
-          <p class="albumInfo" rank="2"></p>
-          <p class="albumInfo" rank="3"></p>
-          <p class="albumInfo" rank="4"></p>
-          <p class="albumInfo" rank="5"></p>
-          <p class="albumInfo" rank="6"></p>
-          <p class="albumInfo" rank="7"></p>
-          <p class="albumInfo" rank="8"></p>
-          <p class="albumInfo" rank="9"></p>
+          <p class="albumInfo" rank="0">1.</p>
+          <p class="albumInfo" rank="1">2.</p>
+          <p class="albumInfo" rank="2">3.</p>
+          <p class="albumInfo" rank="3">4.</p>
+          <p class="albumInfo" rank="4">5.</p>
+          <p class="albumInfo" rank="5">6.</p>
+          <p class="albumInfo" rank="6">7.</p>
+          <p class="albumInfo" rank="7">8.</p>
+          <p class="albumInfo" rank="8">9.</p>
+          <p class="albumInfo" rank="9">10.</p>
         </div>
 
         <form action="/logout" method="post">
           <button type="submit">Logout</button>
         </form>
+
+        <div>
+          <input class="top-select" type="radio" id="top-ten" name="top-select" value="top-ten">
+          <label>Top 10</label><br>
+          <input class="top-select" type="radio" id="top-twenty" name="top-select" value="top-twenty">
+          <label>Top 20</label><br>
+          <input class="top-select" type="radio" id="top-fifty" name="top-select" value="top-fifty">
+          <label>Top 50</label><br>
+        </div>
       </main>
       <!-- #main -->
     </div>
@@ -106,5 +78,6 @@
     <script type="text/javascript" src="http://localhost:8888/topsters3 - copy/js/unsavedChart.js"></script>
     <script type="text/javascript" src="http://localhost:8888/topsters3 - copy/js/userSettings.js"></script>
     <script type="text/javascript" src="http://localhost:8888/topsters3 - copy/js/appExec.js"></script>
+    <script type="text/javascript" src="http://localhost:8888/topsters3 - copy/js/chartSizeSet.js"></script>
   </body>
 </html>

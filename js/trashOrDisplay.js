@@ -12,47 +12,50 @@ function saved_click(event) {
 
 //! FUNCTION TO DISPLAY THE LIST
 function list_display(save_clicked) {
-  //CLEARS INFO FROM PREVIOUSLY DISPLAYED CHART
-  chartData.forEach((albumInfo) => {
-    albumInfo.innerHTML = ""
-  })
-
-  all_top.forEach((album) => {
-    album.style.backgroundImage = "none"
-  })
+  // //CLEARS INFO FROM PREVIOUSLY DISPLAYED CHART
+  // chartData.forEach((albumInfo) => {
+  //   albumInfo.innerHTML = ""
+  // })
 
   //get that clicked element's name attribute and store in variable
   var clicked_save_name = save_clicked.getAttribute("name")
   var clickedNameNoScore = clicked_save_name.replace(/_/g, " ")
 
-  var savedChart = saved_list.find((saved) => saved.title == clicked_save_name) //check if the name attr of the clicked save, matches one in the saved array, then add it to a new array
+//check if the name attr of the clicked save matches one in the saved array, then add it to a new array
+  var savedChart = saved_list.find((saved) => saved.title == clicked_save_name) 
   my_list = savedChart //my_list now references the reloaded chart
+  setRadio(my_list.chart.length) //check the radio button that corresponds with the selected list's size
   frontEndTitle.innerHTML = "<h3>" + clickedNameNoScore + "</h3>"
   console.log("current list", my_list)
 
-  my_list.chart.forEach((album) => {
-    const albumIndex = my_list.chart.indexOf(album)
-
-    if (album !== undefined && album !== null) {
-      all_top[albumIndex].style.backgroundImage = "url(" + album.album_image + ")"
+  //Erase all current tiles and replace with selected list
+  topWrapper.innerHTML = '';
+  for(i = 0; i < my_list.chart.length; i++){
+    if (my_list.chart[i] !== undefined && my_list.chart[i] !== null) {
+      topWrapper.insertAdjacentHTML('beforeend', `<div style="background-image: url(${my_list.chart[i].album_image})" class="top" rank=${i} active="no"><p class="frontRank">${i+1}</p><p class="frontDel">x</p></div>`)
     } else {
-      all_top[albumIndex].style.backgroundImage = "none"
+      topWrapper.insertAdjacentHTML('beforeend', `<div style="background-image: url()" class="top" rank=${i} active="no"><p class="frontRank">${i+1}</p><p class="frontDel">x</p></div>`)
     }
-  })
+    console.log('in display loop!');
+}
 
-  //Put each corresponding album name in the corresponding chartData slot on front end
-  my_list.chart.forEach(function (album) {
-    const albumIndex = my_list.chart.indexOf(album)
-
-    if (album !== null && album !== undefined) {
-      chartData[albumIndex].innerHTML = `${album.artist} - ${album.album_name}`
-    }
-  })
+  //erase all current chart artist names and replace with selected list
+  chartNamesWrapper.innerHTML = ''
+  for(i = 0; i < my_list.chart.length; i++){
+  if (my_list.chart[i] !== null && my_list.chart[i] !== undefined) {
+    chartNamesWrapper.insertAdjacentHTML('beforeend', `<p class="albumInfo" rank=${i}> ${i+1}. ${my_list.chart[i].artist} - ${my_list.chart[i].album_name}</p>`)
+  } else{
+    chartNamesWrapper.insertAdjacentHTML('beforeend', `<p class="albumInfo" rank=${i}> ${i+1}.</p>`)
+  }
+  }
 
   //if an unsaved list was on the project board when you changed charts, it will be deleted
   if (localStorage.getItem("unsavedList")) {
     localStorage.removeItem("unsavedList")
   }
+
+  //add new listeners depending on if the chart selected increased or decreased in tile size
+  addDelListeners();
 }
 
 //! FUNCTION TO TRASH THE LIST

@@ -4,22 +4,34 @@ function checkForUnsaved() {
 
   //Checks if an unsaved list was added last session
   if (unsavedList) {
+    topWrapper.innerHTML = ''
+    chartNamesWrapper.innerHTML = ''
+
     my_list = unsavedList
 
-    for (i = 0; i < 10; i++) {
+    setRadio(my_list.length)
+
+    for (i = 0; i < my_list.length; i++) {
       if (my_list[i] !== undefined && my_list[i] !== null) {
-        all_top[i].style.backgroundImage = "url(" + my_list[i].album_image + ")"
+        topWrapper.insertAdjacentHTML('beforeend', `<div style="background-image: url(${my_list[i].album_image})" class="top" rank=${i} active="no"><p class="frontRank">${i+1}</p><p class="frontDel">x</p></div>`)
       } else {
-        all_top[i].style.backgroundImage = "none"
+        topWrapper.insertAdjacentHTML('beforeend', `<div style="background-image: url()" class="top" rank=${i} active="no"><p class="frontRank">${i+1}</p><p class="frontDel">x</p></div>`)
       }
     }
 
     //Put each corresponding album name in the corresponding chartData slot on front end
-    my_list.forEach(function (album) {
-      if (album !== null) {
-        let index = my_list.indexOf(album)
-        chartData[index].innerHTML = `${album.artist} - ${album.album_name}`
+    for(i = 0; i < my_list.length; i++){
+      if (my_list[i] !== null) {
+        chartNamesWrapper.insertAdjacentHTML('beforeend', `<p class="albumInfo" rank=${i}>${i+1}. ${my_list[i].artist} - ${my_list[i].album_name}</p>`)
+      } else{
+        chartNamesWrapper.insertAdjacentHTML('beforeend', `<p class="albumInfo" rank=${i}>${i+1}.</p>`)
       }
-    })
+    }
+    }
+   else{
+    my_list = new Array(10)
+    for(i = 0; i < my_list.length; i++){
+      topWrapper.insertAdjacentHTML('beforeend', `<div style="background-image: url()" class="top" rank=${i} active="no"><p class="frontRank">${i+1}</p><p class="frontDel">x</p></div>`)
+    }
   }
 }

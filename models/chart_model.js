@@ -8,7 +8,7 @@ const chart_schema = mongoose.Schema({
   chart: {
     type: Object,
     required: true,
-  },
+  }
 })
 
 module.exports = mongoose.model("Topsters Charts", chart_schema)

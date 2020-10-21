@@ -18,9 +18,9 @@ function chartUpdate() {
   req.open("POST", "http://localhost:4000/update", true)
   req.setRequestHeader("Content-Type", "application/x-www-form-urlencoded")
   req.onload = () => {
-    console.lo
     sugg_load()
   }
+  
 
   req.send(`title=${listToUpdate.title}&updatedChart=${JSON.stringify(listToUpdate.chart)}`)
 }

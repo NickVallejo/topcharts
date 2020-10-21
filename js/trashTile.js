@@ -1,10 +1,12 @@
 //DELETE A TILE FROM A LIST
 function trashTile(e) {
+  console.log('clicked!')
   if (e.target.classList.contains("frontDel")) {
     const position = e.target
     const positionToDel = position.parentNode.getAttribute("rank")
-    all_top[positionToDel].style.backgroundImage = ""
-    chartData[positionToDel].textContent = ""
+    console.log(positionToDel)
+    topWrapper.childNodes[positionToDel].style.backgroundImage = ""
+    chartNamesWrapper.childNodes[positionToDel].textContent = `${parseInt(positionToDel)+1}.`
 
     if (my_list.title !== undefined) {
       my_list.chart.splice(positionToDel, 1, null)

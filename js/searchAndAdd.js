@@ -65,7 +65,7 @@ function sugg_click(index) {
           $(this).css("background-image", "url(" + sugg_array[index].album_image + ")")
 
           //updates front end words for album info on right sidebar
-          chartData[clicked_rank].innerHTML = `${sugg_array[index].artist} - ${sugg_array[index].album_name}`
+          chartNamesWrapper.childNodes[clicked_rank].innerHTML = `${parseInt(clicked_rank)+1}. ${sugg_array[index].artist} - ${sugg_array[index].album_name}`
           console.log(my_list)
           index = ""
 
@@ -73,7 +73,8 @@ function sugg_click(index) {
         } else {
           my_list.chart.splice(clicked_rank, 1, sugg_array[index])
           $(this).css("background-image", "url(" + sugg_array[index].album_image + ")")
-          chartData[clicked_rank].innerHTML = `${sugg_array[index].artist} - ${sugg_array[index].album_name}`
+          chartNamesWrapper.childNodes[clicked_rank].innerHTML = `${parseInt(clicked_rank)+1}. ${sugg_array[index].artist} - ${sugg_array[index].album_name}`
+          // console.log(chartNamesWrapper.childNodes);
           console.log(my_list)
           index = ""
           chartUpdate()

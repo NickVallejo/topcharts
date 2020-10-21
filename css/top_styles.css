@@ -10,6 +10,10 @@
   color: white;
 }
 
+.add-btn {
+  width: 300px;
+}
+
 .numsOff {
   display: none;
 }
