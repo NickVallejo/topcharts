@@ -147,4 +147,10 @@ root.post("/list-delete", chartDelete, artistRefresh, (req, res, next) => {
   res.end(res.locals.indexOfChart) //sends the index of the chart that needs to be deleted over to front-end
 })
 
+root.post("/custom-album", (req, res) => {
+  const {imgUrl, artistName, albumName} = req.body
+  
+  res.end('Accepted.')
+})
+
 module.exports = root

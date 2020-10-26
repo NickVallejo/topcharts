@@ -12,11 +12,15 @@ function search(input) {
   )
   req.onload = function () {
     albums = JSON.parse(req.response).results.albummatches.album
-
+    console.log('returned albums', albums)
     for (i = 0; i < 50; i++) {
       if (albums[0] === undefined) {
         break
-      } else {
+      }
+      else if(albums[i] == undefined){
+        continue;
+      }
+      else {
         if (albums[i].name.includes("&")) {
           albums[i].name = albums[i].name.replace("&", "and")
         } else if (albums[i].artist.includes("&")) {

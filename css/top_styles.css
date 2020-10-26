@@ -11,7 +11,6 @@
 }
 
 .add-btn {
-  width: 300px;
 }
 
 .numsOff {
@@ -68,8 +67,18 @@ fieldset {
   flex-wrap: wrap;
 }
 
+.sugg_album {
+  max-width: 64px;
+}
+
 .input_suggs img {
   margin-bottom: 10px;
+  max-width: 64px;
+}
+
+.albumInfo {
+  font-size: 12px;
+  text-transform: uppercase;
 }
 
 .saved_item {

@@ -31,18 +31,30 @@ function addDelListeners(){
 
 //! SET CHART SIZE ON FRONT END
 function chartSizeSet(){
-    if(confirm('Changing your chart to a smaller size may result in the loss of albums. Are you sure you want to proceed?')){ 
     if(topTen.checked){
-      frontEndSet(10)
-      setChartNameLength(10)
+      if(my_list.chart.length > 10 || my_list.length > 10){
+        if(confirm('Changing your chart to a smaller size may result in the loss of albums. Are you sure you want to proceed?')){ 
+          frontEndSet(10)
+          setChartNameLength(10) 
+        }
+      } else{
+        frontEndSet(10)
+        setChartNameLength(10) 
+      }
     } else if(topTwenty.checked){
-      frontEndSet(20)
-      setChartNameLength(20)
+      if(my_list.chart.length > 20 || my_list.length > 20){
+        if(confirm('Changing your chart to a smaller size may result in the loss of albums. Are you sure you want to proceed?')){ 
+          frontEndSet(20)
+          setChartNameLength(20) 
+        }
+      } else{
+        frontEndSet(20)
+        setChartNameLength(20) 
+      }
     } else if(topFifty.checked){
       frontEndSet(50)
       setChartNameLength(50)
     }
-  }
   
     //! SET NEW TILE SIZE FOR SAVED OR UNSAVED CHART
     function frontEndSet(size){
@@ -52,6 +64,7 @@ function chartSizeSet(){
       //add new tile amount for saved chart then update the chart
       if(my_list.title !== undefined){
       //change my_list to size of selected chart size (10, 20, 50)
+      oldSize = my_list.chart.length
       my_list.chart.length = size;
   
       for(i = 0; i < size; i++){
