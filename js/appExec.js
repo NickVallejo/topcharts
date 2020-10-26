@@ -54,6 +54,7 @@ function list_new() {
 
   frontEndTitle.textContent = "Chart Title:"
   localStorage.removeItem("unsavedList")
+  addtileListeners()
 }
 
 async function list_load() {
@@ -121,7 +122,7 @@ function sugg_load() {
 async function appExecute() {
   await list_load().then(sugg_load).then(checkForUnsaved)
   if(all_top){
-    addDelListeners()
+    addtileListeners()
   }
 }
 

@@ -25,6 +25,24 @@
   cursor: pointer;
 }
 
+.frontPlay {
+  color: white;
+  position: absolute;
+  top: 0px;
+  right: 25px;
+  cursor: pointer;
+}
+
+.yt-vid {
+  position: fixed;
+  bottom: 10px;
+  right: 10px;
+}
+
+.yt-exit {
+  cursor: pointer;
+}
+
 .top_wrapper {
   min-width: 700px;
   display: flex;

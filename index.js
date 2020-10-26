@@ -5,6 +5,7 @@ const mongoose = require("mongoose")
 const path = require("path")
 const passport = require("passport")
 const session = require("express-session")
+const ytSearch = require('youtube-search')
 var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest
 let sessionArray = []
 let added_chart
@@ -147,10 +148,30 @@ root.post("/list-delete", chartDelete, artistRefresh, (req, res, next) => {
   res.end(res.locals.indexOfChart) //sends the index of the chart that needs to be deleted over to front-end
 })
 
-root.post("/custom-album", (req, res) => {
-  const {imgUrl, artistName, albumName} = req.body
-  
-  res.end('Accepted.')
+root.get("/yt-listen", (req, res) => {
+
+  const {artist, album} = req.query
+
+  const opts = {
+    maxResults: 10,
+    key: 'AIzaSyCAoBx6szcQEpg2bYXYVKAEdi_DRigoTM0'
+  }
+
+  ytSearch(`${artist} - ${album}`, opts, (err, results)=>{
+    if(err) return console.log(err)
+
+
+    else{
+      for(i = 0; i < 10; i++){
+          if(!results[i].link.includes('playlist?')){
+            res.end(results[i].link)
+            break;
+          } else{
+            continue;
+          }
+        }
+      }
+})
 })
 
 module.exports = root

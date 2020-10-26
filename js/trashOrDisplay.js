@@ -32,7 +32,7 @@ function list_display(save_clicked) {
   topWrapper.innerHTML = '';
   for(i = 0; i < my_list.chart.length; i++){
     if (my_list.chart[i] !== undefined && my_list.chart[i] !== null) {
-      topWrapper.insertAdjacentHTML('beforeend', `<div style="background-image: url(${my_list.chart[i].album_image})" class="top" rank=${i} active="no"><p class="frontRank">${i+1}</p><p class="frontDel">x</p></div>`)
+      topWrapper.insertAdjacentHTML('beforeend', `<div style="background-image: url(${my_list.chart[i].album_image})" class="top" rank=${i} active="no"><p class="frontRank">${i+1}</p><p class="frontDel">x</p><p class="frontPlay">></p></div>`)
     } else {
       topWrapper.insertAdjacentHTML('beforeend', `<div style="background-image: url()" class="top" rank=${i} active="no"><p class="frontRank">${i+1}</p><p class="frontDel">x</p></div>`)
     }
@@ -55,7 +55,7 @@ function list_display(save_clicked) {
   }
 
   //add new listeners depending on if the chart selected increased or decreased in tile size
-  addDelListeners();
+  addtileListeners()
 }
 
 //! FUNCTION TO TRASH THE LIST

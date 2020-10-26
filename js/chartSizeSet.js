@@ -21,10 +21,10 @@ function setRadio(length){
   }
 
 //! ADD EVENT LISTENERS TO NEWLY SELECTED LIST TILES
-function addDelListeners(){
+function addtileListeners(){
     const all_top = document.querySelectorAll(".top")
     all_top.forEach((top) => {
-      top.addEventListener("click", trashTile)
+      top.addEventListener("click", tileSettings)
     })
     console.log('listeners added', all_top)
   }
@@ -92,7 +92,7 @@ function chartSizeSet(){
     }
 
     //add event listeners to new tiles
-    addDelListeners();
+    addtileListeners()
   }
   
   //! SET NEW ARTIST NAME DATA FOR SAVED OR UNSAVED CHART

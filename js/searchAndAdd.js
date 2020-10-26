@@ -67,6 +67,7 @@ function sugg_click(index) {
 
           //updates front end iamge
           $(this).css("background-image", "url(" + sugg_array[index].album_image + ")")
+          $(this).append('<p class="frontPlay">></p>')
 
           //updates front end words for album info on right sidebar
           chartNamesWrapper.childNodes[clicked_rank].innerHTML = `${parseInt(clicked_rank)+1}. ${sugg_array[index].artist} - ${sugg_array[index].album_name}`
@@ -77,6 +78,7 @@ function sugg_click(index) {
         } else {
           my_list.chart.splice(clicked_rank, 1, sugg_array[index])
           $(this).css("background-image", "url(" + sugg_array[index].album_image + ")")
+          $(this).append('<p class="frontPlay">></p>')
           chartNamesWrapper.childNodes[clicked_rank].innerHTML = `${parseInt(clicked_rank)+1}. ${sugg_array[index].artist} - ${sugg_array[index].album_name}`
           // console.log(chartNamesWrapper.childNodes);
           console.log(my_list)
