@@ -1,7 +1,6 @@
 const express = require("express")
 const userPages = express.Router()
 const path = require("path")
-const passport = require("passport")
 
 const Users = require("../models/user_model")
 

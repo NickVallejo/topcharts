@@ -3,6 +3,33 @@
   font-weight: normal;
 }
 
+.head-wrap {
+  display: flex;
+  justify-content: space-around;
+  padding: 25px 0px;
+  background: #76aa53;
+  margin-bottom: 30px;
+}
+
+.head-wrap h2 {
+  color: white;
+}
+
+nav {
+  display: flex;
+  align-items: center;
+}
+
+.head-wrap li {
+  display: inline-block;
+}
+
+.head-wrap a {
+  color: white;
+  margin-right: 15px;
+  text-decoration: none;
+}
+
 .frontRank {
   position: absolute;
   top: 0px;

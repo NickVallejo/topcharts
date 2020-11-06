@@ -15,6 +15,7 @@ const lettersNumbers = "/^[0-9a-zA-Z]+$/"
 const login_route = require("./routes/login")
 const reg_route = require("./routes/register")
 const logout_route = require("./routes/logout")
+const profile_route = require("./routes/profile")
 
 //Imported Functions
 require('./js-serverside/albumSuggs.js')
@@ -50,9 +51,6 @@ root.listen(port, (err) => {
     throw err
   }
 })
-
-//mongoose.connect('mongodb+srv://nicovallejo:@cluster0-p0vwz.azure.mongodb.net/test?retryWrites=true&w=majoritymongodb+srv://nicovallejo:@cluster0-p0vwz.azure.mongodb.net/test?retryWrites=true&w=majority', {useNewUrlParser: true, useUnifiedTopology: true});
-
 
 //! CREATES CONNECTION TO MONGO DATABASE USING MONGOOSE
 const db_connect = mongoose.createConnection(
@@ -93,6 +91,7 @@ root.use(
 root.use("/login", login_route)
 root.use("/logout", logout_route)
 root.use("/register", reg_route)
+root.use("/profile", profile_route)
 
 //! SENDS USER TO HOME PAGE
 root.get("/", (req, res, next) => {
