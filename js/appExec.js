@@ -15,6 +15,7 @@ const topTen = document.getElementById('top-ten')
 const topTwenty = document.getElementById('top-twenty')
 const topFifty = document.getElementById('top-fifty')
 const topWrapper = document.querySelector('.top_wrapper')
+const profGo = document.querySelector('.prof-go')
 let sugg_array
 
 let savedOnFrontEnd
@@ -56,6 +57,24 @@ function list_new() {
   localStorage.removeItem("unsavedList")
   addtileListeners()
 }
+
+
+//! RETRIEVE THE PROFILE CURRENTLY BEING USED AND HEAD TO THAT PATH
+const getMyProfile = () => {
+  const req = new XMLHttpRequest();
+
+  req.open('GET', 'http://localhost:4000/profile/username');
+
+  req.onload = () => {
+      const user = req.responseText
+      console.log(user)
+      window.location = `http://localhost:4000/${req.responseText}`
+  }
+
+  req.send();
+}
+
+profGo.addEventListener("click", getMyProfile)
 
 async function list_load() {
   try {

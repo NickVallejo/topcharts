@@ -17,7 +17,7 @@ function logCheck(req, res, next) { //checks to see if a user session is set. If
 
 //! MIDDLEWARE FUNCTION TO VALIDATE REGISTER CREDENTIALS
 async function regWare(req, res, next) {
-  const { email, password, password2 } = req.body //pulls the email, the password, and the retyped password from the request body
+  const { email, password, password2, username } = req.body //pulls the email, the password, and the retyped password from the request body
 
   const errs = [] //keeps a log of what was not a valid register input
 
@@ -37,7 +37,29 @@ async function regWare(req, res, next) {
     }
   }
 
-  if (!email || !password || !password2) {
+  if(username){
+
+    var format = /[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
+    console.log(format.test(username), "TESTING");
+
+    if(format.test(username)){
+      errs.push({msg: "username contains special characters..."})
+    }
+
+    if(username.length > 12){
+      errs.push({ msg: "Username too long..." }) //if email, password, or retyped password is missing from the request body, push an error to the error array   
+    }
+
+    else{
+      await User.findOne({username}, (err, user) => {
+        if(user){
+          errs.push({msg: "username taken..."})
+        }
+      })
+    }
+  }
+
+  if (!email || !password || !password2 || !username) {
     errs.push({ msg: "Missing field..." }) //if email, password, or retyped password is missing from the request body, push an error to the error array
   }
 
@@ -66,10 +88,11 @@ regPages.get("/", logCheck, (req, res) => { //check if already logged in, and if
 
 //! POST ROUTE THAT REDIRECTS USER TO DASHBOARD IF REGISTERED CORRECTLY
 regPages.post("/", regWare, async (req, res, next) => { //the request body will be validated by the regWare middleware, then passed to this function
-  const { email, password } = req.body //pull the email and password from the request body
+  const { email, password, username } = req.body //pull the email and password from the request body
 
   const newUser = new User({ //use mongoose to create a new instance of the user class with the inputted email and pass
     email,
+    username,
     password,
   })
 

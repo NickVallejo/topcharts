@@ -21,9 +21,9 @@ userPages.get("/", logCheck, (req, res) => { //check if already logged in, and i
 
 //!POST ROUTE THAT REDIRECTS USER TO DASHBOARD AFTER VALID LOGIN
 userPages.post("/", async (req, res, next) => {
-  const { email, password } = req.body //puls the email and password from the body of the post request
+  const { username, password } = req.body //pulls the email and password from the body of the post request
 
-  await Users.findOne({ email }, (err, user) => { //uses mongoose to findOne certain email from the user database model
+  await Users.findOne({ username }, (err, user) => { //uses mongoose to findOne certain email from the user database model
     if (user) {
       console.log("user found")
       if (user.password == password) { //if a user is found and the password matches, create the userId session property and redirect to dashboard

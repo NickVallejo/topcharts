@@ -7,6 +7,7 @@ const passport = require("passport")
 const session = require("express-session")
 const ytSearch = require('youtube-search')
 var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest
+const expressLayouts = require('express-ejs-layouts')
 let sessionArray = []
 let added_chart
 const lettersNumbers = "/^[0-9a-zA-Z]+$/"
@@ -15,7 +16,7 @@ const lettersNumbers = "/^[0-9a-zA-Z]+$/"
 const login_route = require("./routes/login")
 const reg_route = require("./routes/register")
 const logout_route = require("./routes/logout")
-const profile_route = require("./routes/profile")
+const profile_route = require("./routes/profileRoute")
 
 //Imported Functions
 require('./js-serverside/albumSuggs.js')
@@ -34,6 +35,8 @@ const {
   SESS_SECRET = "diplodocus",
 } = process.env
 
+root.use(expressLayouts)
+root.set('view engine', 'ejs')
 root.use(express.json())
 root.use(express.urlencoded({ extended: true }))
 
@@ -98,6 +101,12 @@ root.get("/", (req, res, next) => {
   res.sendFile(path.join(__dirname, "pages/home.html"))
 })
 
+//! SENDS USER TO DASHBOARD AFTER AUTHCHECK AND REFRESHING ARTISTS
+root.get("/dashboard", authCheck, artistRefresh, (req, res, next) => {
+  console.log("album suggs loaded? " + req.session.suggsLoaded)
+  res.sendFile(path.join(__dirname, "pages/topsters.html"))
+})
+
 //! CHECKS TO SEE IF USER IS LOGGED IN BEFORE GRANTING ACCESS TO DASHBOARD
 function authCheck(req, res, next) {
   if (req.session.userId && req.path == "/dashboard") {
@@ -110,15 +119,13 @@ function authCheck(req, res, next) {
   }
 }
 
+root.get('/view', async (req, res) => {
+  console.log(req.params)
+
+})
+
 //! (ON APP EXECUTE) - GATHER ALL SUGGESTED ALBUMS AND SEND THEM TO FRONT END
 root.get("/similar-artists", albumSuggs)
-
-
-//! SENDS USER TO DASHBOARD AFTER AUTHCHECK AND REFRESHING ARTISTS
-root.get("/dashboard", authCheck, artistRefresh, (req, res, next) => {
-  console.log("album suggs loaded? " + req.session.suggsLoaded)
-  res.sendFile(path.join(__dirname, "pages/topsters.html"))
-})
 
 //! (ON APP EXECUTE) - FIND ALL USER CHARTS AND SEND THEM TO FRONT END
 root.get("/my-lists", async (req, res, next) => {
@@ -171,6 +178,74 @@ root.get("/yt-listen", (req, res) => {
         }
       }
 })
+})
+
+//! FIND A USER IN THE DB THAT MATCHES THE URL PATH
+//! 404 IF NO USER IS FOUND, OTHERWISE SERVE THEIR PROFILE PAGE
+//! CHECKS IF THE PERSON ACCESSING THE PAGE IS VISITING ANOTHER USER'S PROFILE OR THEIR OWN
+root.get('/:username', async (req,res) => {
+
+  const username = req.params.username
+
+  await User.findOne({username}, (err, user) => {
+    if (user) {
+      console.log(user.username)
+      userFound()
+    } else{
+      console.log('USER NOT FOUND')
+      noUserFound()
+    }
+  })
+
+
+  //! LEADS TO A VIEW OF A CERTAIN CHART
+  //! MUST RENDER VIEW.HTML WITH CERTAIN OBJECT DATA USING EJS
+  root.get('/:username/chart/:chartname', async (req, res) => {
+    const {username, chartname} = req.params
+    
+    console.log(username, chartname)
+    
+    await User.findOne({username}, (err, user) => {
+      if(user){
+        user.musicCharts.forEach(chart => {
+          if(chart.title == chartname){
+            console.log(chart)
+            // res.sendFile(path.join(__dirname, "pages/view.html"))
+            res.render('layout')
+          } else{
+            res.status(404)
+          }
+        })
+      } else{
+        res.status(404)
+      }
+    })
+
+    res.end();
+  })
+  
+
+  // BEFORE CHECKING IF ITS YOUR PROFILE, CHECK IF IT EXISTS WITH ANOTHER SEARCH BY req.params
+  async function userFound() {
+    await User.findById(req.session.userId, (err, user) => {
+      if(user){
+        console.log(user.username)
+        if(req.params.username == user.username){
+          console.log('This is your profile page');
+          res.sendFile(path.join(__dirname, "pages/profile.html"))
+        } else{
+          console.log('This is NOT your profile page');
+          res.sendFile(path.join(__dirname, "pages/profile.html"))
+        }
+      }
+    })
+  }
+
+  async function noUserFound(){
+    res.status(404)
+    res.end();
+  }
+
 })
 
 module.exports = root

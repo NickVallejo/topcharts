@@ -31,8 +31,12 @@ function addtileListeners(){
 
 //! SET CHART SIZE ON FRONT END
 function chartSizeSet(){
+
+  const my_list_status = my_list.title ? my_list.chart : my_list
+  console.log('dependant variable', my_list_status)
+
     if(topTen.checked){
-      if(my_list.chart.length > 10 || my_list.length > 10){
+      if(my_list_status.length > 10 || mmy_list_status.length > 10){
         if(confirm('Changing your chart to a smaller size may result in the loss of albums. Are you sure you want to proceed?')){ 
           frontEndSet(10)
           setChartNameLength(10) 
@@ -42,7 +46,7 @@ function chartSizeSet(){
         setChartNameLength(10) 
       }
     } else if(topTwenty.checked){
-      if(my_list.chart.length > 20 || my_list.length > 20){
+      if(my_list_status.length > 20 || my_list_status.length > 20){
         if(confirm('Changing your chart to a smaller size may result in the loss of albums. Are you sure you want to proceed?')){ 
           frontEndSet(20)
           setChartNameLength(20) 
