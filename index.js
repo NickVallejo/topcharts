@@ -119,11 +119,6 @@ function authCheck(req, res, next) {
   }
 }
 
-root.get('/view', async (req, res) => {
-  console.log(req.params)
-
-})
-
 //! (ON APP EXECUTE) - GATHER ALL SUGGESTED ALBUMS AND SEND THEM TO FRONT END
 root.get("/similar-artists", albumSuggs)
 
@@ -203,15 +198,17 @@ root.get('/:username', async (req,res) => {
   root.get('/:username/chart/:chartname', async (req, res) => {
     const {username, chartname} = req.params
     
-    console.log(username, chartname)
-    
-    await User.findOne({username}, (err, user) => {
+    await User.findOne({username}, async (err, user) => {
       if(user){
         user.musicCharts.forEach(chart => {
           if(chart.title == chartname){
-            console.log(chart)
-            // res.sendFile(path.join(__dirname, "pages/view.html"))
-            res.render('layout')
+            User.findById(req.session.userId, async (err, user) => {
+              if(user.username == username){
+                res.redirect(`/dashboard?chart=${chartname}`)
+              } else{
+                res.sendFile(path.join(__dirname, "pages/view.html"))
+              }
+            }) 
           } else{
             res.status(404)
           }

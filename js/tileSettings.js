@@ -51,4 +51,4 @@ function tileSettings(e) {
   }
 }
 
-
+module.exports = {tileSettings};

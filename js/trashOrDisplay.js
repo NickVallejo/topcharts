@@ -1,3 +1,13 @@
+const urlParams = new URLSearchParams(window.location.search)
+const chartView = urlParams.get('chart')
+console.log(chartView)
+
+function checkForView(){
+  if(chartView){
+    list_display(chartView)
+  }
+}
+
 //! CHECKS IF THE LIST WAS DELETED OR SELECTED
 function saved_click(event) {
   //clicked html element stored in variable
@@ -12,13 +22,14 @@ function saved_click(event) {
 
 //! FUNCTION TO DISPLAY THE LIST
 function list_display(save_clicked) {
-  // //CLEARS INFO FROM PREVIOUSLY DISPLAYED CHART
-  // chartData.forEach((albumInfo) => {
-  //   albumInfo.innerHTML = ""
-  // })
+
+  if(typeof save_clicked == 'string'){
+    var clicked_save_name = save_clicked
+  } else{
+    var clicked_save_name = save_clicked.getAttribute("name")
+  }
 
   //get that clicked element's name attribute and store in variable
-  var clicked_save_name = save_clicked.getAttribute("name")
   var clickedNameNoScore = clicked_save_name.replace(/_/g, " ")
 
 //check if the name attr of the clicked save matches one in the saved array, then add it to a new array

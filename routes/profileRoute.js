@@ -16,6 +16,28 @@ profile.post('/charts', async (req, res) => {
       })
 })
 
+profile.get('/onechart', async (req, res) => {
+
+const username = req.query.username
+const chartname = req.query.chartname
+  
+  await Users.findOne({username}, (err, userFound) => {
+
+    if(userFound){
+      userFound.musicCharts.forEach(chartFound => {
+        if(chartFound.title == chartname){
+          res.send({user: userFound.username, chart: chartFound})
+          res.end()
+        }
+      })
+    } else{
+      console.log('NO USER FOUND')
+      res.end();
+    }
+  })
+
+})
+
 //! SENDS BACK THE USERNAME OF THE CURRENT USER LOGGED IN
 profile.get('/username', async (req, res) => {
 

@@ -6,22 +6,29 @@ async function artistRefresh(req, res, next) {
     req.session.artistNames = [] //empties the artistnames session property, or creates it for the first time, depending on if this is first log or not
   
     const user = await User.findById(req.session.userId) //finds the current user by session id
-  
-    if (user.musicCharts.length) { //pushes every single artist from every single album in the user's charts to an array
+
+      if (user.musicCharts.length) { //pushes every single artist from every single album in the user's charts to an array
       await new Promise((resolve, reject) => {
-        user.musicCharts.forEach((chart) => {
-          JSON.parse(chart.chart).forEach((album) => {
-            if (album !== null && album !== undefined && !req.session.artistNames.includes(album.artist)) {
-              req.session.artistNames.push(album.artist)
-            }
+        try{
+          user.musicCharts.forEach((chart) => {
+            JSON.parse(chart.chart).forEach((album) => {
+              if (album !== null && album !== undefined && !req.session.artistNames.includes(album.artist)) {
+                req.session.artistNames.push(album.artist)
+              }
+            })
           })
-        })
-        resolve()
+          resolve()
+        }
+
+        catch{
+          reject()
+        }
       })
   
       await req.session.save() //saves the session and the artistNames property
     }
     next()
+
   }
 
   global.artistRefresh = artistRefresh

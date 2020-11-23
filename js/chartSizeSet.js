@@ -122,3 +122,5 @@ function chartSizeSet(){
     }
   }
   }
+
+ module.exports = {addtileListeners}
