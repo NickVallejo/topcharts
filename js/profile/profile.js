@@ -1,4 +1,5 @@
 const chartBox = document.querySelector('.profile-charts');
+const followBtn = document.querySelector('.follow-btn')
 
 //! WHEN A PROFILE PAGE IS REQUESTED, THESE TWO FUNCTION PULL THE CHARTS
 // const getProfile = () => {
@@ -51,4 +52,4 @@ const getProfileData = () =>{
     req.send(`username=${pathname}`);
 }
 
-getProfileData();
+getProfileData()

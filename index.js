@@ -155,7 +155,7 @@ root.get("/yt-listen", (req, res) => {
 
   const opts = {
     maxResults: 10,
-    key: 'AIzaSyCAoBx6szcQEpg2bYXYVKAEdi_DRigoTM0'
+    key: process.env.API_KEY
   }
 
   ytSearch(`${artist} - ${album}`, opts, (err, results)=>{
@@ -185,7 +185,7 @@ root.get('/:username', async (req,res) => {
   await User.findOne({username}, (err, user) => {
     if (user) {
       console.log(user.username)
-      userFound()
+      userFound(user.username)
     } else{
       console.log('USER NOT FOUND')
       noUserFound()
@@ -223,19 +223,35 @@ root.get('/:username', async (req,res) => {
   
 
   // BEFORE CHECKING IF ITS YOUR PROFILE, CHECK IF IT EXISTS WITH ANOTHER SEARCH BY req.params
-  async function userFound() {
+  async function userFound(username) {
     await User.findById(req.session.userId, (err, user) => {
       if(user){
         console.log(user.username)
         if(req.params.username == user.username){
           console.log('This is your profile page');
-          res.sendFile(path.join(__dirname, "pages/profile.html"))
+          getFollowerData(true, username);
         } else{
           console.log('This is NOT your profile page');
-          res.sendFile(path.join(__dirname, "pages/profile.html"))
+          getFollowerData(false, username)
         }
       }
     })
+  }
+
+  async function getFollowerData(myProfile, username){
+    if(myProfile){
+      User.findById(req.session.userId, (err, user) => {
+        if(user){
+         res.render('my-data', {followers: user.followers.length, following: user.following.length, layout: './layouts/profile'})
+        console.log(user.followers.length, 'ME')
+        }
+      })
+    } else{
+      User.findOne({username}, (err, user) => {
+        console.log(user.followers.length, 'NOT ME')
+         res.render('user-data', {followers: user.followers.length, following: user.following.length, layout: './layouts/profile'})
+        })
+    }
   }
 
   async function noUserFound(){

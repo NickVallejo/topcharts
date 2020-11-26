@@ -29,3 +29,13 @@
   left: 0;
   z-index: 2000;
 }
+
+.prof-settings {
+  display: flex;
+  width: 700px;
+  justify-content: space-around;
+}
+
+.prof-settings button {
+  padding: 5px 40px;
+}

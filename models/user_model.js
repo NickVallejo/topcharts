@@ -37,6 +37,14 @@ const userSchema = mongoose.Schema({
     type: Array,
     default: [],
   },
+  followers: {
+    type: Array,
+    default: []
+  },
+  following: {
+    type: Array,
+    default: []
+  }
 })
 
 const User = userStoreConnection.model("User", userSchema, "topsters-user-data")
