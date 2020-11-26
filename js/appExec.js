@@ -106,7 +106,7 @@ async function list_load() {
       req.send()
     })
   } catch {
-    reject()
+    reject({err: 'problem here'})
   }
 }
 
@@ -139,7 +139,7 @@ function sugg_load() {
 }
 
 async function appExecute() {
-  await list_load().then(sugg_load).then(checkForUnsaved)
+  await list_load().then(sugg_load).then(checkForUnsaved).then(checkForView)
   if(all_top){
     addtileListeners()
   }
