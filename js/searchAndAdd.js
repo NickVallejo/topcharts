@@ -41,9 +41,14 @@ function search(input) {
     const loadedSuggs = document.querySelectorAll(".sugg_album")
 
     loadedSuggs.forEach((sugg) => {
-      sugg.addEventListener("click", (event) => {
-        var index = event.target.getAttribute("index")
-        sugg_click(index) //pass the index of the sugg we clicked
+      // sugg.addEventListener("click", (event) => {
+      //   var index = event.target.getAttribute("index")
+      //   sugg_click(index) //pass the index of the sugg we clicked
+      // })
+
+      sugg.addEventListener("dragstart", e => {
+        e.dataTransfer.setData("text/plain", e.target.getAttribute("index"))
+        console.log(e.target.getAttribute("index"))
       })
     })
   }

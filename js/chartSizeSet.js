@@ -25,6 +25,12 @@ function addtileListeners(){
     const all_top = document.querySelectorAll(".top")
     all_top.forEach((top) => {
       top.addEventListener("click", tileSettings)
+      
+      top.addEventListener("drop", (e) => {
+        e.preventDefault();
+        console.log('droppeD!')
+        console.log(`sugg tile of index ${e.dataTransfer.getData("text/plain")} dropped on top tyle of rank ${e.target.getAttribute("rank")}`);
+      })
     })
     console.log('listeners added', all_top)
   }
