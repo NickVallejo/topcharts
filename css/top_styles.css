@@ -145,7 +145,7 @@ fieldset {
 }
 
 .display {
-  max-width: 900px;
+  max-width: 800px;
   display: flex;
   flex-flow: column;
   align-items: flex-start;
@@ -163,7 +163,7 @@ fieldset {
   height: 150px;
   background: #1c1c1c;
   background-size: contain;
-  margin: 10px;
+  margin: 5px;
   position: relative;
 }
 
