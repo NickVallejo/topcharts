@@ -71,13 +71,13 @@ const showViewData = (user, chart) => {
   
   //check if the name attr of the clicked save matches one in the saved array, then add it to a new array
 
-    frontEndTitle.innerHTML = `<h3><span><a href="http://localhost:4000/${user}">${user}</a>: ${chart.title}</span></h3>`
+    frontEndTitle.innerHTML = `<h3><span><a href="/${user}">${user}</a>: ${chart.title}</span></h3>`
   
     //Erase all current tiles and replace with selected list
     topWrapper.innerHTML = '';
     for(i = 0; i < viewChart.length; i++){
       if (viewChart[i] !== undefined && viewChart[i] !== null) {
-        topWrapper.insertAdjacentHTML('beforeend', `<div style="background-image: url(${viewChart[i].album_image})" class="top" rank=${i} active="no"><p class="frontRank">${i+1}</p><p class="frontPlay">></p></div>`)
+        topWrapper.insertAdjacentHTML('beforeend', `<div style="background-image: url(${viewChart[i].album_image})" class="top" rank=${i} active="no"><p class="frontRank">${i+1}</p><div class="tile-hover"></div><i class="fas fa-play-circle frontPlay"></i><p class="tile-title">${viewChart[i].artist} - ${viewChart[i].album_name}</p></div>`)
       } else {
         topWrapper.insertAdjacentHTML('beforeend', `<div style="background-image: url()" class="top" rank=${i} active="no"><p class="frontRank">${i+1}</p></div>`)
       }

@@ -33,19 +33,24 @@ const getProfileData = () =>{
         console.log(data)
 
         data.musicCharts.forEach((chart) => {
-        const title = chart.title
+        const title = chart.title.replace(/_/g, ' ');
         const firstFour = [];
         const albums = JSON.parse(chart.chart);
 
         albums.forEach(album => {
+            console.log(album)
             if(firstFour.length !== 4 && album !== null){
                 firstFour.push(album.album_image)
             }
         })
 
+        while(firstFour.length < 4){
+            firstFour.push('https://i.imgur.com/8w4GEqb.png');
+        }
+
         console.log(firstFour);
 
-        chartBox.insertAdjacentHTML('beforeend', `<div class="prof-chart"><a href="/${data.username}/chart/${chart.title}"><h3>${title}</h3><div class="prof-chart-wrapper"><div class="prof-chart-cover"></div><img src=${firstFour[0]}><img src=${firstFour[1]}><img src=${firstFour[2]}><img src=${firstFour[3]}></div></a></div>`)
+        chartBox.insertAdjacentHTML('beforeend', `<div class="prof-chart"><a href="/${data.username}/chart/${chart.title}"><h3 class="prof-chart-title">${title}</h3><div class="prof-chart-wrapper"><div class="prof-chart-cover"></div><img src=${firstFour[0]}><img src=${firstFour[1]}><img src=${firstFour[2]}><img src=${firstFour[3]}></div></a></div>`)
         }) 
     }
 

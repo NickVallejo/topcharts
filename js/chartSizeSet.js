@@ -11,6 +11,8 @@ topSelect.forEach((selector) => {
 //! SET SELECTED RADIO BUTTON TO CHECKED IF A LIST OF THAT SIZE IS DISPLAYED
 function setRadio(length){
     switch(length){
+      case 100: topHundred.checked = true
+      break;
       case 50: topFifty.checked = true
       break;
       case 20: topTwenty.checked = true
@@ -21,18 +23,44 @@ function setRadio(length){
   }
 
 //! ADD EVENT LISTENERS TO NEWLY SELECTED LIST TILES
+//! WE ARE WORKING ON TILE DRAG HERE
 function addtileListeners(){
+  //redefines all the top tiles
     const all_top = document.querySelectorAll(".top")
+
     all_top.forEach((top) => {
+      //adds the lsiteners for the delete and play buttons
       top.addEventListener("click", tileSettings)
       
+      //checks if the dropped tile is from a top tile or a sugg tile
       top.addEventListener("drop", (e) => {
+        e.stopImmediatePropagation()
         e.preventDefault();
-        console.log('droppeD!')
-        console.log(`sugg tile of index ${e.dataTransfer.getData("text/plain")} dropped on top tyle of rank ${e.target.getAttribute("rank")}`);
+        console.log(e.target)
+        if(e.dataTransfer.getData("switch")){
+          console.log("switch!!")
+          const dragFromIndex = e.dataTransfer.getData("rank")
+          const dragToIndex = e.target.getAttribute("rank")
+          tileDrag(dragFromIndex, dragToIndex)
+        } else{
+          const suggIndex = e.dataTransfer.getData("text/plain")
+          const tileIndex = e.target.getAttribute("rank")
+          console.log('TILE INDEX 45', tileIndex)
+          tileDrop(suggIndex, tileIndex)
+        }
       })
+
+      //necessary defaults prevented for correct functionality
+      top.addEventListener("dragenter", (e) => e.preventDefault())
+      top.addEventListener("dragover", (e) => e.preventDefault())
+
+      // lets you drag a top tile
+      top.setAttribute("draggable", "true")
+      top.addEventListener("dragstart", e => {
+          e.dataTransfer.setData("rank", e.target.getAttribute("rank"))
+          e.dataTransfer.setData("switch", true)
+        })
     })
-    console.log('listeners added', all_top)
   }
 
 //! SET CHART SIZE ON FRONT END
@@ -42,7 +70,7 @@ function chartSizeSet(){
   console.log('dependant variable', my_list_status)
 
     if(topTen.checked){
-      if(my_list_status.length > 10 || mmy_list_status.length > 10){
+      if(my_list_status.length > 10 || my_list_status.length > 10){
         if(confirm('Changing your chart to a smaller size may result in the loss of albums. Are you sure you want to proceed?')){ 
           frontEndSet(10)
           setChartNameLength(10) 
@@ -62,8 +90,19 @@ function chartSizeSet(){
         setChartNameLength(20) 
       }
     } else if(topFifty.checked){
+      if(my_list_status.length > 50 || my_list_status.length > 50){
+        if(confirm('Changing your chart to a smaller size may result in the loss of albums. Are you sure you want to proceed?')){ 
+          frontEndSet(50)
+          setChartNameLength(50) 
+        } 
+    } 
+    else{
       frontEndSet(50)
       setChartNameLength(50)
+    }
+  } else if (topHundred.checked){
+      frontEndSet(100)
+      setChartNameLength(100)
     }
   
     //! SET NEW TILE SIZE FOR SAVED OR UNSAVED CHART
@@ -79,7 +118,8 @@ function chartSizeSet(){
   
       for(i = 0; i < size; i++){
         if(my_list.chart[i]!== null && my_list.chart[i]!== undefined){
-          topWrapper.insertAdjacentHTML('beforeend', `<div style="background-image: url(${my_list.chart[i].album_image})" class="top" rank=${i} active="no"><p class="frontRank">${i+1}</p><p class="frontDel">x</p></div>`)
+          // topWrapper.insertAdjacentHTML('beforeend', `<div style="background-image: url(${my_list.chart[i].album_image})" class="top" rank=${i} active="no"><p class="frontRank">${i+1}</p><p class="frontDel">x</p></div>`)
+          topWrapper.insertAdjacentHTML('beforeend', `<div style="background-image: url(${my_list.chart[i].album_image})" class="top" rank=${i} active="no"><p class="frontRank">${i+1}</p><div class="tile-hover"></div><i class="fas fa-times frontDel"></i><i class="fas fa-play-circle frontPlay"></i><p class="tile-title">${my_list.chart[i].artist} - ${my_list.chart[i].album_name}</p></div>`)
         } else{
           topWrapper.insertAdjacentHTML('beforeend', `<div class="top" rank=${i} active="no"><p class="frontRank">${i+1}</p><p class="frontDel">x</p></div>`)
         }
@@ -93,7 +133,7 @@ function chartSizeSet(){
   
       for(i = 0; i < size; i++){
         if(my_list[i]!== null && my_list[i]!== undefined){
-          topWrapper.insertAdjacentHTML('beforeend', `<div style="background-image: url(${my_list[i].album_image})" class="top" rank=${i} active="no"><p class="frontRank">${i+1}</p><p class="frontDel">x</p></div>`)
+          topWrapper.insertAdjacentHTML('beforeend', `<div style="background-image: url(${my_list[i].album_image})" class="top" rank=${i} active="no"><p class="frontRank">${i+1}</p><div class="tile-hover"></div><i class="fas fa-times frontDel"></i><i class="fas fa-play-circle frontPlay"></i><p class="tile-title">${my_list[i].artist} - ${my_list[i].album_name}</p></div>`)
         } else{
           topWrapper.insertAdjacentHTML('beforeend', `<div class="top" rank=${i} active="no"><p class="frontRank">${i+1}</p><p class="frontDel">x</p></div>`)
         }

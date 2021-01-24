@@ -32,6 +32,21 @@ function list_display(save_clicked) {
   //get that clicked element's name attribute and store in variable
   var clickedNameNoScore = clicked_save_name.replace(/_/g, " ")
 
+console.log('TEST', my_list[0])
+
+
+if(my_list.chart == undefined){
+  const allEmpty = my_list.every(album => album == undefined)
+  if(!allEmpty){
+    const saveOrNot = confirm('You are exiting an unsaved chart. Do you wish to save?')
+    if(saveOrNot == true){
+      const chartName = prompt('Enter Chart Title Here:')
+      chartSave(chartName)
+      alert(`${chartName} saved!`)
+    }
+  }
+}
+
 //check if the name attr of the clicked save matches one in the saved array, then add it to a new array
   var savedChart = saved_list.find((saved) => saved.title == clicked_save_name) 
   my_list = savedChart //my_list now references the reloaded chart
@@ -43,13 +58,12 @@ function list_display(save_clicked) {
   topWrapper.innerHTML = '';
   for(i = 0; i < my_list.chart.length; i++){
     if (my_list.chart[i] !== undefined && my_list.chart[i] !== null) {
-      topWrapper.insertAdjacentHTML('beforeend', `<div style="background-image: url(${my_list.chart[i].album_image})" class="top" rank=${i} active="no"><p class="frontRank">${i+1}</p><p class="frontDel">x</p><p class="frontPlay">></p></div>`)
+      topWrapper.insertAdjacentHTML('beforeend', `<div style="background-image: url(${my_list.chart[i].album_image})" class="top" rank=${i} active="no"><p class="frontRank">${i+1}</p><div class="tile-hover"></div><i class="fas fa-times frontDel"></i><i class="fas fa-play-circle frontPlay"></i><p class="tile-title">${my_list.chart[i].artist} - ${my_list.chart[i].album_name}</p></div>`)
     } else {
-      topWrapper.insertAdjacentHTML('beforeend', `<div style="background-image: url()" class="top" rank=${i} active="no"><p class="frontRank">${i+1}</p><p class="frontDel">x</p></div>`)
+      topWrapper.insertAdjacentHTML('beforeend', `<div style="background-image: url()" class="top" rank=${i} active="no"><p class="frontRank">${i+1}</p></div>`)
     }
     console.log('in display loop!');
 }
-
   //erase all current chart artist names and replace with selected list
   chartNamesWrapper.innerHTML = ''
   for(i = 0; i < my_list.chart.length; i++){
@@ -67,6 +81,8 @@ function list_display(save_clicked) {
 
   //add new listeners depending on if the chart selected increased or decreased in tile size
   addtileListeners()
+  addTitleListener(clicked_save_name)
+  numToggle()
 }
 
 //! FUNCTION TO TRASH THE LIST

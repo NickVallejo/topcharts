@@ -9,6 +9,7 @@
   "author": "Nick Vallejo",
   "license": "ISC",
   "dependencies": {
+    "array-move": "^3.0.1",
     "connect-ensure-login": "^0.1.1",
     "connect-mongo": "^3.2.0",
     "dotenv": "^8.2.0",
@@ -17,6 +18,7 @@
     "express": "^4.17.1",
     "express-ejs-layouts": "^2.5.0",
     "express-session": "^1.17.1",
+    "html2canvas": "^1.0.0-rc.7",
     "mongoose": "^5.9.16",
     "nodemon": "^2.0.4",
     "passport": "^0.4.1",

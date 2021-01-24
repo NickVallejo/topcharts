@@ -6,16 +6,18 @@ var clear = document.querySelector(".clear")
 var saved_div = document.querySelector(".saved")
 var reccs = document.querySelector(".album_reccs")
 const all_top = document.querySelectorAll('.top')
-const frontEndTitle = document.querySelector(".chart_title")
+const frontEndTitle = document.querySelector(".chart_title h3")
 const chartData = document.querySelectorAll(".albumInfo")
-const numRadio = document.querySelector(".chartNums")
 const chartNamesWrapper = document.querySelector('.chart_names')
 const frontRanks = document.querySelectorAll(".frontRank")
 const topTen = document.getElementById('top-ten')
 const topTwenty = document.getElementById('top-twenty')
 const topFifty = document.getElementById('top-fifty')
+const topHundred = document.getElementById('top-hundred')
 const topWrapper = document.querySelector('.top_wrapper')
 const profGo = document.querySelector('.prof-go')
+const numRadio = document.querySelector(".chartNums")
+const suggLoader = document.querySelector('.sugg-loader')
 let sugg_array
 
 let savedOnFrontEnd
@@ -39,6 +41,18 @@ document.addEventListener("keydown", function (event) {
 //! CLEARS PROJECT BOARD FOR NEW LIST
 function list_new() {
 
+  if(my_list.chart == undefined){
+    const allEmpty = my_list.every(album => album == undefined)
+    if(!allEmpty){
+      const saveOrNot = confirm('You are exiting an unsaved chart. Do you wish to save?')
+      if(saveOrNot == true){
+        const chartName = prompt('Enter Chart Title Here:')
+        chartSave(chartName)
+        alert(`${chartName.replace(/&/g, 'and')} saved!`)
+      }
+    }
+  }
+
   topWrapper.innerHTML = ''
   chartNamesWrapper.innerHTML = ''
 
@@ -50,31 +64,38 @@ function list_new() {
   }
 
   for (i = 0; i < my_list.length; i++) {
-    topWrapper.insertAdjacentHTML('beforeend', `<div style="background-image: url()" class="top" rank=${i} active="no"><p class="frontRank">${i+1}</p><p class="frontDel">x</p></div>`)
+    topWrapper.insertAdjacentHTML('beforeend', `<div style="background-image: url()" class="top" rank=${i} active="no"><p class="frontRank">${i+1}</p></div>`)
   }
 
   frontEndTitle.textContent = "Chart Title:"
   localStorage.removeItem("unsavedList")
   addtileListeners()
+  addTitleListener('Enter Title Here...')
+  numToggle()
 }
 
 
 //! RETRIEVE THE PROFILE CURRENTLY BEING USED AND HEAD TO THAT PATH
-const getMyProfile = () => {
+ const getMyProfile = new Promise((resolve, reject) => {
+
   const req = new XMLHttpRequest();
 
   req.open('GET', 'http://localhost:4000/profile/username');
 
-  req.onload = () => {
-      const user = req.responseText
-      console.log(user)
-      window.location = `http://localhost:4000/${req.responseText}`
+  req.onload = async () => {
+      const user = await req.responseText
+      console.log('USERNAME', user)
+      // window.location = `http://localhost:4000/${req.responseText}`
+      resolve(user)
+  }
+
+  req.onerror = () => {
+    reject({err: 'problem here'})
   }
 
   req.send();
-}
+})
 
-profGo.addEventListener("click", getMyProfile)
 
 async function list_load() {
   try {
@@ -111,18 +132,28 @@ async function list_load() {
 }
 
 function sugg_load() {
+
   sugg_loader = new XMLHttpRequest()
   sugg_loader.open("GET", "http://localhost:4000/similar-artists")
   sugg_loader.onload = function () {
     if (sugg_loader.responseText !== "") {
+      suggLoader.classList.remove('show-sugg-loader');
       var sugg_albums = JSON.parse(sugg_loader.responseText)
       console.log("YOUR SUGGESTED ALBUMS ARE HERE", sugg_albums)
 
-      sugg_albums.forEach(function (sugg) {
+      sugg_albums.forEach((sugg, index) => {
         if (sugg.image[2]["#text"] !== undefined) {
-          let img = `<a class="similar" href=${sugg.url} target="_blank"><img src=${sugg.image[2]["#text"]} alt=${sugg.name}></a>`
+          const img = `<div class="recc-wrap"><div class="tile-hover"></div><div class="recc" index="${index}" style="background-image: url(${sugg.image[2]["#text"]})"><i class="fas fa-play-circle frontPlay"></i><p class="tile-title">${sugg.artist} - ${sugg.name}</p></div></div>`
           reccs.insertAdjacentHTML("beforeend", img)
         }
+      })
+
+      //adds the tilesettings listener to the recc'd albums
+      const eachRecc = document.querySelectorAll('.recc');
+      eachRecc.forEach(rec => {
+        rec.addEventListener('click', (e) => {
+          reccPlay(sugg_albums, e)
+        })
       })
 
       suggsLoaded = true
@@ -132,6 +163,7 @@ function sugg_load() {
 
   if (suggsLoaded == false) {
     console.log("PASSED the sugg load because suggsLoaded = " + suggsLoaded)
+    suggLoader.classList.add('show-sugg-loader');
     sugg_loader.send()
   } else {
     console.log("DENIED the sugg load because suggsLoaded = " + suggsLoaded)
@@ -139,7 +171,18 @@ function sugg_load() {
 }
 
 async function appExecute() {
+
+  //getmyprofile is a promise
+  await getMyProfile.then(user => {profGo.href = `/${user}`})
+
+  //chaining together functions
   await list_load().then(sugg_load).then(checkForUnsaved).then(checkForView)
+  .catch(err => {
+    console.log(err)
+  })
+
+  await list_load()
+
   if(all_top){
     addtileListeners()
   }

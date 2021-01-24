@@ -24,33 +24,50 @@
   </header>
 
   <body>
+    <i class="fas fa-chevron-circle-up recc-show fa-3x"></i>
     <div id="primary" class="content-area">
       <main id="main" class="site-main">
         <div class="set">
-          <fieldset>
+
+          <div class="field-info">
             <input class="top_input" type="text" name="" value="" />
-            <button class="add-btn">+</button>
+            <form class="input-form">
+              <p class="click-to-add">Click to add a custom album</p>
+              <i class="far fa-plus-square add-btn"></i>
+            </form>
+          </div>
+
+          <fieldset>
             <div class="input_suggs">
             </div>
           </fieldset>
 
-          <button class="save" type="button" name="button">Save</button>
-          <button class="clear" type="button" name="button">New</button>
-          <input type="radio" class="chartNums" name="chartNums" value="true" /> Numbers?
+          <div class="tile-opts">
+            <button class="save field-btn" type="button" name="button">Save</button>
+            <button class="clear field-btn" type="button" name="button">New</button>
+            <div class="numbers-wrap">
+              <p>Numbers?</p> <input type="checkbox" checked="true" class="chartNums" name="chartNums" value="true" />
+            </div>
+          </div>
           <div class="saved"></div>
         </div>
 
+        <section class="display-screen">
         <div class="display">
-          <h1 class="chart_title">Chart Title:</h1>
+          <div class="title-wrap">
+            <div class="chart_title">
+              <h3>Chart Title:</h3>
+              <i class="far fa-edit edit"></i>
+              <input class="title-change" type="text">
+            </div>
+          </div>
           <div class="top_wrapper">
 
           </div>
-
-          <div class="album_reccs"></div>
         </div>
 
         <div class="chart_names">
-          <p class="albumInfo" rank="0">1.</p>
+          <!-- <p class="albumInfo" rank="0">1.</p>
           <p class="albumInfo" rank="1">2.</p>
           <p class="albumInfo" rank="2">3.</p>
           <p class="albumInfo" rank="3">4.</p>
@@ -59,12 +76,17 @@
           <p class="albumInfo" rank="6">7.</p>
           <p class="albumInfo" rank="7">8.</p>
           <p class="albumInfo" rank="8">9.</p>
-          <p class="albumInfo" rank="9">10.</p>
+          <p class="albumInfo" rank="9">10.</p> -->
         </div>
+      </section>
 
         <form action="/logout" method="post">
           <button type="submit">Logout</button>
         </form>
+        <div>
+          <button class="screencap-btn" type="submit">screencap!</button>
+        </div>
+
 
         <div>
           <input class="top-select" type="radio" id="top-ten" name="top-select" value="top-ten">
@@ -73,9 +95,15 @@
           <label>Top 20</label><br>
           <input class="top-select" type="radio" id="top-fifty" name="top-select" value="top-fifty">
           <label>Top 50</label><br>
+          <input class="top-select" type="radio" id="top-hundred" name="top-select" value="top-hundred">
+          <label>Top 100</label><br>
         </div>
       </main>
       <!-- #main -->
+    </div>
+
+    <div class="album_reccs">
+      <img class="sugg-loader" src="http://localhost:8888/topsters3 - copy/assets/loader.gif" alt="">
     </div>
 
     <div class="yt-wrap"></div>
@@ -86,14 +114,17 @@
       integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
       crossorigin="anonymous"
     ></script>
+    <script type="text/javascript" src="http://localhost:8888/topsters3 - copy/js/userSettings.js"></script>
     <script type="text/javascript" src="http://localhost:8888/topsters3 - copy/js/tileSettings.js"></script>
     <script type="text/javascript" src="http://localhost:8888/topsters3 - copy/js/trashOrDisplay.js"></script>
     <script type="text/javascript" src="http://localhost:8888/topsters3 - copy/js/saveOrUpdate.js"></script>
     <script type="text/javascript" src="http://localhost:8888/topsters3 - copy/js/searchAndAdd.js"></script>
     <script type="text/javascript" src="http://localhost:8888/topsters3 - copy/js/unsavedChart.js"></script>
-    <script type="text/javascript" src="http://localhost:8888/topsters3 - copy/js/userSettings.js"></script>
     <script type="text/javascript" src="http://localhost:8888/topsters3 - copy/js/appExec.js"></script>
     <script type="text/javascript" src="http://localhost:8888/topsters3 - copy/js/chartSizeSet.js"></script>
     <script type="text/javascript" src="http://localhost:8888/topsters3 - copy/js/addCustomAlbum.js"></script>
+    <script type="text/javascript" src="http://localhost:8888/topsters3 - copy/js/html2canvas.js"></script>
+    <script type="text/javascript" src="http://localhost:8888/topsters3 - copy/js/screencap.js"></script>
+    <script type="text/javascript" src="http://localhost:8888/topsters3 - copy/js/interactive.js"></script>
   </body>
 </html>

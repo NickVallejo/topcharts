@@ -2,53 +2,74 @@ const ytWrap = document.querySelector('.yt-wrap')
 
 //DELETE A TILE FROM A LIST
 function tileSettings(e) {
-  console.log('clicked!')
-  if (e.target.classList.contains("frontDel")) {
-    const position = e.target
-    const positionToDel = position.parentNode.getAttribute("rank")
-    console.log(positionToDel)
-    topWrapper.childNodes[positionToDel].style.backgroundImage = ""
-    topWrapper.childNodes[positionToDel].childNodes[2].remove()
-    chartNamesWrapper.childNodes[positionToDel].textContent = `${parseInt(positionToDel)+1}.`
+    if (e.target.classList.contains("frontDel")) {
+      const position = e.target
+      const positionToDel = position.parentNode.getAttribute("rank")
+      console.log(positionToDel)
+      //deletes the background image
+      topWrapper.childNodes[positionToDel].style.backgroundImage = ""
+      //loops through the element, deleting everything but the rank number
+      topWrapper.childNodes[positionToDel].childNodes.forEach((node, index) => {
+        if(!node.classList.contains("frontRank")){
+          node.remove()
+        }
+      })
+      //removes the play button because shit is messed up in the foreach loop
+      topWrapper.childNodes[positionToDel].childNodes[2].remove();
+      topWrapper.childNodes[positionToDel].childNodes[1].remove();
+      //removes the album from the chartnames side-list
+      chartNamesWrapper.childNodes[positionToDel].textContent = `${parseInt(positionToDel)+1}.`
 
-    if (my_list.title !== undefined) {
-      my_list.chart.splice(positionToDel, 1, null)
-      console.log("list after splice", my_list)
-      chartUpdate()
-    } else {
-      my_list.splice(positionToDel, 1, null)
-      console.log(my_list)
-      localStorage.setItem("unsavedList", JSON.stringify(my_list))
+      //removes the element from the list array nad updates
+      if (my_list.title !== undefined) {
+        my_list.chart.splice(positionToDel, 1, null)
+        console.log("list after splice", my_list)
+        chartUpdate()
+      } else {
+        my_list.splice(positionToDel, 1, null)
+        console.log(my_list)
+        localStorage.setItem("unsavedList", JSON.stringify(my_list))
+      }
+    } else if(e.target.classList.contains("frontPlay")){
+
+      let myListVariable = my_list.chart == undefined ? my_list : my_list.chart;
+
+      const artist = myListVariable[e.target.parentNode.getAttribute('rank')].artist
+      const album = myListVariable[e.target.parentNode.getAttribute('rank')].album_name
+      console.log(artist, album)
+      ytPlay(artist, album)
     }
-  } else if(e.target.classList.contains("frontPlay")){
-      let ytSearch = new XMLHttpRequest()
-      let ytAlbum
-
-      if(my_list.chart !== undefined){
-        ytAlbum = my_list.chart[e.target.parentNode.getAttribute('rank')]
-        console.log(ytAlbum)
-      } else{
-        ytAlbum = my_list[e.target.parentNode.getAttribute('rank')]
-        console.log(ytAlbum)
-      }
-
-      ytSearch.open("GET", `http://localhost:4000/yt-listen?artist=${ytAlbum.artist}&album=${ytAlbum.album_name}`)
-      ytSearch.onload = () => {
-
-        let ytExit
-        let ytVid
-
-        const url = ytSearch.responseText.replace("watch?v=", "embed/")
-        ytWrap.innerHTML = `<div class="yt-vid"><p class="yt-exit">X</p><iframe width="560" height="315" src=${url}?rel=0&controls=1&autoplay=1&mute=0 allow="autoplay" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>`
-        ytExit = document.querySelector('.yt-exit')
-        ytVid = document.querySelector('.yt-vid')
-        
-        ytExit.addEventListener('click', () => {
-            ytVid.remove()
-        })
-      }
-      ytSearch.send()
   }
-}
 
-module.exports = {tileSettings};
+  //executes the play function for the reccomendesd artists
+  function reccPlay(sugg_albums, e){
+    if(e.target.parentNode.classList.contains("recc")){
+      if(e.target.classList.contains("frontPlay")){
+        const albumToPlay = sugg_albums[e.target.parentNode.getAttribute("index")]
+        ytPlay(albumToPlay.artist, albumToPlay.name)
+      }
+    }
+  }
+
+  //youtube play function for both the top tiles and reccs tiles
+  function ytPlay(artist, album){
+    let ytSearch = new XMLHttpRequest()
+    ytSearch.open("GET", `http://localhost:4000/yt-listen?artist=${artist}&album=${album}`)
+        ytSearch.onload = () => {
+
+          let ytExit
+          let ytVid
+
+          const url = ytSearch.responseText.replace("watch?v=", "embed/")
+          ytWrap.innerHTML = `<div class="yt-vid"><p class="yt-exit">X</p><iframe width="560" height="315" src=${url}?rel=0&controls=1&autoplay=1&mute=0 allow="autoplay" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>`
+          ytExit = document.querySelector('.yt-exit')
+          ytVid = document.querySelector('.yt-vid')
+          
+          ytExit.addEventListener('click', () => {
+              ytVid.remove()
+          })
+        }
+        ytSearch.send()
+  }
+
+// module.exports = {tileSettings};

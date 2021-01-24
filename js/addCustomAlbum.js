@@ -36,11 +36,6 @@ function customAlbum(){
         alert("Invalid Url")
         customAlbum()
     }
-
-    // if(imgUrl && artistName && albumName){
-    //     const customAlbum = {artist: artistName, album_name: albumName, album_image: imgUrl}
-    //     displayCustomAlbum(JSON.stringify(customAlbum))
-    // } 
 }
 
 function displayCustomAlbum(customAlbum){
@@ -54,9 +49,9 @@ function displayCustomAlbum(customAlbum){
 
     const customSugg = document.querySelector(".sugg_album")
 
-      customSugg.addEventListener("click", (event) => {
-        var index = event.target.getAttribute("index")
-        sugg_click(index) //pass the index of the sugg we clicked
-      })
+    customSugg.addEventListener("dragstart", e => {
+        e.dataTransfer.setData("text/plain", e.target.getAttribute("index"))
+        console.log(e.target.getAttribute("index"))
+    })
 
 }

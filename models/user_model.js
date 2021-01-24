@@ -31,12 +31,13 @@ const userSchema = mongoose.Schema({
   },
   movieCharts: {
     type: Array,
-    deafult: [],
-  },
-  musicCharts: {
-    type: Array,
     default: [],
   },
+  musicCharts: [{
+      title: String,
+      chart: Object
+    }]
+  ,
   followers: {
     type: Array,
     default: []

@@ -20,7 +20,9 @@ async function albumSuggs(req, res, next) {
             //relay(JSON.parse(gen.responseText).similarartists.artist[i]);
             if (JSON.parse(gen.responseText).similarartists.artist[i]) {
               simArtists.push(JSON.parse(gen.responseText).similarartists.artist[i])
-            }
+              // i++;
+            } 
+            // else{}
             //console.log('simArtists getting filled...', simArtists);
           }
         }
@@ -40,7 +42,7 @@ async function albumSuggs(req, res, next) {
             gen.send()
             chosen.push(req.session.artistNames[randomArtist])
             inc++
-            console.log(req.session.artistNames[randomArtist])
+            console.log('PUSHING FOR', req.session.artistNames[randomArtist])
             requester()
           } else if (Array.isArray(req.session.artistNames[randomArtist].match("^[A-Za-z0-9 _]+$")) == null) {
             requester()
@@ -61,21 +63,16 @@ async function albumSuggs(req, res, next) {
         simgen.onload = function () {
           try {
             var album = JSON.parse(simgen.responseText).results.albummatches.album
-  
-            for (i = 0; i < 15; i++) {
+            console.log('response length', album.length)
+            for (i = 0; i < album.length; i++) {
               let randomAlbum = Math.floor(Math.random() * 4 + 1)
-              //   var nameInclude = simAlbums.every((simAlbum)=>{
-              //     if(simAlbum){
-              //     if (simAlbum.name !== undefined && album[randomAlbum].name !== undefined && simAlbum.name !== album[randomAlbum].name){
-              //     return true;
-              //   }
-              // }
-              //   });
-              // console.log("PROBLEM ALBUM", album[randomAlbum])
-              if (album[randomAlbum] !== undefined && album[randomAlbum].image[2]["#text"] !== "") {
+              //&& album[randomAlbum].image[2]["#text"] !== ""
+              if (album[randomAlbum] !== undefined) {
                 similarAlbums.push(album[randomAlbum])
+                console.log('yup')
                 break
               } else {
+                console.log('nope')
                 continue
               }
             }
@@ -87,6 +84,7 @@ async function albumSuggs(req, res, next) {
         simgen.onerror = (err) => console.log(err)
   
         mysims.forEach(function (sim) {
+          console.log('Name: ' + sim.name)
           let simName = sim.name.replace(/[^a-zA-Z ]/g, "")
           simgen.open(
             "GET",
@@ -107,7 +105,6 @@ async function albumSuggs(req, res, next) {
       //res.send(simArtistArray);
       const mysims = await requester()
       var similarAlbumsResponse = await simAlbums(mysims)
-  
       req.session.suggsLoaded = true
       console.log("server suggs loaded? " + req.session.suggsLoaded)
       res.send(similarAlbumsResponse)

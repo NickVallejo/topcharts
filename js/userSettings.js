@@ -1,11 +1,20 @@
 function numToggle() {
-  // this.checked ? (this.checked = true) : (this.checked = false)
 
-  if ((this.checked = true)) this.checked = false
+  const numRadio = document.querySelector(".chartNums")
+const frontRanks = document.querySelectorAll(".frontRank") 
 
-  if ((this.checked = false)) this.checked = true
-
-  frontRanks.forEach((rank) => {
-    rank.classList.toggle("numsOff")
-  })
+  console.log(frontRanks)
+  if(numRadio.checked == false){
+    frontRanks.forEach(rank => {
+      console.log('changing')
+    rank.style.opacity = '0%'
+  })  
+  console.log('its false')
+  } else if(numRadio.checked == true){
+    frontRanks.forEach(rank => {
+      console.log('changing')
+      rank.style.opacity = "100%"
+    })  -
+    console.log('its true')    
+  }
 }

@@ -42,6 +42,8 @@ root.use(express.urlencoded({ extended: true }))
 
 const Chart = require("./models/chart_model")
 const User = require("./models/user_model")
+const { rejects } = require("assert")
+const { resolve } = require("path")
 
 const MongoStore = require("connect-mongo")(session)
 
@@ -137,6 +139,10 @@ root.post("/update", chartUpdate, artistRefresh, (req, res, next) => {
   res.end()
 })
 
+// root.post("tile-switch", tileSwitch, (req, res, next) => {
+
+// })
+
 //! SAVES A NEW CHART AND THEN REFRESHES LIST OF ARTIST NAMES
 root.post("/", chartSave, artistRefresh, (req, res, next) => {
   console.log("the newset list of artists", req.session.artistNames)
@@ -147,6 +153,40 @@ root.post("/", chartSave, artistRefresh, (req, res, next) => {
 root.post("/list-delete", chartDelete, artistRefresh, (req, res, next) => {
   console.log("Heres what we sent:" + res.locals.indexOfChart)
   res.end(res.locals.indexOfChart) //sends the index of the chart that needs to be deleted over to front-end
+})
+
+root.post('/title-change', async (req, res) => {
+  const {title, newtitle} = req.body;
+  const title_ = title.replace(/ /g,"_");
+  const newtitle_ = newtitle.replace(/ /g,"_");
+
+
+    const user = await User.findById(req.session.userId)
+
+
+      if(user){
+        const doesNotHaveNewName = user.musicCharts.every(chart => chart.title !== newtitle_)
+        
+        if(doesNotHaveNewName){
+          user.musicCharts.forEach(async chart => {
+            try{
+              if(chart.title == title_){
+                chart.title = newtitle_
+                user.markModified("musicCharts")
+                await user.save()
+                res.end(JSON.stringify({msg: `name changed to ${newtitle_}`, data: newtitle_}));
+                console.log('worked once')
+              }
+            }
+            catch{
+              console.log('nope')
+            }
+          })
+        } else{
+          res.end(JSON.stringify({err: `already a chart with the name ${newtitle_}`}));
+        }
+      }
+
 })
 
 root.get("/yt-listen", (req, res) => {
@@ -198,27 +238,53 @@ root.get('/:username', async (req,res) => {
   root.get('/:username/chart/:chartname', async (req, res) => {
     const {username, chartname} = req.params
     
-    await User.findOne({username}, async (err, user) => {
+    // await User.findOne({username}, async (err, user) => {
+    //   if(user){
+    //     user.musicCharts.forEach(chart => {
+    //       if(chart.title == chartname){
+    //         User.findById(req.session.userId, async (err, user) => {
+    //           if(user.username == username){
+    //             res.redirect(`/dashboard?chart=${chartname}`)
+    //           } else{
+    //             res.sendFile(path.join(__dirname, "pages/view.html"))
+    //           }
+    //         }) 
+    //       } else{
+    //         res.status(404)
+    //       }
+    //     })
+    //   } else{
+    //     res.status(404)
+    //   }
+    // })
+
+    await User.findOne({username}, async(err, user) => {
+      try{
       if(user){
-        user.musicCharts.forEach(chart => {
-          if(chart.title == chartname){
+        const theChart = user.musicCharts.find(chart => chart.title == chartname)
+
+          if(theChart){
             User.findById(req.session.userId, async (err, user) => {
-              if(user.username == username){
-                res.redirect(`/dashboard?chart=${chartname}`)
-              } else{
-                res.sendFile(path.join(__dirname, "pages/view.html"))
+              try{
+                if(user.username == username){
+                  res.redirect(`/dashboard?chart=${chartname}`)
+                } else{
+                  res.sendFile(path.join(__dirname, "pages/view.html"))
+                }
+              } catch(err){
+                res.status(404)
+                console.log('CANT FIND USER WITH THIS ID', res.json(err))
+                res.end();
               }
             }) 
-          } else{
-            res.status(404)
           }
-        })
-      } else{
-        res.status(404)
-      }
-    })
-
-    res.end();
+      } 
+    } catch(err){
+      res.status(404)
+      console.log('CANT FIND USER WITH THIS USERNAME', res.json(err))
+      res.end();
+    }
+  })
   })
   
 
