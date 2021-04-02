@@ -15,7 +15,6 @@ const topTwenty = document.getElementById('top-twenty')
 const topFifty = document.getElementById('top-fifty')
 const topHundred = document.getElementById('top-hundred')
 const topWrapper = document.querySelector('.top_wrapper')
-const profGo = document.querySelector('.prof-go')
 const numRadio = document.querySelector(".chartNums")
 const suggLoader = document.querySelector('.sugg-loader')
 let sugg_array
@@ -74,34 +73,11 @@ function list_new() {
   numToggle()
 }
 
-
-//! RETRIEVE THE PROFILE CURRENTLY BEING USED AND HEAD TO THAT PATH
- const getMyProfile = new Promise((resolve, reject) => {
-
-  const req = new XMLHttpRequest();
-
-  req.open('GET', 'http://localhost:4000/profile/username');
-
-  req.onload = async () => {
-      const user = await req.responseText
-      console.log('USERNAME', user)
-      // window.location = `http://localhost:4000/${req.responseText}`
-      resolve(user)
-  }
-
-  req.onerror = () => {
-    reject({err: 'problem here'})
-  }
-
-  req.send();
-})
-
-
 async function list_load() {
   try {
     await new Promise((resolve, reject) => {
       req = new XMLHttpRequest()
-      req.open("GET", "http://localhost:4000/my-lists", true)
+      req.open("GET", "http://localhost:4001/my-lists", true)
       req.setRequestHeader("Content-Type", "application/x-www-form-urlencoded")
       req.onload = () => {
         console.log("Get request sent to database...")
@@ -115,7 +91,7 @@ async function list_load() {
             load.title +
             ">" +
             space_title +
-            '</h2><i class="fa fa-trash" aria-hidden="true"></i></div>'
+            '</h2><i class="far fa-trash"></i></div>'
           saved_div.insertAdjacentHTML("beforeend", saved_front)
           saved_div.addEventListener("click", saved_click)
         })
@@ -134,7 +110,7 @@ async function list_load() {
 function sugg_load() {
 
   sugg_loader = new XMLHttpRequest()
-  sugg_loader.open("GET", "http://localhost:4000/similar-artists")
+  sugg_loader.open("GET", "http://localhost:4001/similar-artists")
   sugg_loader.onload = function () {
     if (sugg_loader.responseText !== "") {
       suggLoader.classList.remove('show-sugg-loader');
@@ -172,16 +148,16 @@ function sugg_load() {
 
 async function appExecute() {
 
-  //getmyprofile is a promise
-  await getMyProfile.then(user => {profGo.href = `/${user}`})
-
   //chaining together functions
-  await list_load().then(sugg_load).then(checkForUnsaved).then(checkForView)
+  // await list_load().then(sugg_load).then(checkForUnsaved).then(checkForView)
+  // .catch(err => {
+  //   console.log(err)
+  // })
+
+  await list_load().then(checkForUnsaved).then(checkForView)
   .catch(err => {
     console.log(err)
   })
-
-  await list_load()
 
   if(all_top){
     addtileListeners()

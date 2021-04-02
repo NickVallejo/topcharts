@@ -51,14 +51,14 @@ if(my_list.chart == undefined){
   var savedChart = saved_list.find((saved) => saved.title == clicked_save_name) 
   my_list = savedChart //my_list now references the reloaded chart
   setRadio(my_list.chart.length) //check the radio button that corresponds with the selected list's size
-  frontEndTitle.innerHTML = "<h3>" + clickedNameNoScore + "</h3>"
-  console.log("current list", my_list)
+  frontEndTitle.innerText = clickedNameNoScore
 
   //Erase all current tiles and replace with selected list
   topWrapper.innerHTML = '';
   for(i = 0; i < my_list.chart.length; i++){
     if (my_list.chart[i] !== undefined && my_list.chart[i] !== null) {
-      topWrapper.insertAdjacentHTML('beforeend', `<div style="background-image: url(${my_list.chart[i].album_image})" class="top" rank=${i} active="no"><p class="frontRank">${i+1}</p><div class="tile-hover"></div><i class="fas fa-times frontDel"></i><i class="fas fa-play-circle frontPlay"></i><p class="tile-title">${my_list.chart[i].artist} - ${my_list.chart[i].album_name}</p></div>`)
+      topWrapper.insertAdjacentHTML('beforeend', `<div style="background-image: url(${my_list.chart[i].album_image})" class="top" rank=${i} active="no"><p class="frontRank">${i+1}</p><div class="tile-hover"></div><i class="fas fa-times frontDel"></i><i class="fas fa-play-circle frontPlay"></i><p class="tile-title">${my_list.chart[i].artist} - ${my_list.chart[i].album_name}</p>
+      </div>`)
     } else {
       topWrapper.insertAdjacentHTML('beforeend', `<div style="background-image: url()" class="top" rank=${i} active="no"><p class="frontRank">${i+1}</p></div>`)
     }
@@ -86,24 +86,26 @@ if(my_list.chart == undefined){
 }
 
 //! FUNCTION TO TRASH THE LIST
-function list_trash(save_clicked) {
+function list_trash(save_clicked, profile) {
   var del_title = save_clicked.childNodes[0].getAttribute("name")
+  console.log(profile)
 
   var del = new XMLHttpRequest()
   del.open("POST", "/list-delete")
   del.setRequestHeader("Content-Type", "application/x-www-form-urlencoded")
 
   del.onload = function () {
-    let savedOnFrontEnd = document.querySelectorAll(".saved_item")
-    console.log("Deleting list with index number of " + del.responseText)
-    savedOnFrontEnd[del.responseText].remove()
-    saved_list.splice(del.responseText, 1)
-
-    if (frontEndTitle.textContent.replace(/ /g, "_") == del_title) {
-      list_new()
+    if(profile == undefined){
+      let savedOnFrontEnd = document.querySelectorAll(".saved_item")
+      savedOnFrontEnd[del.responseText].remove()
+      saved_list.splice(del.responseText, 1)
+  
+      if (frontEndTitle.textContent.replace(/ /g, "_") == del_title) {
+        list_new()
+      }
+    } else{
+      save_clicked.remove();
     }
-
-    console.log(saved_list)
   }
   del.send("name=" + del_title)
 }

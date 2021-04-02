@@ -6,7 +6,7 @@ function chartUpdate() {
   listToUpdate.chart = my_list.chart
 
   req = new XMLHttpRequest()
-  req.open("POST", "http://localhost:4000/update", true)
+  req.open("POST", "http://localhost:4001/update", true)
   req.setRequestHeader("Content-Type", "application/x-www-form-urlencoded")
   req.onload = () => {
     sugg_load()
@@ -39,7 +39,7 @@ function chartSave(fromTyped) {
       //push new_array and it's title as a new object in saved_list
       saved_list.push({ title: title_, chart: new_array })
       //Create an html string with the title as an attr and as title on front end
-      frontEndTitle.innerHTML = "<h3>" + symbolFilterTitle + "</h3>"
+      frontEndTitle.innerText = symbolFilterTitle 
       var saved_front =
         '<div class="saved_item"><h2 class="saved_title" name=' +
         title_ +
@@ -55,7 +55,7 @@ function chartSave(fromTyped) {
 
       //open new POSt request
       req = new XMLHttpRequest()
-      req.open("POST", "http://localhost:4000/", true)
+      req.open("POST", "http://localhost:4001/", true)
       //Use regular urlencoding as request header content type
       req.setRequestHeader("Content-Type", "application/x-www-form-urlencoded")
       //onload, log the post request as sent
@@ -89,8 +89,7 @@ function addTitleListener(saved_name){
   const chartTitle = document.querySelector('.title-wrap') // the wrapper of the title for hover events
   const edit = document.querySelector('.chart_title i');
   const chartTitleh3 = document.querySelector('.chart_title h3');
-  // const chartTitleText = document.querySelector('.chart_title h3') // the actual title
-  // const textCapture = chartTitleText.innerText
+
   const textCapture = saved_name //name selected from the displayed list or the newly changed name
 
   titleChanger.value = ''
@@ -112,11 +111,6 @@ function addTitleListener(saved_name){
       }
     })
   })
-
-  // chartTitle.addEventListener('mouseout', ()=> {
-  //   titleChanger.value = ''
-  //   titleChanger.classList.remove('show-change')
-  // })
 }
 
 
@@ -148,21 +142,17 @@ function titleChange(e, titleChanger, textCapture){
 
       req.onload = () => {
         const response = JSON.parse(req.responseText)
-        console.log('HERE IS THE RESPONSE', response)
         if(!response.err){
+
           currentTitle.innerText = response.data.replace(/_/g, " ") // change title on top of chart
-          
           //gets the idnex of the title to change it's name in the saved array
           const titleIndex = saved_list.indexOf(saved_list.find(item => item.title === textCapture.replace(/ /g, "_")))
-          
           //changes title in the saved array
           saved_list[titleIndex].title = response.data
           //changes title on the front end saved cahrts list
           savedOnFront[titleIndex].innerText = response.data.replace(/_/g, " ")
           //changes the attribute of the element as well
           savedOnFront[titleIndex].setAttribute('name', response.data)
-
-          console.log('DATA GET', response.data)
           //changes the placeholder of the input field to the new name
           titleChanger.placeholder = response.data.replace(/_/g, " ")
           addTitleListener(response.data)// adds the listener again with the new title

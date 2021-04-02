@@ -4,6 +4,7 @@ const regPages = express.Router()
 const path = require("path")
 const User = require("../models/user_model")
 const validator = require("validator")
+const bcrypt = require('bcrypt')
 
 //! MIDDLEWARE FUNCTION TO CHECK IF USER IS ALREADY LOGGED IN WHEN TRYING TO ACCESS THE REGISTER PAGE
 function logCheck(req, res, next) { //checks to see if a user session is set. If so, redirect to the dashboard. If not, go to the desired register or login page.
@@ -13,7 +14,6 @@ function logCheck(req, res, next) { //checks to see if a user session is set. If
     next()
   }
 }
-
 
 //! MIDDLEWARE FUNCTION TO VALIDATE REGISTER CREDENTIALS
 async function regWare(req, res, next) {
@@ -43,37 +43,37 @@ async function regWare(req, res, next) {
     console.log(format.test(username), "TESTING");
 
     if(format.test(username)){
-      errs.push({msg: "username contains special characters..."})
+      errs.push({msg: "username contains special characters"})
     }
 
     if(username.length > 12){
-      errs.push({ msg: "Username too long..." }) //if email, password, or retyped password is missing from the request body, push an error to the error array   
+      errs.push({ msg: "Username too long" }) //if email, password, or retyped password is missing from the request body, push an error to the error array   
     }
 
     else{
       await User.findOne({username}, (err, user) => {
         if(user){
-          errs.push({msg: "username taken..."})
+          errs.push({msg: "username taken"})
         }
       })
     }
   }
 
   if (!email || !password || !password2 || !username) {
-    errs.push({ msg: "Missing field..." }) //if email, password, or retyped password is missing from the request body, push an error to the error array
+    errs.push({ msg: "Missing field" }) //if email, password, or retyped password is missing from the request body, push an error to the error array
   }
 
   if (password.length < 6) {
-    errs.push({ msg: "Password too weak..." }) //if password i less than 6 chars, push an error to the error array
+    errs.push({ msg: "Password too weak" }) //if password i less than 6 chars, push an error to the error array
   }
 
   if (password && password2 && password !== password2) { //if the password does not match the retyped password, push an error to the error array
-    errs.push({ msg: "Passwords did not match..." })
+    errs.push({ msg: "Passwords did not match" })
   }
 
   if (errs.length > 0) { //if the error array is greater than 1, keep the user on the register page and display the errors
-    res.redirect("/register")
-    console.log(errs) //! Display the errors on the front-end
+    const errorInputs = [username, email, password]
+    res.render('dashView-register', {layout: './layouts/dashboard', home: false, errs: errs, inputs: errorInputs})
   } else {
     next() //if the error array is empty, move on
   }
@@ -82,31 +82,34 @@ async function regWare(req, res, next) {
 
 //! GET ROUTE FOR THE REGISTER PAGE
 regPages.get("/", logCheck, (req, res) => { //check if already logged in, and if not, send the user to the register page
-  res.sendFile(path.join(__dirname, "../pages/register.html"))
+    res.render('dashView-register', {layout: './layouts/dashboard', home: false, errs: false, inputs: false})
 })
 
 
 //! POST ROUTE THAT REDIRECTS USER TO DASHBOARD IF REGISTERED CORRECTLY
 regPages.post("/", regWare, async (req, res, next) => { //the request body will be validated by the regWare middleware, then passed to this function
+  
   const { email, password, username } = req.body //pull the email and password from the request body
+  if( res.locals.errs){
+    res.redirect('/register')
+  }
+  try{
+    const salt = await bcrypt.genSalt()
+    const hashedPass = await bcrypt.hash(password, salt)
 
-  const newUser = new User({ //use mongoose to create a new instance of the user class with the inputted email and pass
-    email,
-    username,
-    password,
-  })
-
-  await newUser.save() //save the new instance of the user class to the database with mongoose
-
-  //adds the pivotal userId property to the req.session object, permitting user to access dashboard and chart pages
-  //the userId property == the user's default ._id property, making it easy to find the user by the current session
-  req.session.userId = newUser._id
-
-  await User.findById(req.session.userId, (err, user) => { //Function for the console that finds the user by their session id and dispalys the user in the console
-    console.log("Here is the user... " + user)
-  })
-
-  res.redirect("/dashboard") //finally, after saving the registered user to the database and creating the session property, the user is brought to the dashboard
+    const newUser = new User({ //use mongoose to create a new instance of the user class with the inputted email and pass
+      email,
+      username,
+      password: hashedPass,
+    })
+  
+    await newUser.save().then(console.log(newUser, 'NEW USER')) //save the new instance of the user class to the database with mongoose
+    req.session.userId = newUser._id   //the userId property == the user's default ._id property, making it easy to find the user by the current session
+    res.redirect("/dashboard") //finally, after saving the registered user to the database and creating the session property, the user is brought to the dashboard
+  } catch{
+    res.status(500).send()
+  }
+  
 })
 
 module.exports = regPages

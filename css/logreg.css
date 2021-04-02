@@ -1,0 +1,114 @@
+body {
+  height: 100vh;
+}
+
+.eye {
+  width: 100%;
+  position: relative;
+}
+
+.eye i {
+  color: #040c0e;
+  position: absolute;
+  right: 60px;
+  top: 8px;
+  cursor: pointer;
+  opacity: 0.3;
+}
+
+.eye i:hover {
+  opacity: 0.7;
+}
+
+.on {
+  opacity: 0.7;
+}
+
+.errs {
+  background-color: darkred;
+  max-width: 85%;
+  margin: 0 auto;
+  margin-bottom: 25px;
+  text-align: left;
+  padding: 15px 0px;
+  border-radius: 5px;
+}
+
+.errs li {
+  font-size: 12px;
+}
+
+.errs h5 {
+  padding-left: 25px;
+  margin-bottom: 8px;
+  font-weight: bold;
+}
+
+.errs ul {
+  background-color: darkred;
+}
+
+.logreg-wrap {
+  height: 75vh;
+  max-width: 600px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logreg-box {
+  background: #040c0e;
+  width: 100%;
+  text-align: center;
+  padding: 45px;
+  border-radius: 10px;
+  -webkit-box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.48);
+  -moz-box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.48);
+  box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.48);
+}
+
+.logreg-box a {
+  display: block;
+  margin-top: 25px;
+  text-decoration: none;
+}
+
+.logreg-box a:hover {
+  opacity: 0.6;
+}
+
+input {
+  border: none;
+  padding: 7px 0px;
+  margin-bottom: 20px;
+  padding-left: 20px;
+  color: #13191b;
+  width: 80%;
+  border-radius: 3px;
+}
+
+h1 {
+  margin-bottom: 25px;
+}
+
+button {
+  background: #ff8c00;
+  border: none;
+  padding: 10px 60px;
+  border-radius: 3px;
+  margin-top: 10px;
+  border: 2px solid #ff8c00;
+  transition: 0.3s ease;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: transparent;
+}
+
+form {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+}

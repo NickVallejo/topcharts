@@ -1,6 +1,7 @@
 const express = require("express")
 const userPages = express.Router()
 const path = require("path")
+const bcrypt = require('bcrypt')
 
 const Users = require("../models/user_model")
 
@@ -15,29 +16,36 @@ function logCheck(req, res, next) {
 
 //! GET ROUTE FOR THE LOGIN PAGE
 userPages.get("/", logCheck, (req, res) => { //check if already logged in, and if not, send the user to the login page
-  res.sendFile(path.join(__dirname, "../pages/login.html"))
+  // res.sendFile(path.join(__dirname, "../pages/login.html"))
+  res.render('dashView-login', {layout: './layouts/dashboard', home: false, errs: false})
 })
 
 
 //!POST ROUTE THAT REDIRECTS USER TO DASHBOARD AFTER VALID LOGIN
 userPages.post("/", async (req, res, next) => {
   const { username, password } = req.body //pulls the email and password from the body of the post request
+  const errs = [];
 
-  await Users.findOne({ username }, (err, user) => { //uses mongoose to findOne certain email from the user database model
-    if (user) {
-      console.log("user found")
-      if (user.password == password) { //if a user is found and the password matches, create the userId session property and redirect to dashboard
-        console.log("password match")
-        req.session.userId = user._id
-        res.redirect("/dashboard")
-      } else { //this else stament fires when the email matches but the password is incorrect. Redirects user back to login page
-        res.redirect("/login")
-        console.log("Incorrect password...")
+  await Users.findOne({ username }, async (err, user) => { //uses mongoose to findOne certain email from the user database model
+    try{
+      if (user) {
+        console.log("user found")
+        if (await bcrypt.compare(password, user.password)) { //if a user is found and the password matches, create the userId session property and redirect to dashboard
+          console.log("password match")
+          req.session.userId = user._id
+          res.redirect("/dashboard")
+        } else { //this else stament fires when the email matches but the password is incorrect. Redirects user back to login page
+          errs.push({msg:"Incorrect password"})
+          res.render('dashView-login', {layout: './layouts/dashboard', home: false, errs})
+        }
+      } else { //this else statement fires when there was no user with that email found. Redirects user back to login page
+        errs.push({msg: "Invalid credentials"})
+        res.render('dashView-login', {layout: './layouts/dashboard', home: false, errs})
       }
-    } else { //this else statement fires when there was no user with that email found. Redirects user back to login page
-      res.redirect("/login")
-      console.log("Invalid credentials...")
+    } catch{
+      res.status(500).send();
     }
+    
   })
 })
 

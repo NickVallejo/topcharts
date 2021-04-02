@@ -9,14 +9,14 @@ function tileSettings(e) {
       //deletes the background image
       topWrapper.childNodes[positionToDel].style.backgroundImage = ""
       //loops through the element, deleting everything but the rank number
-      topWrapper.childNodes[positionToDel].childNodes.forEach((node, index) => {
-        if(!node.classList.contains("frontRank")){
-          node.remove()
-        }
-      })
-      //removes the play button because shit is messed up in the foreach loop
-      topWrapper.childNodes[positionToDel].childNodes[2].remove();
-      topWrapper.childNodes[positionToDel].childNodes[1].remove();
+      const selectedNodes = topWrapper.childNodes[positionToDel].childNodes
+
+      //removes all the nodes associated with "filled tile" functionality (ie. play, delete, title, etc.)
+      while(selectedNodes.length > 1){
+        topWrapper.childNodes[positionToDel].childNodes[1].remove();
+      }
+      
+      console.log('NODES AFTER', topWrapper.childNodes[positionToDel].childNodes)
       //removes the album from the chartnames side-list
       chartNamesWrapper.childNodes[positionToDel].textContent = `${parseInt(positionToDel)+1}.`
 
@@ -54,7 +54,7 @@ function tileSettings(e) {
   //youtube play function for both the top tiles and reccs tiles
   function ytPlay(artist, album){
     let ytSearch = new XMLHttpRequest()
-    ytSearch.open("GET", `http://localhost:4000/yt-listen?artist=${artist}&album=${album}`)
+    ytSearch.open("GET", `http://localhost:4001/yt-listen?artist=${artist}&album=${album}`)
         ytSearch.onload = () => {
 
           let ytExit

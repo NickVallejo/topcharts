@@ -17,6 +17,7 @@ const login_route = require("./routes/login")
 const reg_route = require("./routes/register")
 const logout_route = require("./routes/logout")
 const profile_route = require("./routes/profileRoute")
+const settings_route = require("./routes/settings")
 
 //Imported Functions
 require('./js-serverside/albumSuggs.js')
@@ -37,6 +38,7 @@ const {
 
 root.use(expressLayouts)
 root.set('view engine', 'ejs')
+root.use('/uploads', express.static('uploads'));
 root.use(express.json())
 root.use(express.urlencoded({ extended: true }))
 
@@ -47,7 +49,7 @@ const { resolve } = require("path")
 
 const MongoStore = require("connect-mongo")(session)
 
-const port = process.env.PORT || 4000
+const port = process.env.PORT || 4001
 
 root.listen(port, (err) => {
   try {
@@ -97,16 +99,18 @@ root.use("/login", login_route)
 root.use("/logout", logout_route)
 root.use("/register", reg_route)
 root.use("/profile", profile_route)
+root.use("/settings", settings_route)
 
 //! SENDS USER TO HOME PAGE
 root.get("/", (req, res, next) => {
-  res.sendFile(path.join(__dirname, "pages/home.html"))
+  // res.sendFile(path.join(__dirname, "pages/home.html"))
+  res.render('dashView-home', {home: true, layout: './layouts/dashboard'})
 })
 
 //! SENDS USER TO DASHBOARD AFTER AUTHCHECK AND REFRESHING ARTISTS
 root.get("/dashboard", authCheck, artistRefresh, (req, res, next) => {
   console.log("album suggs loaded? " + req.session.suggsLoaded)
-  res.sendFile(path.join(__dirname, "pages/topsters.html"))
+  res.render('dashView-mine', {home: true, layout: './layouts/dashboard'})
 })
 
 //! CHECKS TO SEE IF USER IS LOGGED IN BEFORE GRANTING ACCESS TO DASHBOARD
@@ -127,6 +131,9 @@ root.get("/similar-artists", albumSuggs)
 //! (ON APP EXECUTE) - FIND ALL USER CHARTS AND SEND THEM TO FRONT END
 root.get("/my-lists", async (req, res, next) => {
   await User.findById(req.session.userId, (err, user) => {
+    if(!user){
+      res.render('404-data', {layout: './layouts/404'});
+    }
     if (user) {
       res.send(user.musicCharts)
     }
@@ -139,9 +146,6 @@ root.post("/update", chartUpdate, artistRefresh, (req, res, next) => {
   res.end()
 })
 
-// root.post("tile-switch", tileSwitch, (req, res, next) => {
-
-// })
 
 //! SAVES A NEW CHART AND THEN REFRESHES LIST OF ARTIST NAMES
 root.post("/", chartSave, artistRefresh, (req, res, next) => {
@@ -232,31 +236,10 @@ root.get('/:username', async (req,res) => {
     }
   })
 
-
   //! LEADS TO A VIEW OF A CERTAIN CHART
   //! MUST RENDER VIEW.HTML WITH CERTAIN OBJECT DATA USING EJS
   root.get('/:username/chart/:chartname', async (req, res) => {
     const {username, chartname} = req.params
-    
-    // await User.findOne({username}, async (err, user) => {
-    //   if(user){
-    //     user.musicCharts.forEach(chart => {
-    //       if(chart.title == chartname){
-    //         User.findById(req.session.userId, async (err, user) => {
-    //           if(user.username == username){
-    //             res.redirect(`/dashboard?chart=${chartname}`)
-    //           } else{
-    //             res.sendFile(path.join(__dirname, "pages/view.html"))
-    //           }
-    //         }) 
-    //       } else{
-    //         res.status(404)
-    //       }
-    //     })
-    //   } else{
-    //     res.status(404)
-    //   }
-    // })
 
     await User.findOne({username}, async(err, user) => {
       try{
@@ -266,10 +249,13 @@ root.get('/:username', async (req,res) => {
           if(theChart){
             User.findById(req.session.userId, async (err, user) => {
               try{
+                if(!user){
+                  res.render('dashView-user', {home: true, logged: false, layout: './layouts/dashboard'})
+                }
                 if(user.username == username){
                   res.redirect(`/dashboard?chart=${chartname}`)
                 } else{
-                  res.sendFile(path.join(__dirname, "pages/view.html"))
+                  res.render('dashView-user', {home: true, layout: './layouts/dashboard'})
                 }
               } catch(err){
                 res.status(404)
@@ -277,6 +263,11 @@ root.get('/:username', async (req,res) => {
                 res.end();
               }
             }) 
+          }
+          else{
+            console.log('404');
+            res.sendStatus(404);
+            res.end();
           }
       } 
     } catch(err){
@@ -286,45 +277,60 @@ root.get('/:username', async (req,res) => {
     }
   })
   })
-  
 
   // BEFORE CHECKING IF ITS YOUR PROFILE, CHECK IF IT EXISTS WITH ANOTHER SEARCH BY req.params
   async function userFound(username) {
+
+    if(!req.session.userId){
+      getFollowerData(false, username, true)
+    }
     await User.findById(req.session.userId, (err, user) => {
-      if(user){
-        console.log(user.username)
-        if(req.params.username == user.username){
-          console.log('This is your profile page');
-          getFollowerData(true, username);
-        } else{
-          console.log('This is NOT your profile page');
-          getFollowerData(false, username)
+      try{
+        if(user){
+          console.log(user.username)
+          if(req.params.username == user.username){
+            console.log('This is your profile page');
+            getFollowerData(true, username, false);
+          } else{
+            console.log('This is NOT your profile page');
+            getFollowerData(false, username, false)
+          }
         }
+      }
+      catch(err){
+        console.log(err);
       }
     })
   }
 
-  async function getFollowerData(myProfile, username){
+  async function getFollowerData(myProfile, username, notLogged){
     if(myProfile){
       User.findById(req.session.userId, (err, user) => {
         if(user){
-         res.render('my-data', {followers: user.followers.length, following: user.following.length, layout: './layouts/profile'})
-        console.log(user.followers.length, 'ME')
+         res.render('my-data', {followers: user.followers.length, following: user.following.length, myProf: true, layout: './layouts/profile'})
         }
       })
-    } else{
+    } else if(notLogged == true && username && myProfile == false){
       User.findOne({username}, (err, user) => {
-        console.log(user.followers.length, 'NOT ME')
-         res.render('user-data', {followers: user.followers.length, following: user.following.length, layout: './layouts/profile'})
+        res.render('user-data', {followers: user.followers.length, following: user.following.length, myProf: false, logged: false, layout: './layouts/profile'})
+       })
+    }
+    
+    else{
+      User.findOne({username}, (err, user) => {
+         res.render('user-data', {followers: user.followers.length, following: user.following.length, myProf: false, layout: './layouts/profile'})
         })
     }
   }
 
   async function noUserFound(){
-    res.status(404)
-    res.end();
+    res.render('404-data', {layout: './layouts/404'});
   }
 
 })
+
+root.get('*', function(req, res){
+  res.render('404-data', {layout: './layouts/404'});
+});
 
 module.exports = root

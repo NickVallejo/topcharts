@@ -40,15 +40,18 @@ const chartname = req.query.chartname
 
 //! SENDS BACK THE USERNAME OF THE CURRENT USER LOGGED IN
 profile.get('/username', async (req, res) => {
-
+console.log('looking for user from header')
   await Users.findById(req.session.userId, (err, user) => {
-    if (user) {
-      res.send(user.username)
+    try{
+      if(!user){res.render('404-data', {layout: './layouts/404'})}
+      console.log('header user found')
+      res.send(user)
+      res.end();
+    } catch(err){
+      console.log(err);
+      res.end();
     }
   })
-
-
-  res.end();
 })
 
 module.exports = profile

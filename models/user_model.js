@@ -45,6 +45,10 @@ const userSchema = mongoose.Schema({
   following: {
     type: Array,
     default: []
+  },
+  profileImage: {
+    type: String,
+    default: 'nothing'
   }
 })
 

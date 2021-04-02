@@ -2,6 +2,7 @@ var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest
 
 //! SUGGESTS NEW ALBUMS FOR THE LISTENER BASED ON THE CURRENT ARTISTS IN THEIR LISTS
 async function albumSuggs(req, res, next) {
+  if(!req.session.userId){res.render('404-data', {layout: './layouts/404'});}
     if (req.session.artistNames !== undefined && req.session.artistNames.length > 5 && req.session.suggsLoaded == false) { //if the user's list of artists is defined and greater than 5 and the suggestions haven't loaded yet, execute the function
   
       //define Math.random object that generates a random FLOORED number that is less than atistNames
@@ -27,7 +28,7 @@ async function albumSuggs(req, res, next) {
           }
         }
   
-        if (inc < 4) {
+        if (inc < 6) {
           let randomArtist = Math.floor(Math.random() * req.session.artistNames.length)
           var notInside = chosen.every((choice) => choice !== req.session.artistNames[randomArtist])
   
@@ -65,9 +66,8 @@ async function albumSuggs(req, res, next) {
             var album = JSON.parse(simgen.responseText).results.albummatches.album
             console.log('response length', album.length)
             for (i = 0; i < album.length; i++) {
-              let randomAlbum = Math.floor(Math.random() * 4 + 1)
-              //&& album[randomAlbum].image[2]["#text"] !== ""
-              if (album[randomAlbum] !== undefined) {
+              let randomAlbum = Math.floor(Math.random() * album.length)
+              if (album[randomAlbum] !== undefined && album[randomAlbum].image[2]["#text"] !== "") {
                 similarAlbums.push(album[randomAlbum])
                 console.log('yup')
                 break

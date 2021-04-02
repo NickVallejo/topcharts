@@ -22,7 +22,7 @@ function tileSettings(e) {
         ytAlbum = window.viewChart[e.target.parentNode.getAttribute('rank')]
         console.log(ytAlbum)
   
-        ytSearch.open("GET", `http://localhost:4000/yt-listen?artist=${ytAlbum.artist}&album=${ytAlbum.album_name}`)
+        ytSearch.open("GET", `http://localhost:4001/yt-listen?artist=${ytAlbum.artist}&album=${ytAlbum.album_name}`)
         ytSearch.onload = () => {
   
           let ytExit
@@ -53,7 +53,7 @@ function addtileListeners(){
 const getViewData = async () => {
 
     const req = new XMLHttpRequest();
-    req.open('GET', `http://localhost:4000/profile/onechart?username=${user}&chartname=${chart}`)
+    req.open('GET', `http://localhost:4001/profile/onechart?username=${user}&chartname=${chart}`)
     req.setRequestHeader("Content-Type", "application/x-www-form-urlencoded")
     req.onload = () => {
         const view = JSON.parse(req.responseText)

@@ -33,7 +33,7 @@ function search(input) {
           album_name: albums[i].name,
           album_image: albums[i].image[3]["#text"],
         })
-        var album_sugg = '<img class="sugg_album" index=' + i + " src=" + albums[i].image[1]["#text"] + ">"
+        var album_sugg = '<img class="sugg_album" index=' + i + " src=" + albums[i].image[3]["#text"] + ">"
         suggs_box.insertAdjacentHTML("beforeend", album_sugg)
       }
     }
