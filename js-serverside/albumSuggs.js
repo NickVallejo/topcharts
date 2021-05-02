@@ -3,7 +3,8 @@ var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest
 //! SUGGESTS NEW ALBUMS FOR THE LISTENER BASED ON THE CURRENT ARTISTS IN THEIR LISTS
 async function albumSuggs(req, res, next) {
   if(!req.session.userId){res.render('404-data', {layout: './layouts/404'});}
-    if (req.session.artistNames !== undefined && req.session.artistNames.length > 5 && req.session.suggsLoaded == false) { //if the user's list of artists is defined and greater than 5 and the suggestions haven't loaded yet, execute the function
+  
+  if (req.session.artistNames !== undefined && req.session.artistNames.length > 5 && req.session.suggsLoaded == false) { //if the user's list of artists is defined and greater than 5 and the suggestions haven't loaded yet, execute the function
   
       //define Math.random object that generates a random FLOORED number that is less than atistNames
       let simArtists = [] //create an array for similar artists

@@ -9,38 +9,76 @@
 
     <title>Profile</title>
 </head>
+  <% const userImage = profileInfo.profileImage.replace(/\\/g, "/") %>
 
-  <%- include('../partials/header') %>
-
-  <div class="prof-settings">
+  <!-- <div class="prof-settings">
     <p>Followers: <%- followers %></p>
     <p>Following: <%- following %></p>
-    <%- body %>
-  </div>
+
+  </div> -->
 
 <body>
-    <h2>Charts</h2>
+
+<%- include('../partials/header', {logged: logged, userInfo: userInfo}) %>
+
+<div class="prof-padding">
+  <section class="profile-row prof-sec">
+      <div class="profile-row-info">
+        <div class="profile-img" style="background-image:url('http://localhost:4001/<%= userImage %>')"></div>
+        <div>
+          <h1 class="profile-title"><%= profileInfo.username %></h1>
+          <h3 class="profile-charts-title">Charts: <span class="chart-amnt"><%= profileInfo.musicCharts.length %></span></h3>
+        </div>
+      </div>
+
+      <div><%- body %></div>
+  </section>
+
+  <section class="profile-box prof-sec">
+    <h2><%= profileInfo.username %>'s Charts</h2>
     <div class="profile-charts">
+      <%- include('../profile-functions.ejs') %>
+    </div>
+  </section>
+</div>
+
+<div class="mobile-controls">
+
+  <div class="mobile-nav mob-profile-nav">
+    <div class="mobile-nav-wrap">
+
+      <div>
+        <i class="fas fa-bars fa-2x prof-img-mob"></i>      
+      </div>
 
     </div>
+  </div>
 
-    <h2>Favourite Artists</h2>
-    <div class="profile-charts">
-
-    </div>
-
-    <h2>Listen List</h2>
-    <div class="profile-charts">
-
-    </div>
+  <div class="mob-settings mob-slider profile-slide">
+    <ul>
+      <% if(logged == false) { %>
+        <li><a href="/login">Login</a></li>
+        <li><a href="/register">Register</a></li>
+      <% }  else { %>
+      <li class="dash-li"><a href="/dashboard">Dashboard</a></li>
+      <li class="profile-li"><a href="/<%= userInfo.username %>">Profile</a></li>
+      <li class="settings-li"><a href="/settings">Settings</a></li>
+      <li class="logout-li"><a href="/logout">Logout</a></li>
+      <% } %>
+    </ul>
+  </div>
+</div>
+    <!--<h2>Favourite Artists</h2>
+    <h2>Listen List</h2> -->
 
     <script src="http://localhost:8888/topsters3 - copy/js/trashOrDisplay.js"></script>
     <script src="http://localhost:8888/topsters3 - copy/js/profile/profile.js"></script>
+    <script src="http://localhost:8888/topsters3 - copy/js/interactive.js"></script>
 
-    <% if(!myProf) { %>
+    <!-- <% if(!myProf) { %>
       <script src="http://localhost:8888/topsters3 - copy/js/profile/notMyProf.js"></script>
     <% } else {%>
       <script src="http://localhost:8888/topsters3 - copy/js/profile/myProf.js"></script>
-    <% } %>
+    <% } %> -->
 </body>
 </html>

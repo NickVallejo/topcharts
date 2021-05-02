@@ -1,13 +1,15 @@
 
-screencapBtn = document.querySelector('.screencap-btn')
+screencapBtns = document.querySelectorAll('.screencap-btn')
 
-screencapBtn.addEventListener('click', ()=> {
-    html2canvas(document.querySelector(".display-screen"), {useCORS: true}).then(canvas => {
-        const chartName = document.querySelector('.chart_title h3').textContent
-        console.log(chartName)
-        const a = document.createElement("a");
-        a.href = canvas.toDataURL()
-        a.download = `${chartName}.png`
-        a.click();
-    });
+screencapBtns.forEach(screencapBtn => {
+    screencapBtn.addEventListener('click', ()=> {
+        html2canvas(document.querySelector(".display-screen"), {useCORS: true}).then(canvas => {
+            const chartName = document.querySelector('.chart_title h3').textContent
+            console.log(chartName)
+            const a = document.createElement("a");
+            a.href = canvas.toDataURL()
+            a.download = `${chartName}.png`
+            a.click();
+        });
+    })
 })

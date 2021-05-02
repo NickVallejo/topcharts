@@ -43,9 +43,14 @@ profile.get('/username', async (req, res) => {
 console.log('looking for user from header')
   await Users.findById(req.session.userId, (err, user) => {
     try{
-      if(!user){res.render('404-data', {layout: './layouts/404'})}
-      console.log('header user found')
-      res.send(user)
+      if(!user){
+        console.log('no id has been set')
+        res.render('404-data', {layout: './layouts/404'})
+      }
+      else{
+        console.log('header user found')
+        res.send(user)
+      }
       res.end();
     } catch(err){
       console.log(err);

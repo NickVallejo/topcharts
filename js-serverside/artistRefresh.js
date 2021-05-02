@@ -3,6 +3,7 @@ const User = require("../models/user_model")
 //! REPOPULATES THE ENTIRE LIST OF ARTIST NAMES ON SAVE, UPDATE, OR DELETE
 //! SCREW MODIFYING THE CURRENT ARTISTNAMES ARRAY. JUST WIPE THE THING AND PUSH THEM ALL BACK IN
 async function artistRefresh(req, res, next) {
+  console.log('refresh has been executed')
     req.session.artistNames = [] //empties the artistnames session property, or creates it for the first time, depending on if this is first log or not
   
     const user = await User.findById(req.session.userId) //finds the current user by session id
@@ -17,6 +18,9 @@ async function artistRefresh(req, res, next) {
               }
             })
           })
+          if(req.session.artistNames.length > 5 && req.session.suggsLoaded == false){
+            console.log('EXECUTING ALBUM SUGGS')
+          }
           resolve()
       })
   

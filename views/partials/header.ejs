@@ -1,49 +1,21 @@
 
   <header>
     <div class="head-wrap">
-      <h2>Topsters 3: Reloaded</h2>
+      <img class="logo" src="http://localhost:8888/topsters3 - copy/assets/topsters-logo.png" alt="">
 
       <nav>
-        <li><a href="/dashboard">Dashboard</a></li>
-        <!-- <li><a class="prof-go">My Profile</a></li> -->
-        <!-- <li><a href="#">Discover</a></li> -->
-        <li><a href="/logout">Logout</a></li>
-        <a class="prof-go"><div id="profile-img-display"></div></a>
+        <% if(logged == false) { %>
+          <li><a href="/login">Login</a></li>
+          <li><a href="/register">Register</a></li>
+        <% }  else { %>
+          <% const userImage = userInfo.profileImage.replace(/\\/g, "/") %>
+          <li><a href="/dashboard">Dashboard</a></li>
+          <li><a href="/settings">Settings</a></li>
+          <li><a href="/logout">Logout</a></li>
+          <a class="prof-go" href="/<%= userInfo.username %>">
+            <div id="profile-img-display" style="background-image: url('http://localhost:4001/<%= userImage %>')"></div>
+          </a>
+        <% }  %>
       </nav>
     </div>
   </header>
-
-<script type="text/javascript">
-    const profGo = document.querySelector('.prof-go')
-    const profImgDisplayHeader = document.querySelector('#profile-img-display');
-
-    const getMyProfile = new Promise((resolve, reject) => {
-    const req = new XMLHttpRequest();
-    req.open('GET', 'http://localhost:4001/profile/username');
-    req.onload = async () => {
-        const user = await req.responseText
-        console.log('user was found')
-        resolve(user)
-    }
-    req.onerror = (err) => {
-        reject({err: err})
-    }
-
-    req.send();
-    })
-
-
-    window.addEventListener('load', async () => {
-        await getMyProfile
-        .then(user => {
-          const parsedUser = JSON.parse(user)
-          console.log('parsed user', parsedUser)
-          profGo.href = `/${parsedUser.username}`
-          const myNewProfImg = parsedUser.profileImage.replace(/\\/g, "/");
-          profImgDisplayHeader.style.backgroundImage = `url(http://localhost:4001/${myNewProfImg})`;
-        })
-        .catch(err => console.log('header didnt get user', err))
-    })
-
-
-</script>

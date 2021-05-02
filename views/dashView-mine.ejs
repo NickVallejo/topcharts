@@ -1,4 +1,4 @@
-
+<% const userImage = userInfo.profileImage.replace(/\\/g, "/") %>
 
 <i class="fas fa-chevron-circle-up recc-show fa-3x"></i>
     <div id="primary" class="content-area">
@@ -7,25 +7,30 @@
         <div class="set-wrap">
         <div class="set">
 
-          <div class="field-info">
-            <input class="top_input" type="text" name="" value="" placeholder="Search for albums..." />
-            <i class="far fa-plus-square add-btn fa-2x"></i>
-            <!-- <form class="input-form">
-              <p class="click-to-add">Click to add a custom album</p>
-              <i class="far fa-plus-square add-btn"></i>
-            </form> -->
-          </div>
-
-          <fieldset>
-            <div class="input_suggs">
+          <div class="field-wrap">
+            <div class="field-info">
+              <input class="top_input" type="text" name="" value="" placeholder="Search for albums..." />
+              <i class="far fa-plus-square add-btn fa-2x"></i>
+              <!-- <form class="input-form">
+                <p class="click-to-add">Click to add a custom album</p>
+                <i class="far fa-plus-square add-btn"></i>
+              </form> -->
             </div>
-          </fieldset>
 
+            <fieldset>
+              <div class="input_suggs">
+              </div>
+
+              <div class="round-down-btn round-hide">
+                <i class="fas fa-chevron-up fa-2x"></i>
+              </div>
+            </fieldset>
+          </div>
           <div class="tile-opts">
             <button class="save field-btn" type="button" name="button">Save</button>
             <button class="clear field-btn" type="button" name="button">New</button>
             <div class="numbers-wrap">
-              <p>Numbers?</p> <input type="checkbox" checked="true" class="chartNums" name="chartNums" value="true" />
+              <p>Numbers?</p> <input id="desk-numRadio" type="checkbox" checked="true" class="chartNums" name="chartNums" value="true" />
             </div>
           </div>
           <div class="saved"></div>
@@ -37,13 +42,13 @@
         <div class="display">
           <div class="top-radio-wrap" data-html2canvas-ignore="true">
             <input class="top-select" type="radio" id="top-ten" name="top-select" value="top-ten">
-            <label>Top 10</label><br>
+            <label for="top-ten" class="top-select">Top 10</label><br>
             <input class="top-select" type="radio" id="top-twenty" name="top-select" value="top-twenty">
-            <label>Top 20</label><br>
+            <label for="top-twenty" class="top-select">Top 20</label><br>
             <input class="top-select" type="radio" id="top-fifty" name="top-select" value="top-fifty">
-            <label>Top 50</label><br>
+            <label for="top-fifty" class="top-select">Top 50</label><br>
             <input class="top-select" type="radio" id="top-hundred" name="top-select" value="top-hundred">
-            <label>Top 100</label><br>
+            <label for="top-hundred" class="top-select">Top 100</label><br>
         </div>
           <div class="title-wrap">
             <div class="chart_title">
@@ -53,7 +58,7 @@
             </div>
 
             <div>
-                <button class="screencap-btn field-btn" type="submit">Download Img</button>
+                <button class="screencap-btn prim-btn" type="submit">Download Img</button>
             </div>          
           </div>
           <div class="top_wrapper">
@@ -77,9 +82,7 @@
 
     <div class="yt-wrap"></div>
 
-    <div class="round-up">
-      <i class="fas fa-chevron-up fa-2x"></i>
-    </div>
+<div class="mobile-controls">
 
     <div class="mobile-nav">
       <div class="mobile-nav-wrap">
@@ -87,13 +90,38 @@
           <i class="fas fa-list fa-2x"></i>
           <i class="fas fa-music fa-2x"></i>
         </div>
+
+        <div class="round-up">
+          <i class="fas fa-chevron-up fa-2x"></i>
+        </div>
+
         <div>
-          <i class="far fa-save fa-2x"></i>
-          <i class="far fa-plus-square fa-2x"></i>
+          <i class="fas fa-cog fa-2x"></i>
+          <div id="profile-img-display" class="prof-img-mob" style="background-image: url('http://localhost:4001/<%= userImage %>')"></div>
         </div>
 
       </div>
     </div>
+
+    <div class="mob-settings mob-slider profile-slide">
+      <ul>
+        <li class="dash-li"><a href="/dashboard">Dashboard</a></li>
+        <li class="profile-li"><a href="/<%= userInfo.username %>">Profile</a></li>
+        <li class="settings-li"><a href="/settings">Settings</a></li>
+        <li class="logout-li"><a href="/logout">Logout</a></li>
+      </ul>
+    </div>
+
+    <div class="mob-settings mob-slider setting-slide">
+      <ul>
+        <li class="save">Save</li>
+        <li class="clear">New</li>
+        <label for="mob-numRadio"><li>Numbers? <input id="mob-numRadio" type="checkbox" checked="true" class="chartNums" name="chartNums" value="true" /></li></label>
+        <li class="screencap-btn">Download Image</li>
+      </ul>
+    </div>
+</div>
+    
 
     <script
     src="https://code.jquery.com/jquery-3.4.1.js"

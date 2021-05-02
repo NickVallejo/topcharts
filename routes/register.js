@@ -73,18 +73,16 @@ async function regWare(req, res, next) {
 
   if (errs.length > 0) { //if the error array is greater than 1, keep the user on the register page and display the errors
     const errorInputs = [username, email, password]
-    res.render('dashView-register', {layout: './layouts/dashboard', home: false, errs: errs, inputs: errorInputs})
+    res.render('dashView-register', {layout: './layouts/dashboard', home: false, errs: errs, logged: false, userInfo: '', inputs: errorInputs})
   } else {
     next() //if the error array is empty, move on
   }
 }
 
-
 //! GET ROUTE FOR THE REGISTER PAGE
 regPages.get("/", logCheck, (req, res) => { //check if already logged in, and if not, send the user to the register page
-    res.render('dashView-register', {layout: './layouts/dashboard', home: false, errs: false, inputs: false})
+    res.render('dashView-register', {home: false, errs: false, inputs: false, logged: false, userInfo: '', layout: './layouts/dashboard', })
 })
-
 
 //! POST ROUTE THAT REDIRECTS USER TO DASHBOARD IF REGISTERED CORRECTLY
 regPages.post("/", regWare, async (req, res, next) => { //the request body will be validated by the regWare middleware, then passed to this function

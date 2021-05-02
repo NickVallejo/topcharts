@@ -1,8 +1,8 @@
 var input = document.querySelector(".top_input")
 var suggs_box = document.querySelector(".input_suggs")
-var save = document.querySelector(".save")
+var saves = document.querySelectorAll(".save")
 var load = document.querySelector(".load")
-var clear = document.querySelector(".clear")
+var clears = document.querySelectorAll(".clear")
 var saved_div = document.querySelector(".saved")
 var reccs = document.querySelector(".album_reccs")
 const all_top = document.querySelectorAll('.top')
@@ -15,7 +15,7 @@ const topTwenty = document.getElementById('top-twenty')
 const topFifty = document.getElementById('top-fifty')
 const topHundred = document.getElementById('top-hundred')
 const topWrapper = document.querySelector('.top_wrapper')
-const numRadio = document.querySelector(".chartNums")
+const numRadios = document.querySelectorAll(".chartNums")
 const suggLoader = document.querySelector('.sugg-loader')
 let sugg_array
 
@@ -24,9 +24,17 @@ let suggsLoaded = false
 let my_list = new Array(10)
 var saved_list = []
 
-save.addEventListener("click", chartSave)
-clear.addEventListener("click", list_new)
-numRadio.addEventListener("click", numToggle)
+saves.forEach(save => {
+  save.addEventListener("click", chartSave)
+}) 
+
+clears.forEach(clear => {
+  clear.addEventListener("click", list_new)
+}) 
+
+numRadios.forEach(radio => {
+  radio.addEventListener("click", numToggle)
+})
 
 //! DETECTS A PRESS OF "ENTER"
 document.addEventListener("keydown", function (event) {
@@ -74,6 +82,7 @@ function list_new() {
 }
 
 async function list_load() {
+
   try {
     await new Promise((resolve, reject) => {
       req = new XMLHttpRequest()
@@ -154,7 +163,7 @@ async function appExecute() {
   //   console.log(err)
   // })
 
-  await list_load().then(checkForUnsaved).then(checkForView)
+  await list_load().then(checkForUnsaved).then(checkForView).then(sugg_load)
   .catch(err => {
     console.log(err)
   })

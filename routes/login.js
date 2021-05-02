@@ -17,7 +17,15 @@ function logCheck(req, res, next) {
 //! GET ROUTE FOR THE LOGIN PAGE
 userPages.get("/", logCheck, (req, res) => { //check if already logged in, and if not, send the user to the login page
   // res.sendFile(path.join(__dirname, "../pages/login.html"))
-  res.render('dashView-login', {layout: './layouts/dashboard', home: false, errs: false})
+
+  console.log('Pass Change Session', req.session.passChangeComplete);
+  const passChanged = req.session.passChangeComplete ? true : false
+
+  if(passChanged == true){
+    delete req.session.passChangeComplete
+  }
+
+    res.render('dashView-login', {home: false, passChanged, errs: false, logged: false, userInfo: '', layout: './layouts/dashboard'})
 })
 
 
@@ -36,11 +44,11 @@ userPages.post("/", async (req, res, next) => {
           res.redirect("/dashboard")
         } else { //this else stament fires when the email matches but the password is incorrect. Redirects user back to login page
           errs.push({msg:"Incorrect password"})
-          res.render('dashView-login', {layout: './layouts/dashboard', home: false, errs})
+          res.render('dashView-login', {layout: './layouts/dashboard', passChanged: false, home: false, logged: false, userInfo: '', errs: errs})
         }
       } else { //this else statement fires when there was no user with that email found. Redirects user back to login page
         errs.push({msg: "Invalid credentials"})
-        res.render('dashView-login', {layout: './layouts/dashboard', home: false, errs})
+        res.render('dashView-login', {layout: './layouts/dashboard', passChanged: false, home: false, logged: false, userInfo: '', errs: errs})
       }
     } catch{
       res.status(500).send();

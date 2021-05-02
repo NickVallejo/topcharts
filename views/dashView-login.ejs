@@ -2,6 +2,12 @@
 
   <div class="logreg-box">
 
+    <% if(passChanged == true) {%>
+      <div class="succs">
+        <h5>Password Change complete!</h5>
+      </div>
+    <% } %>
+
     <% if(errs) {%>
       <div class="errs">
         <h5>Invalid Credentials:</h5>

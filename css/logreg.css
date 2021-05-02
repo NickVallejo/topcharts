@@ -112,3 +112,18 @@ form {
   flex-flow: column;
   align-items: center;
 }
+
+.succs {
+  background-color: #23b12a;
+  max-width: 85%;
+  margin: 0 auto;
+  margin-bottom: 25px;
+  text-align: left;
+  padding: 15px 0px;
+  border-radius: 5px;
+  text-align: center;
+}
+
+.succs h5 {
+  margin-bottom: 0px;
+}

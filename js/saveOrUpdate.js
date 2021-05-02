@@ -1,4 +1,5 @@
 const e = require("express")
+const edit = document.querySelector('.chart_title i');
 
 //! FUNCTION TO UPDATE A CHART
 function chartUpdate() {
@@ -45,7 +46,7 @@ function chartSave(fromTyped) {
         title_ +
         ">" +
         symbolFilterTitle +
-        '</h2><i class="fa fa-trash" aria-hidden="true"></i></div>'
+        '</h2><i class="far fa-trash" aria-hidden="true"></i></div>'
       //add saved_front to list of front end saved lists
       saved_div.insertAdjacentHTML("beforeend", saved_front)
       //add a listener to the saved_div element, to execute func on click
@@ -79,7 +80,6 @@ function chartSave(fromTyped) {
     console.log("You cant save a saved chart")
   }
 }
-
 
 //! ADDS LISTENER WHEN CAHRT IS SELECTED OR TITLE OF CHART IS CHANGED
 function addTitleListener(saved_name){

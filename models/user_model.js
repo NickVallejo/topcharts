@@ -16,6 +16,7 @@ const userSchema = mongoose.Schema({
   email: {
     type: String,
     required: true,
+    unique: true
   },
   username: {
     type: String,
@@ -48,8 +49,10 @@ const userSchema = mongoose.Schema({
   },
   profileImage: {
     type: String,
-    default: 'nothing'
-  }
+    default: ''
+  },
+  resetPasswordToken: String,
+  resetPasswordExpires: Date,
 })
 
 const User = userStoreConnection.model("User", userSchema, "topsters-user-data")

@@ -1,7 +1,10 @@
 function numToggle() {
 
-  const numRadio = document.querySelector(".chartNums")
+  const deskNumRadio = document.querySelector("#desk-numRadio")
+  const mobNumRadio = document.querySelector("#mob-numRadio")
 const frontRanks = document.querySelectorAll(".frontRank") 
+
+const numRadio = window.innerWidth > 900 ? deskNumRadio : mobNumRadio;
 
   console.log(frontRanks)
   if(numRadio.checked == false){

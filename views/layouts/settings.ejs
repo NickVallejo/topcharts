@@ -4,45 +4,81 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="http://localhost:8888/topsters3 - copy/css/top_styles.css" />
-    <link rel="stylesheet" type="text/css" href="http://localhost:8888/topsters3 - copy/css/profile.css" />    
+    <link rel="stylesheet" type="text/css" href="http://localhost:8888/topsters3 - copy/css/profile.css" />
+    <link rel="stylesheet" type="text/css" href="http://localhost:8888/topsters3 - copy/css/settings.css" />
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
 
     <title>Profile</title>
 </head>
 
-  <%- include('../partials/header') %>
+  <%- include('../partials/header', {logged: logged, userInfo: userInfo}) %>
+  <% const userImage = userInfo.profileImage.replace(/\\/g, "/") %>
 
   <body>
-
-    <h2>welcome to settings</h2>
-
     <div class="section">
         <div class="settings">
-            <div class="setting-tabs">
-                <div class="tab">
-                    <h3>Bio</h3>
-                </div>
-                <div class="tab">
-                    <h3>Password</h3>
-                </div>
-                <div class="tab">
-                    <h3>Profile</h3>
-                </div>
-                <div class="tab">
-                    <h3>Followers</h3>
-                </div>
-            </div>
-            <div class="settings-display">
                 <div class="profile-display">
-                    <input id="profile-image-submit" type="file">
-                    <div id="profile-img-display">
-
+                    <div id="profile-img-display" class="profile-img-display-lg" style="background-image: url('http://localhost:4001/<%= userImage %>');">
+                        <label class="edit-wrap" for="profile-image-submit">
+                            <i class="far fa-edit fa-2x"></i>
+                        </label>
+                        <input id="profile-image-submit" type="file">
                     </div>
                 </div>
-            </div>
+
+                <div class="change-fields">
+                    <div class="change-wrap email-change-wrap">
+                        <label for="email-change">Email</label>
+                        <input disabled type="email" value="<%= userInfo.email %>">
+                        <i class="far email-edit fa-edit fa-2x"></i>
+                    </div>
+
+                    <div class="change-wrap password-change-wrap">
+                        <label for="password-change">Password</label>
+                        <input disabled type="password" value="<%= userInfo.password %>">
+                        <i class="far password-edit fa-edit fa-2x"></i>
+                    </div>
+                </div>
+
+                <div class="coming-soon">
+                    <h3>Followers, Bios, Favorite Artists, and much more with Topsters <span>Premium.</span></h3>
+                    <p>Lol just kidding it's free. Learn how you can contribute.</p>
+                    <a class="new-btn" href="/">Learn More</a>
+                </div>
         </div>
     </div>
-      
+
+<div class="popup">
+    <div class="popup-wrap">
+        <img class="logo" src="http://localhost:8888/topsters3 - copy/assets/topsters-logo-2.png" alt="">
+        <form id="emailChangeForm" class="pass-change" action="" method="">
+            <label for="email">New Email</label>
+            <input name="email" type="email">
+    
+            <label for="confirmPass">Confirm Password</label>
+            <input name="confirmPass" type="password">
+    
+            <input class="new-btn" type="submit" value="Change Password">
+        </form>
+
+        <form id="passChangeForm" class="pass-change" action="" method="">
+            <label for="current">Current Password</label>
+            <input name="current" type="password">
+
+            <label for="newPass">New Password</label>
+            <input name="newPass" type="password">
+
+            <label for="confirmPass">Confirm New Password</label>
+            <input name="confirmPass" type="password">
+
+            <input class="new-btn" type="submit" value="Change Password">
+        </form>
+    </div>
+</div>
+
+    <div class="notice-wrap"></div>
+  
+    <script src="http://localhost:8888/topsters3 - copy/js/profile/settings-ui.js"></script>
   <script src="http://localhost:8888/topsters3 - copy/js/profile/profile.js"></script>
 </body>
 
