@@ -8,7 +8,18 @@ const chart_schema = mongoose.Schema({
   chart: {
     type: Object,
     required: true,
+  },
+  author: {
+    type: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User'
+    },
+  },
+  tags: {
+    type: Array,
+    default: []
   }
 })
 
-module.exports = mongoose.model("Topsters Charts", chart_schema)
+ const Chart = mongoose.model("Topsters Charts", chart_schema, 'topsters-chart-data')
+ module.exports = Chart
