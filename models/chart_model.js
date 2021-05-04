@@ -1,6 +1,7 @@
 const mongoose = require("mongoose")
+const db_connect = require('../index')
 
-const chart_schema = mongoose.Schema({
+const chartSchema = mongoose.Schema({
   title: {
     type: String,
     required: true,
@@ -10,10 +11,10 @@ const chart_schema = mongoose.Schema({
     required: true,
   },
   author: {
-    type: {
+
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'User'
-    },
+      ref: 'Users',
+      required: true
   },
   tags: {
     type: Array,
@@ -21,5 +22,5 @@ const chart_schema = mongoose.Schema({
   }
 })
 
- const Chart = mongoose.model("Topsters Charts", chart_schema, 'topsters-chart-data')
- module.exports = Chart
+const Chart = chartSchema
+module.exports = Chart

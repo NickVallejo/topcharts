@@ -34,7 +34,7 @@ const chartname = req.query.chartname
       console.log('NO USER FOUND')
       res.end();
     }
-  })
+  }).populate('musicCharts')
 
 })
 

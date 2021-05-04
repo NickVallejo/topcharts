@@ -1,4 +1,5 @@
 const mongoose = require("mongoose")
+const db_connect = require('../index')
 
 // const userStoreConnection = mongoose.createConnection(
 //   "mongodb+srv://nicovallejo:weareborg@cluster0-p0vwz.azure.mongodb.net/test?retryWrites=true&w=majority",
@@ -48,6 +49,5 @@ const userSchema = mongoose.Schema({
   resetPasswordExpires: Date,
 })
 
-const User = mongoose.model("User", userSchema, "topsters-user-data")
-
+const User = userSchema
 module.exports = User

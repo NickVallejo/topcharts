@@ -4,7 +4,7 @@ const validator = require("validator")
 const crypto = require('crypto')
 const nodemailer = require('nodemailer');
 
-const User = require('../models/user_model');
+const {User} = require('../models/user_model');
 
 //! CHECK HERE
 forgot.get('/', (req, res) => {
