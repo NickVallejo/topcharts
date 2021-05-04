@@ -3,7 +3,7 @@ const userPages = express.Router()
 const path = require("path")
 const bcrypt = require('bcrypt')
 
-const Users = require("../models/user_model")
+const {User} = require("../index")
 
 //! MIDDLEWARE FUNCTION TO CHECK IF USER IS ALREADY LOGGED IN WHEN TRYING TO ACCESS THE LOGIN PAGE
 function logCheck(req, res, next) {
@@ -34,7 +34,7 @@ userPages.post("/", async (req, res, next) => {
   const { username, password } = req.body //pulls the email and password from the body of the post request
   const errs = [];
 
-  await Users.findOne({ username }, async (err, user) => { //uses mongoose to findOne certain email from the user database model
+  await User.findOne({ username }, async (err, user) => { //uses mongoose to findOne certain email from the user database model
     try{
       if (user) {
         console.log("user found")
