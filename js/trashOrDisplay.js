@@ -96,6 +96,7 @@ function list_trash(save_clicked, profile) {
 
   del.onload = function () {
     if(profile == undefined){
+      console.log(del.responseText)
       let savedOnFrontEnd = document.querySelectorAll(".saved_item")
       savedOnFrontEnd[del.responseText].remove()
       saved_list.splice(del.responseText, 1)

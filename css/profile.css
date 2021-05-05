@@ -140,7 +140,19 @@ header .head-wrap {
   justify-content: space-between;
 }
 
-.profile-row .profile-btn {
+.no-charts-wrap {
+  padding: 50px;
+  text-align: center;
+  display: block;
+  width: 100%;
+}
+
+.no-charts-wrap p {
+  margin-bottom: 30px;
+}
+
+.profile-row .profile-btn,
+.no-charts-wrap .profile-btn {
   text-decoration: none;
   font-size: 17px;
   background-color: #329920;
@@ -151,9 +163,11 @@ header .head-wrap {
   padding: 9px 45px;
   transition: 0.3s all;
   border: 1px solid #329920;
+  display: inline-block;
 }
 
-.profile-row .profile-btn:hover {
+.profile-row .profile-btn:hover,
+.no-charts-wrap .profile-btn:hover {
   border: 1px solid #329920;
   background: transparent;
 }
@@ -215,6 +229,10 @@ header .head-wrap {
   position: absolute;
   top: 32px;
   left: 82px;
+}
+
+.set-slide-up {
+  bottom: 60px;
 }
 
 @media (max-width: 1200px) {

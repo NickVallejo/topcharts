@@ -21,6 +21,10 @@ li {
   font-weight: 300;
 }
 
+.round-hide {
+  display: none;
+}
+
 .prim-btn {
   text-decoration: none;
   font-size: 17px;
@@ -753,10 +757,6 @@ fieldset {
     transform: rotate(180deg);
   }
 
-  .round-hide {
-    display: none;
-  }
-
   .mobile-nav i {
     cursor: pointer;
     color: #329920;
@@ -886,6 +886,9 @@ header li:hover {
   background: #13191b;
   background-size: cover;
   background-position: center;
+}
+
+header #profile-img-display {
   cursor: pointer;
 }
 

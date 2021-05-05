@@ -10,14 +10,26 @@ async function chartDelete(req, res, next) {
           //find chart with the query string title and user's id as the author
           console.log(`looking for chart with ${title} and ${user._id}`);
           
-          await Chart.findOneAndRemove({title, author: user._id}, (err, deleted)=>{
+          await Chart.findOne({title, author: user._id}, (err, deleted)=>{
             try{
-              const userChartData = user.musicCharts.find(chart => chart == deleted._id)
-              const index = user.musicCharts.indexOf(userChartData)
-              user.musicCharts.splice(index, 1);
-              user.save(()=> {
-                next();
-              });
+              
+              if(deleted){
+                deleted.remove()
+
+                const userChartData = user.musicCharts.find(chart => JSON.stringify(chart) == JSON.stringify(deleted._id))
+                // console.log('USER CHART DATA TO DELETE', JSON.stringify(user.musicCharts[0]))
+                // console.log(JSON.stringify(deleted._id))
+  
+                const index = user.musicCharts.indexOf(userChartData)
+                res.locals.indexOfChart = JSON.stringify(index)
+                console.log('INDEX OF CHART', index)
+                user.musicCharts.splice(index, 1);
+                user.save(()=> {
+                  next();
+                });
+              } else{
+                console.log('no doc found')
+              }
             } catch(err){
               console.log('ERROR HERE', err);
             }
