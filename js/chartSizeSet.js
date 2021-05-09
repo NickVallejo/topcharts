@@ -1,11 +1,11 @@
 
 const topSelect = document.querySelectorAll('.top-select')
-let touch;
-// const longTouch;
-const delay = 800;
 
 const width = window.innerWidth;
-sizeCheck();
+
+window.addEventListener('resize', () => {
+  addtileListeners();
+})
 
 //chcks the top 10 radio button on app execute
 topTen.checked = true;
@@ -49,7 +49,7 @@ function addtileListeners(){
       })
     } else{
     all_top.forEach((top) => {
-      top.removeEventListener("click", mobSwitch)
+      top.removeEventListener("touchstart", touchStart, {once: true})
       top.addEventListener("click", tileSettings)      
       //checks if the dropped tile is from a top tile or a sugg tile
       top.addEventListener("drop", dropDeskMob)
@@ -65,91 +65,6 @@ function addtileListeners(){
     })
   }
 }
-
-  window.addEventListener('resize', () => {
-    addtileListeners();
-  })
-
-  function timeOutClear(e){
-    clearTimeout(touch)
-    mobSwitch(e);
-    e.target.removeEventListener('touchend', timeOutClear); 
-  }
-
-  function touchStart(e){
-    e.preventDefault();
-    touch = setTimeout(longPress.bind(this), delay)
-    e.target.addEventListener('touchend', timeOutClear); 
-  }
-
-  function longPress(){
-    const all_top = document.querySelectorAll('.top');
-
-    this.removeEventListener('touchend', timeOutClear); 
-    document.addEventListener("touchstart", closeSettings.bind(this))
-
-    this.removeEventListener("touchstart", touchStart, {once: true})
-    this.addEventListener("touchstart", tileSettings)
-    this.childNodes[1].style.display = "block";
-    for(i = 1; i < 5; i++){this.childNodes[i].style.opacity = "1"}
-
-    all_top.forEach((top) => {
-      top.removeEventListener("touchstart", touchStart, {once: true})
-    })
-  }
-
-  function closeSettings(e){
-
-    console.log(e.target)
-    console.log(e.target.closest('.tile-hover'))
-
-    const closeRank = this.getAttribute('rank')
-    const all_top = document.querySelectorAll(`.top`);
-    const top = all_top[closeRank]
-
-    if(e.target.closest('.tile-hover') == null){
-      this.childNodes[1].style.display = "none";
-      for(i = 1; i < 5; i++){this.childNodes[i].style.opacity = "0"}
-  
-      this.addEventListener("touchstart", touchStart, {once: true})
-      this.removeEventListener("touchstart", tileSettings)
-      document.removeEventListener("touchstart", closeSettings.bind(this))
-      addtileListeners();
-    } else{
-
-    }
-  }
-
-  function mobSwitch(e){
-    const all_top = document.querySelectorAll(".top")
-    let fromBox = e.target;
-    const fromIndex = e.target.getAttribute("rank");
-    fromBox.style.border = "2px solid gold";
-
-    all_top.forEach(top => {
-      top.removeEventListener("touchstart", touchStart, {once: true})
-      document.addEventListener("touchstart", switchTo)
-      top.style.opacity = .5;
-      fromBox.style.opacity = 1;
-    })
-
-    async function switchTo(e){
-      const toIndex = e.target.getAttribute("rank");
-
-      if(e.target.classList.contains('top') && fromIndex !== toIndex){
-        console.log('we switched')
-        await tileDrag(fromIndex, toIndex)
-      }
-
-      fromBox.style.border =  "none";
-      all_top.forEach(top => {
-            top.addEventListener("touchstart", touchStart, {once: true})
-            document.removeEventListener("touchstart", switchTo)
-            top.style.opacity = 1;
-      })
-      
-    }
-  }
 
   function dragDeskMob(e){
     console.log(e.target);
@@ -279,24 +194,3 @@ function chartSizeSet(){
     }
   }
   }
-
-  function sizeCheck(){
-    console.log('fired');
-    if(width < 900){
-      const all_top = document.querySelectorAll(".top")
-      all_top.forEach((top) => {
-        top.removeEventListener("dragstart", dragDeskMob)
-        top.removeEventListener("drop", dropDeskMob)
-        top.addEventListener("click", mobSwitch)
-      })
-    } else{
-      const all_top = document.querySelectorAll(".top")
-      all_top.forEach((top) => {
-        top.addEventListener("dragstart", dragDeskMob)
-        top.addEventListener("drop", dropDeskMob)
-        top.removeEventListener("click", mobSwitch)
-      })
-    }
-  }
-
- module.exports = {addtileListeners}
