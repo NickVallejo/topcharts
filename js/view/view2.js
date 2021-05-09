@@ -77,9 +77,9 @@ const showViewData = (user, chart) => {
     topWrapper.innerHTML = '';
     for(i = 0; i < viewChart.length; i++){
       if (viewChart[i] !== undefined && viewChart[i] !== null) {
-        topWrapper.insertAdjacentHTML('beforeend', `<div style="background-image: url(${viewChart[i].album_image})" class="top" rank=${i} active="no"><p class="frontRank">${i+1}</p><div class="tile-hover"></div><i class="fas fa-play-circle frontPlay"></i><p class="tile-title">${viewChart[i].artist} - ${viewChart[i].album_name}</p></div>`)
+        topWrapper.insertAdjacentHTML('beforeend', `<div style="background-image: url(${viewChart[i].album_image})" class="top ${i}" rank=${i} active="no"><p class="frontRank">${i+1}</p><div class="tile-hover" rank=${i}></div><i class="fas fa-play-circle frontPlay"></i><p class="tile-title">${viewChart[i].artist} - ${viewChart[i].album_name}</p></div>`)
       } else {
-        topWrapper.insertAdjacentHTML('beforeend', `<div style="background-image: url()" class="top" rank=${i} active="no"><p class="frontRank">${i+1}</p></div>`)
+        topWrapper.insertAdjacentHTML('beforeend', `<div style="background-image: url()" class="top ${i}" rank=${i} active="no"><p class="frontRank">${i+1}</p></div>`)
       }
       console.log('in display loop!');
   }

@@ -71,7 +71,7 @@ function list_new() {
   }
 
   for (i = 0; i < my_list.length; i++) {
-    topWrapper.insertAdjacentHTML('beforeend', `<div style="background-image: url()" class="top" rank=${i} active="no"><p class="frontRank">${i+1}</p></div>`)
+    topWrapper.insertAdjacentHTML('beforeend', `<div style="background-image: url()" class="top top${i}" rank=${i} active="no"><p class="frontRank">${i+1}</p></div>`)
   }
 
   frontEndTitle.textContent = "Chart Title:"
@@ -169,7 +169,7 @@ async function appExecute() {
   })
 
   if(all_top){
-    addtileListeners()
+    await addtileListeners()
   }
 }
 

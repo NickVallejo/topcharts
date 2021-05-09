@@ -1,4 +1,11 @@
+
 const topSelect = document.querySelectorAll('.top-select')
+let touch;
+// const longTouch;
+const delay = 800;
+
+const width = window.innerWidth;
+sizeCheck();
 
 //chcks the top 10 radio button on app execute
 topTen.checked = true;
@@ -25,30 +32,28 @@ function setRadio(length){
 //! ADD EVENT LISTENERS TO NEWLY SELECTED LIST TILES
 //! WE ARE WORKING ON TILE DRAG HERE
 function addtileListeners(){
-  //redefines all the top tiles
+    //redefines all the top tiles
     const all_top = document.querySelectorAll(".top")
 
-    all_top.forEach((top) => {
-      //adds the lsiteners for the delete and play buttons
-      top.addEventListener("click", tileSettings)
-      
-      //checks if the dropped tile is from a top tile or a sugg tile
-      top.addEventListener("drop", (e) => {
-        e.stopImmediatePropagation()
-        e.preventDefault();
-        console.log(e.target)
-        if(e.dataTransfer.getData("switch")){
-          console.log("switch!!")
-          const dragFromIndex = e.dataTransfer.getData("rank")
-          const dragToIndex = e.target.getAttribute("rank")
-          tileDrag(dragFromIndex, dragToIndex)
-        } else{
-          const suggIndex = e.dataTransfer.getData("text/plain")
-          const tileIndex = e.target.getAttribute("rank")
-          console.log('TILE INDEX 45', tileIndex)
-          tileDrop(suggIndex, tileIndex)
-        }
+    const width = window.innerWidth;
+
+    if(width < 900){
+
+      all_top.forEach((top) => {
+        top.addEventListener("touchstart", touchStart, {once: true})
+        // top.addEventListener("click", mobSwitch)
+        top.setAttribute("draggable", "false")
+        top.removeEventListener("dragstart", dragDeskMob)
+        top.removeEventListener("click", tileSettings)      
+        top.removeEventListener("drop", dropDeskMob)
       })
+    } else{
+    all_top.forEach((top) => {
+      top.removeEventListener("click", mobSwitch)
+      top.addEventListener("click", tileSettings)      
+      //checks if the dropped tile is from a top tile or a sugg tile
+      top.addEventListener("drop", dropDeskMob)
+      // top.addEventListener("touchend", dropDeskMob)
 
       //necessary defaults prevented for correct functionality
       top.addEventListener("dragenter", (e) => e.preventDefault())
@@ -56,11 +61,117 @@ function addtileListeners(){
 
       // lets you drag a top tile
       top.setAttribute("draggable", "true")
-      top.addEventListener("dragstart", e => {
-          e.dataTransfer.setData("rank", e.target.getAttribute("rank"))
-          e.dataTransfer.setData("switch", true)
-        })
+      top.addEventListener("dragstart", dragDeskMob)
     })
+  }
+}
+
+  window.addEventListener('resize', () => {
+    addtileListeners();
+  })
+
+  function timeOutClear(e){
+    clearTimeout(touch)
+    mobSwitch(e);
+    e.target.removeEventListener('touchend', timeOutClear); 
+  }
+
+  function touchStart(e){
+    e.preventDefault();
+    touch = setTimeout(longPress.bind(this), delay)
+    e.target.addEventListener('touchend', timeOutClear); 
+  }
+
+  function longPress(){
+    const all_top = document.querySelectorAll('.top');
+
+    this.removeEventListener('touchend', timeOutClear); 
+    document.addEventListener("touchstart", closeSettings.bind(this))
+
+    this.removeEventListener("touchstart", touchStart, {once: true})
+    this.addEventListener("touchstart", tileSettings)
+    this.childNodes[1].style.display = "block";
+    for(i = 1; i < 5; i++){this.childNodes[i].style.opacity = "1"}
+
+    all_top.forEach((top) => {
+      top.removeEventListener("touchstart", touchStart, {once: true})
+    })
+  }
+
+  function closeSettings(e){
+
+    console.log(e.target)
+    console.log(e.target.closest('.tile-hover'))
+
+    const closeRank = this.getAttribute('rank')
+    const all_top = document.querySelectorAll(`.top`);
+    const top = all_top[closeRank]
+
+    if(e.target.closest('.tile-hover') == null){
+      this.childNodes[1].style.display = "none";
+      for(i = 1; i < 5; i++){this.childNodes[i].style.opacity = "0"}
+  
+      this.addEventListener("touchstart", touchStart, {once: true})
+      this.removeEventListener("touchstart", tileSettings)
+      document.removeEventListener("touchstart", closeSettings.bind(this))
+      addtileListeners();
+    } else{
+
+    }
+  }
+
+  function mobSwitch(e){
+    const all_top = document.querySelectorAll(".top")
+    let fromBox = e.target;
+    const fromIndex = e.target.getAttribute("rank");
+    fromBox.style.border = "2px solid gold";
+
+    all_top.forEach(top => {
+      top.removeEventListener("touchstart", touchStart, {once: true})
+      document.addEventListener("touchstart", switchTo)
+      top.style.opacity = .5;
+      fromBox.style.opacity = 1;
+    })
+
+    async function switchTo(e){
+      const toIndex = e.target.getAttribute("rank");
+
+      if(e.target.classList.contains('top') && fromIndex !== toIndex){
+        console.log('we switched')
+        await tileDrag(fromIndex, toIndex)
+      }
+
+      fromBox.style.border =  "none";
+      all_top.forEach(top => {
+            top.addEventListener("touchstart", touchStart, {once: true})
+            document.removeEventListener("touchstart", switchTo)
+            top.style.opacity = 1;
+      })
+      
+    }
+  }
+
+  function dragDeskMob(e){
+    console.log(e.target);
+    e.dataTransfer.setData("rank", e.target.getAttribute("rank"))
+    e.dataTransfer.setData("switch", true)
+  }
+
+  function dropDeskMob(e){
+    e.stopImmediatePropagation()
+    e.preventDefault();
+    console.log(e.target)
+    if(e.dataTransfer.getData("switch")){
+      console.log("switch!!")
+      const dragFromIndex = e.dataTransfer.getData("rank")
+      const dragToIndex = e.target.getAttribute("rank")
+      tileDrag(dragFromIndex, dragToIndex)
+    } else{
+      const suggIndex = e.dataTransfer.getData("text/plain")
+      const tileIndex = e.target.getAttribute("rank")
+      console.log('TILE INDEX 45', tileIndex)
+      tileDrop(suggIndex, tileIndex)
+    }
   }
 
 //! SET CHART SIZE ON FRONT END
@@ -119,9 +230,9 @@ function chartSizeSet(){
       for(i = 0; i < size; i++){
         if(my_list.chart[i]!== null && my_list.chart[i]!== undefined){
           // topWrapper.insertAdjacentHTML('beforeend', `<div style="background-image: url(${my_list.chart[i].album_image})" class="top" rank=${i} active="no"><p class="frontRank">${i+1}</p><p class="frontDel">x</p></div>`)
-          topWrapper.insertAdjacentHTML('beforeend', `<div style="background-image: url(${my_list.chart[i].album_image})" class="top" rank=${i} active="no"><p class="frontRank">${i+1}</p><div class="tile-hover"></div><i class="fas fa-times frontDel"></i><i class="fas fa-play-circle frontPlay"></i><p class="tile-title">${my_list.chart[i].artist} - ${my_list.chart[i].album_name}</p></div>`)
+          topWrapper.insertAdjacentHTML('beforeend', `<div style="background-image: url(${my_list.chart[i].album_image})" class="top top${i}" rank=${i} active="no"><p class="frontRank">${i+1}</p><div class="tile-hover" rank=${i}></div><i class="fas fa-times frontDel"></i><i class="fas fa-play-circle frontPlay"></i><p class="tile-title">${my_list.chart[i].artist} - ${my_list.chart[i].album_name}</p></div>`)
         } else{
-          topWrapper.insertAdjacentHTML('beforeend', `<div class="top" rank=${i} active="no"><p class="frontRank">${i+1}</p><p class="frontDel">x</p></div>`)
+          topWrapper.insertAdjacentHTML('beforeend', `<div class="top top${i}" rank=${i} active="no"><p class="frontRank">${i+1}</p><p class="frontDel">x</p></div>`)
         }
       }
       chartUpdate();
@@ -133,9 +244,9 @@ function chartSizeSet(){
   
       for(i = 0; i < size; i++){
         if(my_list[i]!== null && my_list[i]!== undefined){
-          topWrapper.insertAdjacentHTML('beforeend', `<div style="background-image: url(${my_list[i].album_image})" class="top" rank=${i} active="no"><p class="frontRank">${i+1}</p><div class="tile-hover"></div><i class="fas fa-times frontDel"></i><i class="fas fa-play-circle frontPlay"></i><p class="tile-title">${my_list[i].artist} - ${my_list[i].album_name}</p></div>`)
+          topWrapper.insertAdjacentHTML('beforeend', `<div style="background-image: url(${my_list[i].album_image})" class="top top${i}" rank=${i} active="no"><p class="frontRank">${i+1}</p><div class="tile-hover" rank=${i}></div><i class="fas fa-times frontDel"></i><i class="fas fa-play-circle frontPlay"></i><p class="tile-title">${my_list[i].artist} - ${my_list[i].album_name}</p></div>`)
         } else{
-          topWrapper.insertAdjacentHTML('beforeend', `<div class="top" rank=${i} active="no"><p class="frontRank">${i+1}</p><p class="frontDel">x</p></div>`)
+          topWrapper.insertAdjacentHTML('beforeend', `<div class="top top${i}" rank=${i} active="no"><p class="frontRank">${i+1}</p><p class="frontDel">x</p></div>`)
         }
       }
       localStorage.setItem("unsavedList", JSON.stringify(my_list))
@@ -167,6 +278,25 @@ function chartSizeSet(){
     }
     }
   }
+  }
+
+  function sizeCheck(){
+    console.log('fired');
+    if(width < 900){
+      const all_top = document.querySelectorAll(".top")
+      all_top.forEach((top) => {
+        top.removeEventListener("dragstart", dragDeskMob)
+        top.removeEventListener("drop", dropDeskMob)
+        top.addEventListener("click", mobSwitch)
+      })
+    } else{
+      const all_top = document.querySelectorAll(".top")
+      all_top.forEach((top) => {
+        top.addEventListener("dragstart", dragDeskMob)
+        top.addEventListener("drop", dropDeskMob)
+        top.removeEventListener("click", mobSwitch)
+      })
+    }
   }
 
  module.exports = {addtileListeners}
