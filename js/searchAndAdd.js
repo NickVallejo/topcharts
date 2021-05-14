@@ -43,8 +43,11 @@ function search(input) {
 
     loadedSuggs.forEach((sugg) => {
       console.log('listener added!!!')
-      sugg.addEventListener("dragstart", dragSearchDeskMob)
-      sugg.addEventListener("touchstart", dragSearchDeskMob)
+      if(window.innerWidth < 900){
+        sugg.addEventListener("touchstart", mobSearchAdd)
+      } else{
+        sugg.addEventListener("dragstart", dragSearchDeskMob)
+      }
     })
 
     console.log('Sugg Loaded', sugg_array)
@@ -63,11 +66,6 @@ function tileDrop(suggIndex, tileIndex){
 
   const all_top = document.querySelectorAll('.top')
   const topWrapper = document.querySelector('.top_wrapper')
-  console.log('SUGG ARRAY', sugg_array, suggIndex)
-  console.log(topWrapper)
-
-  console.log(all_top)
-  console.log(suggIndex, tileIndex)
 
   const myListVariable = my_list.chart == undefined ? my_list : my_list.chart;
 
@@ -79,8 +77,10 @@ function tileDrop(suggIndex, tileIndex){
     all_top[tileIndex].innerHTML = `<p class="frontRank">${parseInt(tileIndex)+1}</p><div class="tile-hover" rank=${tileIndex}></div><i class="fas fa-times frontDel"></i><i class="fas fa-play-circle frontPlay"></i><p class="tile-title">${sugg_array[suggIndex].artist} - ${sugg_array[suggIndex].album_name}</p>`
 
     //adds teh dragstart event listener to the newly filled tile
-    all_top[tileIndex].addEventListener("dragstart", newTileDragDeskMob)
-    all_top[tileIndex].addEventListener("touchstart", newTileDragDeskMob)
+
+    if(window.innerWidth > 900){
+      all_top[tileIndex].addEventListener("dragstart", newTileDragDeskMob)
+    }
     
     //updates front end words for album info on right sidebar
     chartNamesWrapper.childNodes[tileIndex].innerHTML = `${parseInt(tileIndex)+1}. ${sugg_array[suggIndex].artist} - ${sugg_array[suggIndex].album_name}`

@@ -12,8 +12,16 @@ const profile = document.querySelector('.profile-slide');
 const navTapped = document.querySelector('.nav-tapped')
 const profBtn = document.querySelector('.prof-img-mob')
 const roundDown = document.querySelector('.round-down-btn')
+const savedTitles = document.querySelectorAll('.saved_item')
 
 let up = false;
+
+function saved_list_closer(){
+    setTimeout(() => {
+        saved.classList.remove('set-slide-up');
+        savedBtn.classList.remove('nav-tapped');
+    },200)
+}
 
 profBtn.addEventListener('click', () => {
     const slidUp =  document.querySelector('.set-slide-up');
@@ -41,7 +49,6 @@ if(setBtn){
             slidUp.classList.remove('set-slide-up')
             navTapped.classList.remove('nav-tapped')
         }
-        
     })
 }
 
@@ -63,8 +70,9 @@ if(reccBtn){
 
 if(savedBtn){
     savedBtn.addEventListener('click', () => {
-        const slidUp =  document.querySelector('.set-slide-up');
+        const slidUp =  document.querySelector('.set-slide-up')
         const navTapped = document.querySelector('.nav-tapped')
+        const savedItems = document.querySelectorAll('.saved_item')
 
         saved.classList.add('set-slide-up');
         savedBtn.classList.add('nav-tapped');

@@ -23,6 +23,11 @@ function saved_click(event) {
 //! FUNCTION TO DISPLAY THE LIST
 function list_display(save_clicked) {
 
+  console.log('ping')
+  if('ontouchstart' in document.body){
+    saved_list_closer()
+  }
+
   if(typeof save_clicked == 'string'){
     var clicked_save_name = save_clicked
   } else{

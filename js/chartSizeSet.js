@@ -40,7 +40,7 @@ function addtileListeners(){
     if(width < 900){
 
       all_top.forEach((top) => {
-        top.addEventListener("touchstart", touchStart, {once: true})
+        top.addEventListener("touchstart", touchStart)
         // top.addEventListener("click", mobSwitch)
         top.setAttribute("draggable", "false")
         top.removeEventListener("dragstart", dragDeskMob)
@@ -49,7 +49,7 @@ function addtileListeners(){
       })
     } else{
     all_top.forEach((top) => {
-      top.removeEventListener("touchstart", touchStart, {once: true})
+      top.removeEventListener("touchstart", touchStart)
       top.addEventListener("click", tileSettings)      
       //checks if the dropped tile is from a top tile or a sugg tile
       top.addEventListener("drop", dropDeskMob)

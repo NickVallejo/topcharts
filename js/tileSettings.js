@@ -31,6 +31,7 @@ function tileSettings(e) {
         console.log(my_list)
         localStorage.setItem("unsavedList", JSON.stringify(my_list))
       }
+      addtileListeners();
     } else if(e.target.classList.contains("frontPlay")){
       console.log('you clicked yt play')
       let myListVariable = my_list.chart == undefined ? my_list : my_list.chart;

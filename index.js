@@ -225,6 +225,8 @@ root.post('/title-change', async (req, res) => {
   const title_ = title.replace(/ /g,"_");
   const newtitle_ = newtitle.replace(/ /g,"_");
 
+  console.log('we wuz pingz')
+
 
     const user = await User.findById(req.session.userId).populate('musicCharts')
 
@@ -236,9 +238,9 @@ root.post('/title-change', async (req, res) => {
           user.musicCharts.forEach(async chart => {
             try{
               if(chart.title == title_){
+                console.log(chart.title, title_, newtitle_)
                 chart.title = newtitle_
-                user.markModified("musicCharts")
-                await user.save()
+                await chart.save();
                 res.end(JSON.stringify({msg: `name changed to ${newtitle_}`, data: newtitle_}));
                 console.log('worked once')
               }
