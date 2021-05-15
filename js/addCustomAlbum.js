@@ -49,9 +49,11 @@ function displayCustomAlbum(customAlbum){
 
     const customSugg = document.querySelector(".sugg_album")
 
-    customSugg.addEventListener("dragstart", e => {
-        e.dataTransfer.setData("text/plain", e.target.getAttribute("index"))
-        console.log(e.target.getAttribute("index"))
-    })
+    customSugg.addEventListener("dragstart", customDragDeskMob)
+    customSugg.addEventListener("touchstart", customDragDeskMob)
+}
 
+function customDragDeskMob(e){
+    e.dataTransfer.setData("text/plain", e.target.getAttribute("index"))
+    console.log(e.target.getAttribute("index"))
 }

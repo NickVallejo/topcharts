@@ -71,7 +71,7 @@ function list_new() {
   }
 
   for (i = 0; i < my_list.length; i++) {
-    topWrapper.insertAdjacentHTML('beforeend', `<div style="background-image: url()" class="top" rank=${i} active="no"><p class="frontRank">${i+1}</p></div>`)
+    topWrapper.insertAdjacentHTML('beforeend', `<div style="background-image: url()" class="top top${i}" rank=${i} active="no"><p class="frontRank">${i+1}</p></div>`)
   }
 
   frontEndTitle.textContent = "Chart Title:"
@@ -95,12 +95,7 @@ async function list_load() {
         loaded_lists.forEach((load) => {
           saved_list.push({ title: load.title, chart: JSON.parse(load.chart) })
           var space_title = load.title.replace(/_/g, " ")
-          var saved_front =
-            '<div class="saved_item"><h2 class="saved_title" name=' +
-            load.title +
-            ">" +
-            space_title +
-            '</h2><i class="far fa-trash"></i></div>'
+          var saved_front = `<div class="saved_item"><h2 class="saved_title" name="${load.title}">${space_title}</h2><i class="far fa-trash"></i></div>`;
           saved_div.insertAdjacentHTML("beforeend", saved_front)
           saved_div.addEventListener("click", saved_click)
         })
@@ -169,7 +164,7 @@ async function appExecute() {
   })
 
   if(all_top){
-    addtileListeners()
+    await addtileListeners()
   }
 }
 

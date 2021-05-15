@@ -2,6 +2,7 @@ const ytWrap = document.querySelector('.yt-wrap')
 
 //DELETE A TILE FROM A LIST
 function tileSettings(e) {
+  console.log('im listening')
     if (e.target.classList.contains("frontDel")) {
       const position = e.target
       const positionToDel = position.parentNode.getAttribute("rank")
@@ -30,8 +31,9 @@ function tileSettings(e) {
         console.log(my_list)
         localStorage.setItem("unsavedList", JSON.stringify(my_list))
       }
+      addtileListeners();
     } else if(e.target.classList.contains("frontPlay")){
-
+      console.log('you clicked yt play')
       let myListVariable = my_list.chart == undefined ? my_list : my_list.chart;
 
       const artist = myListVariable[e.target.parentNode.getAttribute('rank')].artist

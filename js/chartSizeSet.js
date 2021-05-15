@@ -1,4 +1,11 @@
+
 const topSelect = document.querySelectorAll('.top-select')
+
+const width = window.innerWidth;
+
+window.addEventListener('resize', () => {
+  addtileListeners();
+})
 
 //chcks the top 10 radio button on app execute
 topTen.checked = true;
@@ -25,30 +32,28 @@ function setRadio(length){
 //! ADD EVENT LISTENERS TO NEWLY SELECTED LIST TILES
 //! WE ARE WORKING ON TILE DRAG HERE
 function addtileListeners(){
-  //redefines all the top tiles
+    //redefines all the top tiles
     const all_top = document.querySelectorAll(".top")
 
-    all_top.forEach((top) => {
-      //adds the lsiteners for the delete and play buttons
-      top.addEventListener("click", tileSettings)
-      
-      //checks if the dropped tile is from a top tile or a sugg tile
-      top.addEventListener("drop", (e) => {
-        e.stopImmediatePropagation()
-        e.preventDefault();
-        console.log(e.target)
-        if(e.dataTransfer.getData("switch")){
-          console.log("switch!!")
-          const dragFromIndex = e.dataTransfer.getData("rank")
-          const dragToIndex = e.target.getAttribute("rank")
-          tileDrag(dragFromIndex, dragToIndex)
-        } else{
-          const suggIndex = e.dataTransfer.getData("text/plain")
-          const tileIndex = e.target.getAttribute("rank")
-          console.log('TILE INDEX 45', tileIndex)
-          tileDrop(suggIndex, tileIndex)
-        }
+    const width = window.innerWidth;
+
+    if('ontouchstart' in document.body){
+
+      all_top.forEach((top) => {
+        top.addEventListener("touchstart", touchStart)
+        // top.addEventListener("click", mobSwitch)
+        top.setAttribute("draggable", "false")
+        top.removeEventListener("dragstart", dragDeskMob)
+        top.removeEventListener("click", tileSettings)      
+        top.removeEventListener("drop", dropDeskMob)
       })
+    } else{
+    all_top.forEach((top) => {
+      top.removeEventListener("touchstart", touchStart)
+      top.addEventListener("click", tileSettings)      
+      //checks if the dropped tile is from a top tile or a sugg tile
+      top.addEventListener("drop", dropDeskMob)
+      // top.addEventListener("touchend", dropDeskMob)
 
       //necessary defaults prevented for correct functionality
       top.addEventListener("dragenter", (e) => e.preventDefault())
@@ -56,11 +61,32 @@ function addtileListeners(){
 
       // lets you drag a top tile
       top.setAttribute("draggable", "true")
-      top.addEventListener("dragstart", e => {
-          e.dataTransfer.setData("rank", e.target.getAttribute("rank"))
-          e.dataTransfer.setData("switch", true)
-        })
+      top.addEventListener("dragstart", dragDeskMob)
     })
+  }
+}
+
+  function dragDeskMob(e){
+    console.log(e.target);
+    e.dataTransfer.setData("rank", e.target.getAttribute("rank"))
+    e.dataTransfer.setData("switch", true)
+  }
+
+  function dropDeskMob(e){
+    e.stopImmediatePropagation()
+    e.preventDefault();
+    console.log(e.target)
+    if(e.dataTransfer.getData("switch")){
+      console.log("switch!!")
+      const dragFromIndex = e.dataTransfer.getData("rank")
+      const dragToIndex = e.target.getAttribute("rank")
+      tileDrag(dragFromIndex, dragToIndex)
+    } else{
+      const suggIndex = e.dataTransfer.getData("text/plain")
+      const tileIndex = e.target.getAttribute("rank")
+      console.log('TILE INDEX 45', tileIndex)
+      tileDrop(suggIndex, tileIndex)
+    }
   }
 
 //! SET CHART SIZE ON FRONT END
@@ -119,9 +145,9 @@ function chartSizeSet(){
       for(i = 0; i < size; i++){
         if(my_list.chart[i]!== null && my_list.chart[i]!== undefined){
           // topWrapper.insertAdjacentHTML('beforeend', `<div style="background-image: url(${my_list.chart[i].album_image})" class="top" rank=${i} active="no"><p class="frontRank">${i+1}</p><p class="frontDel">x</p></div>`)
-          topWrapper.insertAdjacentHTML('beforeend', `<div style="background-image: url(${my_list.chart[i].album_image})" class="top" rank=${i} active="no"><p class="frontRank">${i+1}</p><div class="tile-hover"></div><i class="fas fa-times frontDel"></i><i class="fas fa-play-circle frontPlay"></i><p class="tile-title">${my_list.chart[i].artist} - ${my_list.chart[i].album_name}</p></div>`)
+          topWrapper.insertAdjacentHTML('beforeend', `<div style="background-image: url(${my_list.chart[i].album_image})" class="top top${i}" rank=${i} active="no"><p class="frontRank">${i+1}</p><div class="tile-hover" rank=${i}></div><i class="fas fa-times frontDel"></i><i class="fas fa-play-circle frontPlay"></i><p class="tile-title">${my_list.chart[i].artist} - ${my_list.chart[i].album_name}</p></div>`)
         } else{
-          topWrapper.insertAdjacentHTML('beforeend', `<div class="top" rank=${i} active="no"><p class="frontRank">${i+1}</p><p class="frontDel">x</p></div>`)
+          topWrapper.insertAdjacentHTML('beforeend', `<div class="top top${i}" rank=${i} active="no"><p class="frontRank">${i+1}</p><p class="frontDel">x</p></div>`)
         }
       }
       chartUpdate();
@@ -133,9 +159,9 @@ function chartSizeSet(){
   
       for(i = 0; i < size; i++){
         if(my_list[i]!== null && my_list[i]!== undefined){
-          topWrapper.insertAdjacentHTML('beforeend', `<div style="background-image: url(${my_list[i].album_image})" class="top" rank=${i} active="no"><p class="frontRank">${i+1}</p><div class="tile-hover"></div><i class="fas fa-times frontDel"></i><i class="fas fa-play-circle frontPlay"></i><p class="tile-title">${my_list[i].artist} - ${my_list[i].album_name}</p></div>`)
+          topWrapper.insertAdjacentHTML('beforeend', `<div style="background-image: url(${my_list[i].album_image})" class="top top${i}" rank=${i} active="no"><p class="frontRank">${i+1}</p><div class="tile-hover" rank=${i}></div><i class="fas fa-times frontDel"></i><i class="fas fa-play-circle frontPlay"></i><p class="tile-title">${my_list[i].artist} - ${my_list[i].album_name}</p></div>`)
         } else{
-          topWrapper.insertAdjacentHTML('beforeend', `<div class="top" rank=${i} active="no"><p class="frontRank">${i+1}</p><p class="frontDel">x</p></div>`)
+          topWrapper.insertAdjacentHTML('beforeend', `<div class="top top${i}" rank=${i} active="no"><p class="frontRank">${i+1}</p><p class="frontDel">x</p></div>`)
         }
       }
       localStorage.setItem("unsavedList", JSON.stringify(my_list))
@@ -168,5 +194,3 @@ function chartSizeSet(){
     }
   }
   }
-
- module.exports = {addtileListeners}
