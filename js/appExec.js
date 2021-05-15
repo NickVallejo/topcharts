@@ -17,7 +17,6 @@ const topHundred = document.getElementById('top-hundred')
 const topWrapper = document.querySelector('.top_wrapper')
 const numRadios = document.querySelectorAll(".chartNums")
 const suggLoader = document.querySelector('.sugg-loader')
-const emptyTileHTML = `<div style="background-image: url()" class="top top${i}" rank=${i} active="no"><p class="frontRank">${i+1}</p></div>`;
 let sugg_array
 
 let savedOnFrontEnd
@@ -72,7 +71,7 @@ function list_new() {
   }
 
   for (i = 0; i < my_list.length; i++) {
-    topWrapper.insertAdjacentHTML('beforeend', `${emptyTileHTML}`)
+    topWrapper.insertAdjacentHTML('beforeend', `<div style="background-image: url()" class="top top${i}" rank=${i} active="no"><p class="frontRank">${i+1}</p></div>`)
   }
 
   frontEndTitle.textContent = "Chart Title:"

@@ -37,7 +37,7 @@ function addtileListeners(){
 
     const width = window.innerWidth;
 
-    if(width < 900){
+    if('ontouchstart' in document.body){
 
       all_top.forEach((top) => {
         top.addEventListener("touchstart", touchStart)

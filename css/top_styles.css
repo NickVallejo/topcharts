@@ -97,6 +97,11 @@ body {
   color: white;
 }
 
+.recc-wrap {
+  height: 174px;
+  width: 174px;
+}
+
 .recc-wrap:hover .tile-hover {
   display: block;
 }
@@ -358,6 +363,8 @@ fieldset {
 
 .sugg_album {
   width: 50%;
+  border: 2px solid rgb(31, 43, 49);
+  box-sizing: border-box;
 }
 
 .albumInfo {
@@ -380,13 +387,17 @@ fieldset {
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
+  min-width: calc(100% - 40px);
+  padding: 8px 0px;
+  margin-left: 0px;
+  padding-left: 10px;
 }
 
 .saved_item {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 6px;
+  border-bottom: 1px solid #329920;
 }
 
 .chart_title {
@@ -661,6 +672,28 @@ fieldset {
 }
 
 @media only screen and (max-width: 900px) {
+  .top-radio-wrap {
+    margin-top: 50px;
+  }
+
+  .yt-vid {
+    z-index: 1000;
+    position: fixed;
+    bottom: 140px;
+    right: 20px;
+    width: 300px;
+    height: 200px;
+  }
+
+  .yt-vid iframe {
+    width: 100%;
+    height: 100%;
+  }
+
+  .yt-vid .yt-exit {
+    margin: 10px;
+  }
+
   .top:hover .tile-hover {
     display: none;
   }

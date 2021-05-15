@@ -43,7 +43,7 @@ function search(input) {
 
     loadedSuggs.forEach((sugg) => {
       console.log('listener added!!!')
-      if(window.innerWidth < 900){
+      if('ontouchstart' in document.body){
         sugg.addEventListener("touchstart", mobSearchAdd)
       } else{
         sugg.addEventListener("dragstart", dragSearchDeskMob)

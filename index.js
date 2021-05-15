@@ -295,7 +295,7 @@ root.get("/yt-listen", (req, res) => {
       }
 
       if(user){
-        const theChart = user.musicCharts.find(chart => chart.title == chartname)
+        const theChart = user.musicCharts.find(chart => chart.title == chartname).populate('musicCharts')
 
           if(theChart){
             if(!req.session.userId){
