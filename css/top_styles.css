@@ -21,15 +21,19 @@ li {
   font-weight: 300;
 }
 
+.round-hide {
+  display: none;
+}
+
 .prim-btn {
   text-decoration: none;
-  font-size: 17px;
+  font-size: 16px;
   background-color: #329920;
   border: none;
   color: white;
   font-family: "Montserrat", sans-serif !important;
   font-weight: 300;
-  padding: 9px 45px;
+  padding: 6px 15px;
   transition: 0.3s all;
   border: 1px solid #329920;
   cursor: pointer;
@@ -56,6 +60,11 @@ body {
   box-sizing: border-box;
 }
 
+.control-wrap {
+  display: flex;
+  justify-content: space-between;
+}
+
 .dash-head-wrap {
   display: flex;
   justify-content: center;
@@ -67,7 +76,7 @@ body {
 .head-wrap {
   display: flex;
   justify-content: space-around;
-  padding: 25px 0px;
+  padding: 10px 0px;
   background: #040c0e;
   margin-bottom: 30px;
 }
@@ -93,16 +102,25 @@ body {
   color: white;
 }
 
+.recc-wrap {
+  height: 174px;
+  width: 174px;
+}
+
 .recc-wrap:hover .tile-hover {
   display: block;
 }
 
-.recc-wrap:hover .frontPlay {
+.recc-wrap:hover .frontPlay,
+.top:hover .frontPlay {
   opacity: 1;
+  pointer-events: all;
 }
 
-.recc-wrap:hover .tile-title {
+.recc-wrap:hover .tile-title,
+.top:hover .tile-title {
   opacity: 1;
+  pointer-events: all;
 }
 
 .top:hover .tile-hover {
@@ -113,12 +131,9 @@ body {
   opacity: 1;
 }
 
-.top:hover .tile-title {
-  opacity: 1;
-}
-
 .top:hover .frontDel {
   opacity: 1;
+  pointer-events: all;
 }
 
 .recc-wrap {
@@ -171,6 +186,7 @@ body {
   margin: 0px;
   margin-right: 10px;
   font-size: 12px;
+  pointer-events: none;
 }
 
 .frontDel {
@@ -181,6 +197,7 @@ body {
   right: 10px;
   top: 10px;
   opacity: 0;
+  pointer-events: none;
   /* transition: 0.3s all; */
 }
 
@@ -192,6 +209,7 @@ body {
   cursor: pointer;
   z-index: 2;
   opacity: 0;
+  pointer-events: none;
   /* transition: 0.3s all; */
 }
 
@@ -350,6 +368,8 @@ fieldset {
 
 .sugg_album {
   width: 50%;
+  border: 2px solid rgb(31, 43, 49);
+  box-sizing: border-box;
 }
 
 .albumInfo {
@@ -372,13 +392,17 @@ fieldset {
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
+  min-width: calc(100% - 40px);
+  padding: 8px 0px;
+  margin-left: 0px;
+  padding-left: 10px;
 }
 
 .saved_item {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 6px;
+  border-bottom: 1px solid #329920;
 }
 
 .chart_title {
@@ -445,7 +469,8 @@ fieldset {
   width: calc(20% - 10px);
   padding-bottom: calc(20% - 10px);
   background: rgb(58, 70, 80);
-  background-size: contain;
+  border: 2px solid #13191b;
+  background-size: cover;
   position: relative;
 }
 
@@ -489,7 +514,7 @@ fieldset {
 .sugg-loader {
   width: 35px;
   position: relative;
-  left: calc(50% - 43px);
+  left: calc(50% - 17.5px);
   object-fit: contain;
   display: none;
 }
@@ -511,6 +536,7 @@ fieldset {
   display: inline;
   max-width: 240px;
   width: 100%;
+  padding-right: 20px;
 }
 
 .top-radio-wrap {
@@ -633,6 +659,7 @@ fieldset {
 @media (max-width: 1400px) {
   .set {
     width: 200px;
+    margin-left: 20px;
   }
 }
 
@@ -642,7 +669,6 @@ fieldset {
     width: 150px;
   }
   .chart_names {
-    margin-right: 20px;
     max-width: 140px;
   }
 
@@ -652,6 +678,39 @@ fieldset {
 }
 
 @media only screen and (max-width: 900px) {
+  .top-radio-wrap {
+    margin-top: 50px;
+  }
+
+  .yt-vid {
+    z-index: 1000;
+    position: fixed;
+    bottom: 140px;
+    right: 20px;
+    width: 300px;
+    height: 200px;
+  }
+
+  .yt-vid iframe {
+    width: 100%;
+    height: 100%;
+  }
+
+  .yt-vid .yt-exit {
+    margin: 10px;
+  }
+
+  .top:hover .tile-hover {
+    display: none;
+  }
+
+  .top:hover .tile-title,
+  .top:hover .frontPlay,
+  .top:hover .frontDel {
+    opacity: 0;
+    pointer-events: none;
+  }
+
   .fa-2x {
     font-size: 1.6em !important;
   }
@@ -746,17 +805,6 @@ fieldset {
     bottom: -150px;
   }
 
-  .round-down-btn {
-    position: absolute;
-    left: calc(50% - 40px);
-    bottom: 40px;
-    transform: rotate(180deg);
-  }
-
-  .round-hide {
-    display: none;
-  }
-
   .mobile-nav i {
     cursor: pointer;
     color: #329920;
@@ -780,6 +828,13 @@ fieldset {
     transition: 0.5s ease;
     z-index: 1000;
     cursor: pointer;
+  }
+
+  .round-down-btn {
+    position: fixed;
+    left: calc(50% - 35px);
+    bottom: 20px;
+    transform: rotate(180deg);
   }
 
   .round-up i,
@@ -860,6 +915,8 @@ fieldset {
 
   .sugg_album {
     width: 25%;
+    border: 2px solid rgb(31, 43, 49);
+    box-sizing: border-box;
   }
 
   .top_wrapper {
@@ -886,6 +943,9 @@ header li:hover {
   background: #13191b;
   background-size: cover;
   background-position: center;
+}
+
+header #profile-img-display {
   cursor: pointer;
 }
 

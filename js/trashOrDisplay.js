@@ -23,6 +23,11 @@ function saved_click(event) {
 //! FUNCTION TO DISPLAY THE LIST
 function list_display(save_clicked) {
 
+  console.log('ping')
+  if('ontouchstart' in document.body){
+    saved_list_closer()
+  }
+
   if(typeof save_clicked == 'string'){
     var clicked_save_name = save_clicked
   } else{
@@ -57,10 +62,10 @@ if(my_list.chart == undefined){
   topWrapper.innerHTML = '';
   for(i = 0; i < my_list.chart.length; i++){
     if (my_list.chart[i] !== undefined && my_list.chart[i] !== null) {
-      topWrapper.insertAdjacentHTML('beforeend', `<div style="background-image: url(${my_list.chart[i].album_image})" class="top" rank=${i} active="no"><p class="frontRank">${i+1}</p><div class="tile-hover"></div><i class="fas fa-times frontDel"></i><i class="fas fa-play-circle frontPlay"></i><p class="tile-title">${my_list.chart[i].artist} - ${my_list.chart[i].album_name}</p>
+      topWrapper.insertAdjacentHTML('beforeend', `<div style="background-image: url(${my_list.chart[i].album_image})" class="top top${i}" rank=${i} active="no"><p class="frontRank">${i+1}</p><div class="tile-hover" rank=${i}></div><i class="fas fa-times frontDel"></i><i class="fas fa-play-circle frontPlay"></i><p class="tile-title">${my_list.chart[i].artist} - ${my_list.chart[i].album_name}</p>
       </div>`)
     } else {
-      topWrapper.insertAdjacentHTML('beforeend', `<div style="background-image: url()" class="top" rank=${i} active="no"><p class="frontRank">${i+1}</p></div>`)
+      topWrapper.insertAdjacentHTML('beforeend', `<div style="background-image: url()" class="top top${i}" rank=${i} active="no"><p class="frontRank">${i+1}</p></div>`)
     }
     console.log('in display loop!');
 }
@@ -96,6 +101,7 @@ function list_trash(save_clicked, profile) {
 
   del.onload = function () {
     if(profile == undefined){
+      console.log(del.responseText)
       let savedOnFrontEnd = document.querySelectorAll(".saved_item")
       savedOnFrontEnd[del.responseText].remove()
       saved_list.splice(del.responseText, 1)

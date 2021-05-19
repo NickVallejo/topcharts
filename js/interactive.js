@@ -12,8 +12,16 @@ const profile = document.querySelector('.profile-slide');
 const navTapped = document.querySelector('.nav-tapped')
 const profBtn = document.querySelector('.prof-img-mob')
 const roundDown = document.querySelector('.round-down-btn')
+const savedTitles = document.querySelectorAll('.saved_item')
 
 let up = false;
+
+function saved_list_closer(){
+    setTimeout(() => {
+        saved.classList.remove('set-slide-up');
+        savedBtn.classList.remove('nav-tapped');
+    },200)
+}
 
 profBtn.addEventListener('click', () => {
     const slidUp =  document.querySelector('.set-slide-up');
@@ -29,89 +37,107 @@ profBtn.addEventListener('click', () => {
     
 })
 
-setBtn.addEventListener('click', () => {
-    const slidUp =  document.querySelector('.set-slide-up');
-    const navTapped = document.querySelector('.nav-tapped')
+if(setBtn){
+    setBtn.addEventListener('click', () => {
+        const slidUp =  document.querySelector('.set-slide-up');
+        const navTapped = document.querySelector('.nav-tapped')
+        
+        settings.classList.add('set-slide-up');
+        setBtn.classList.add('nav-tapped');
     
-    settings.classList.add('set-slide-up');
-    setBtn.classList.add('nav-tapped');
+        if(slidUp){
+            slidUp.classList.remove('set-slide-up')
+            navTapped.classList.remove('nav-tapped')
+        }
+    })
+}
 
-    if(slidUp){
-        slidUp.classList.remove('set-slide-up')
-        navTapped.classList.remove('nav-tapped')
-    }
+if(reccBtn){
+    reccBtn.addEventListener('click', () => {
+        const slidUp =  document.querySelector('.set-slide-up');
+        const navTapped = document.querySelector('.nav-tapped')
+
+        albumReccs.classList.add('set-slide-up');
+        reccBtn.classList.add('nav-tapped');
+
+        if(slidUp){
+            slidUp.classList.remove('set-slide-up')
+            navTapped.classList.remove('nav-tapped')
+        }
+        
+    })
+}
+
+if(savedBtn){
+    savedBtn.addEventListener('click', () => {
+        const slidUp =  document.querySelector('.set-slide-up')
+        const navTapped = document.querySelector('.nav-tapped')
+        const savedItems = document.querySelectorAll('.saved_item')
+
+        saved.classList.add('set-slide-up');
+        savedBtn.classList.add('nav-tapped');
+
+        if(slidUp){
+            slidUp.classList.remove('set-slide-up')
+            navTapped.classList.remove('nav-tapped')
+        }
+        
+    })
+}
+
+if(showReccs){
+    showReccs.addEventListener('click', () => {
+        const slidUp =  document.querySelector('.set-slide-up');
+        const navTapped = document.querySelector('.nav-tapped')
+
+        if(slidUp){
+            slidUp.classList.remove('set-slide-up')
+            navTapped.classList.remove('nav-tapped')
+        }
+
+        up = !up;
+
+        if(up){
+            showReccs.classList.add('show-flip');
+            albumReccs.classList.add('album-reccs-show');
+        } else{
+            showReccs.classList.remove('show-flip');
+            albumReccs.classList.remove('album-reccs-show');
+        }
+    })
+}
+
+if(roundUp){
+    roundUp.addEventListener('click', () => {
+        const slidUp =  document.querySelector('.set-slide-up');
+        const navTapped = document.querySelector('.nav-tapped')
     
-})
-
-reccBtn.addEventListener('click', () => {
-    const slidUp =  document.querySelector('.set-slide-up');
-    const navTapped = document.querySelector('.nav-tapped')
-
-    albumReccs.classList.add('set-slide-up');
-    reccBtn.classList.add('nav-tapped');
-
-    if(slidUp){
-        slidUp.classList.remove('set-slide-up')
-        navTapped.classList.remove('nav-tapped')
-    }
+        if(slidUp){
+            slidUp.classList.remove('set-slide-up')
+            navTapped.classList.remove('nav-tapped')
+        }
     
-})
-
-savedBtn.addEventListener('click', () => {
-    const slidUp =  document.querySelector('.set-slide-up');
-    const navTapped = document.querySelector('.nav-tapped')
-
-    saved.classList.add('set-slide-up');
-    savedBtn.classList.add('nav-tapped');
-
-    if(slidUp){
-        slidUp.classList.remove('set-slide-up')
-        navTapped.classList.remove('nav-tapped')
-    }
+            roundDown.classList.remove('round-hide')
+            roundUp.classList.add('round-down');
+            mobileNav.classList.add('slide-down');
+            set.classList.add('set-search-up');
     
-})
+    })
+}
 
-showReccs.addEventListener('click', () => {
-    const slidUp =  document.querySelector('.set-slide-up');
-    const navTapped = document.querySelector('.nav-tapped')
+if(roundDown){
+    roundDown.addEventListener('click', () => {
+        if(roundUp.classList.contains('round-down')){
+            roundDown.classList.add('round-hide')
+            roundUp.classList.remove('round-down');
+            mobileNav.classList.remove('slide-down');
+            set.classList.remove('set-search-up');
+        }
+    })
+}
 
-    if(slidUp){
-        slidUp.classList.remove('set-slide-up')
-        navTapped.classList.remove('nav-tapped')
-    }
-
-    up = !up;
-
-    if(up){
-        showReccs.classList.add('show-flip');
-        albumReccs.classList.add('album-reccs-show');
-    } else{
-        showReccs.classList.remove('show-flip');
-        albumReccs.classList.remove('album-reccs-show');
-    }
-})
-
-roundUp.addEventListener('click', () => {
-    const slidUp =  document.querySelector('.set-slide-up');
-    const navTapped = document.querySelector('.nav-tapped')
-
-    if(slidUp){
-        slidUp.classList.remove('set-slide-up')
-        navTapped.classList.remove('nav-tapped')
-    }
-
-        roundDown.classList.remove('round-hide')
-        roundUp.classList.add('round-down');
-        mobileNav.classList.add('slide-down');
-        set.classList.add('set-search-up');
-
-})
-
-roundDown.addEventListener('click', () => {
-    if(roundUp.classList.contains('round-down')){
+window.addEventListener('resize', () => {
+    if (window.innerWidth > 900 && !roundDown.classList.contains('round-hide')){
         roundDown.classList.add('round-hide')
-        roundUp.classList.remove('round-down');
-        mobileNav.classList.remove('slide-down');
-        set.classList.remove('set-search-up');
     }
 })

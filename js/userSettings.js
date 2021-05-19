@@ -1,4 +1,4 @@
-function numToggle() {
+function numToggle(e) {
 
   const deskNumRadio = document.querySelector("#desk-numRadio")
   const mobNumRadio = document.querySelector("#mob-numRadio")

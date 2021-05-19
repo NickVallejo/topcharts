@@ -1,8 +1,8 @@
-const root = require("../index")
+
 const express = require("express")
 const settings = express.Router()
 const path = require("path")
-const User = require("../models/user_model")
+const {User} = require("../index")
 const multer = require('multer');
 const fs = require('fs');
 const bcrypt = require('bcrypt');

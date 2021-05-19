@@ -1,4 +1,3 @@
-const e = require("express")
 const edit = document.querySelector('.chart_title i');
 
 //! FUNCTION TO UPDATE A CHART

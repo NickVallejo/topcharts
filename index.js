@@ -17,6 +17,21 @@ let sessionArray = []
 let added_chart
 const lettersNumbers = "/^[0-9a-zA-Z]+$/"
 
+//! CREATES CONNECTION TO MONGO DATABASE USING MONGOOSE
+const db_connect = mongoose.createConnection(
+  process.env.db_connect,
+  { useNewUrlParser: true, useUnifiedTopology: true }, (err) => {
+    if(!err){
+      console.log('connected to database')
+    }
+  })
+
+const Chart = db_connect.model('Topsters Charts', require("./models/chart_model"), "topsters-chart-data")
+const User = db_connect.model('Users', require("./models/user_model"), "topsters-user-data")
+
+exports.User = User
+exports.Chart = Chart
+
 //Imported Routes
 const login_route = require("./routes/login")
 const reg_route = require("./routes/register")
@@ -48,11 +63,6 @@ root.use('/uploads', express.static('uploads'));
 root.use(express.json())
 root.use(express.urlencoded({ extended: true }))
 
-const Chart = require("./models/chart_model")
-const User = require("./models/user_model")
-const { rejects } = require("assert")
-const { resolve } = require("path")
-
 const MongoStore = require("connect-mongo")(session)
 
 const port = process.env.PORT || 4001
@@ -65,18 +75,6 @@ root.listen(port, (err) => {
   }
 })
 
-//! CREATES CONNECTION TO MONGO DATABASE USING MONGOOSE
-const db_connect = mongoose.createConnection(
-  process.env.db_connect,
-  { useNewUrlParser: true, useUnifiedTopology: true },
-  () => {
-    try {
-      console.log("Conntected to database...")
-    } catch (err) {
-      console.log(err)
-    }
-  }
-)
 
 //! CREATES A STORAGE COLLECTION FOR SESSIONS USING THE DATABASE CONNECTION ESTABLISHED ABOVE
 const sessionStore = new MongoStore({
@@ -200,7 +198,7 @@ root.get("/my-lists", async (req, res, next) => {
     } else{
       res.send(user.musicCharts)
     }
-  })
+  }).populate('musicCharts')
 })
 
 //! UPDATES A CHART AND THEN REFRESHES LIST OF ARTIST NAMES
@@ -227,8 +225,10 @@ root.post('/title-change', async (req, res) => {
   const title_ = title.replace(/ /g,"_");
   const newtitle_ = newtitle.replace(/ /g,"_");
 
+  console.log('we wuz pingz')
 
-    const user = await User.findById(req.session.userId)
+
+    const user = await User.findById(req.session.userId).populate('musicCharts')
 
 
       if(user){
@@ -238,9 +238,9 @@ root.post('/title-change', async (req, res) => {
           user.musicCharts.forEach(async chart => {
             try{
               if(chart.title == title_){
+                console.log(chart.title, title_, newtitle_)
                 chart.title = newtitle_
-                user.markModified("musicCharts")
-                await user.save()
+                await chart.save();
                 res.end(JSON.stringify({msg: `name changed to ${newtitle_}`, data: newtitle_}));
                 console.log('worked once')
               }
@@ -295,7 +295,7 @@ root.get("/yt-listen", (req, res) => {
       }
 
       if(user){
-        const theChart = user.musicCharts.find(chart => chart.title == chartname)
+        const theChart = user.musicCharts.find(chart => chart.title == chartname).populate('musicCharts')
 
           if(theChart){
             if(!req.session.userId){
@@ -326,7 +326,7 @@ root.get("/yt-listen", (req, res) => {
       res.end();
       console.log('CANT FIND USER WITH THIS USERNAME', err)
     }
-  })
+  }).populate('musicCharts')
   })
 
 //! FIND A USER IN THE DB THAT MATCHES THE URL PATH
@@ -344,7 +344,7 @@ root.get('/:username', async (req,res) => {
       console.log('USER NOT FOUND')
       res.render('404-data', {layout: './layouts/404'});
     }
-  })
+  }).populate('musicCharts')
 
   // BEFORE CHECKING IF ITS YOUR PROFILE, CHECK IF IT EXISTS WITH ANOTHER SEARCH BY req.params
   async function userFound(theUser) {
@@ -378,7 +378,7 @@ root.get('/:username', async (req,res) => {
       catch(err){
         console.log(err);
       }
-    })
+    }).populate('musicCharts')
   }
   }
 
@@ -443,6 +443,5 @@ function headerSet(req, res, next){
     console.log(req.session.logged);
     next();
   }
-}
 
-module.exports = root
+}
