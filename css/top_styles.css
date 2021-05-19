@@ -27,13 +27,13 @@ li {
 
 .prim-btn {
   text-decoration: none;
-  font-size: 17px;
+  font-size: 16px;
   background-color: #329920;
   border: none;
   color: white;
   font-family: "Montserrat", sans-serif !important;
   font-weight: 300;
-  padding: 9px 45px;
+  padding: 6px 15px;
   transition: 0.3s all;
   border: 1px solid #329920;
   cursor: pointer;
@@ -60,6 +60,11 @@ body {
   box-sizing: border-box;
 }
 
+.control-wrap {
+  display: flex;
+  justify-content: space-between;
+}
+
 .dash-head-wrap {
   display: flex;
   justify-content: center;
@@ -71,7 +76,7 @@ body {
 .head-wrap {
   display: flex;
   justify-content: space-around;
-  padding: 25px 0px;
+  padding: 10px 0px;
   background: #040c0e;
   margin-bottom: 30px;
 }
@@ -509,7 +514,7 @@ fieldset {
 .sugg-loader {
   width: 35px;
   position: relative;
-  left: calc(50% - 43px);
+  left: calc(50% - 17.5px);
   object-fit: contain;
   display: none;
 }
@@ -531,6 +536,7 @@ fieldset {
   display: inline;
   max-width: 240px;
   width: 100%;
+  padding-right: 20px;
 }
 
 .top-radio-wrap {
@@ -653,6 +659,7 @@ fieldset {
 @media (max-width: 1400px) {
   .set {
     width: 200px;
+    margin-left: 20px;
   }
 }
 
@@ -662,7 +669,6 @@ fieldset {
     width: 150px;
   }
   .chart_names {
-    margin-right: 20px;
     max-width: 140px;
   }
 

@@ -90,45 +90,47 @@ function addtileListeners(){
   }
 
 //! SET CHART SIZE ON FRONT END
-function chartSizeSet(){
+function chartSizeSet(e){
 
+  e.preventDefault();
+
+  const chartSetVal = e.target.getAttribute('value')
   const my_list_status = my_list.title ? my_list.chart : my_list
-  console.log('dependant variable', my_list_status)
+  const confirmTxt = 'Changing your chart to a smaller size may result in the loss of albums. Are you sure you want to proceed?'
 
-    if(topTen.checked){
-      if(my_list_status.length > 10 || my_list_status.length > 10){
-        if(confirm('Changing your chart to a smaller size may result in the loss of albums. Are you sure you want to proceed?')){ 
-          frontEndSet(10)
-          setChartNameLength(10) 
+    if(chartSetVal == 'top-ten'){
+      if(my_list_status.length > 10){
+        if(confirm(confirmTxt)){ 
+          radioChange(10, chartSetVal)
         }
       } else{
-        frontEndSet(10)
-        setChartNameLength(10) 
+        radioChange(10, chartSetVal)
       }
-    } else if(topTwenty.checked){
-      if(my_list_status.length > 20 || my_list_status.length > 20){
-        if(confirm('Changing your chart to a smaller size may result in the loss of albums. Are you sure you want to proceed?')){ 
-          frontEndSet(20)
-          setChartNameLength(20) 
+    } else if(chartSetVal == 'top-twenty'){
+      if(my_list_status.length > 20){
+        if(confirm(confirmTxt)){ 
+          radioChange(20, chartSetVal)
         }
       } else{
-        frontEndSet(20)
-        setChartNameLength(20) 
+        radioChange(20, chartSetVal)
       }
-    } else if(topFifty.checked){
-      if(my_list_status.length > 50 || my_list_status.length > 50){
-        if(confirm('Changing your chart to a smaller size may result in the loss of albums. Are you sure you want to proceed?')){ 
-          frontEndSet(50)
-          setChartNameLength(50) 
+    } else if(chartSetVal == 'top-fifty'){
+      if(my_list_status.length > 50){
+        if(confirm(confirmTxt)){ 
+          radioChange(50, chartSetVal)
         } 
     } 
     else{
-      frontEndSet(50)
-      setChartNameLength(50)
+      radioChange(50, chartSetVal)
     }
-  } else if (topHundred.checked){
-      frontEndSet(100)
-      setChartNameLength(100)
+  } else if (chartSetVal == 'top-hundred'){
+      radioChange(100, chartSetVal)
+    }
+
+    function radioChange(size, sizeTxt){
+      frontEndSet(size)
+      setChartNameLength(size)
+      document.querySelector(`#${sizeTxt}`).checked = true
     }
   
     //! SET NEW TILE SIZE FOR SAVED OR UNSAVED CHART
