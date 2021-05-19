@@ -135,42 +135,41 @@ function chartSizeSet(e){
   
     //! SET NEW TILE SIZE FOR SAVED OR UNSAVED CHART
     function frontEndSet(size){
+
+      const chartObject = my_list.title != null ? my_list.chart : my_list
       //erase all tiles then replace. Lazy & unnefficient but works
-      topWrapper.innerHTML = '';
+      topWrapper.innerHTML = ''
   
       //add new tile amount for saved chart then update the chart
-      if(my_list.title !== undefined){
+      if(chartObject.title !== undefined){
       //change my_list to size of selected chart size (10, 20, 50)
-      oldSize = my_list.chart.length
-      my_list.chart.length = size;
-  
-      for(i = 0; i < size; i++){
-        if(my_list.chart[i] !== null && my_list.chart[i] !== undefined){
-          // topWrapper.insertAdjacentHTML('beforeend', `<div style="background-image: url(${my_list.chart[i].album_image})" class="top" rank=${i} active="no"><p class="frontRank">${i+1}</p><p class="frontDel">x</p></div>`)
-          topWrapper.insertAdjacentHTML('beforeend', `<div style="background-image: url(${my_list.chart[i].album_image})" class="top top${i}" rank=${i} active="no"><p class="frontRank">${i+1}</p><div class="tile-hover" rank=${i}></div><i class="fas fa-times frontDel"></i><i class="fas fa-play-circle frontPlay"></i><p class="tile-title">${my_list.chart[i].artist} - ${my_list.chart[i].album_name}</p></div>`)
-        } else{
-          topWrapper.insertAdjacentHTML('beforeend', `<div class="top top${i}" rank=${i} active="no"><p class="frontRank">${i+1}</p><p class="frontDel">x</p></div>`)
-        }
-      }
+      oldSize = chartObject.length
+      chartObject.length = size;
+
+      chartTileCycle();
       chartUpdate();
     } 
     //add new tile amount for unsaved chart then save to local storage
-    else if(my_list.title == undefined){
+    else if(chartObject.title == undefined){
       //change my_list to size of selected chart size (10, 20, 50)
       my_list.length = size;
-  
-      for(i = 0; i < size; i++){
-        if(my_list[i]!== null && my_list[i]!== undefined){
-          topWrapper.insertAdjacentHTML('beforeend', `<div style="background-image: url(${my_list[i].album_image})" class="top top${i}" rank=${i} active="no"><p class="frontRank">${i+1}</p><div class="tile-hover" rank=${i}></div><i class="fas fa-times frontDel"></i><i class="fas fa-play-circle frontPlay"></i><p class="tile-title">${my_list[i].artist} - ${my_list[i].album_name}</p></div>`)
-        } else{
-          topWrapper.insertAdjacentHTML('beforeend', `<div class="top top${i}" rank=${i} active="no"><p class="frontRank">${i+1}</p><p class="frontDel">x</p></div>`)
-        }
-      }
+      chartTileCycle()
       localStorage.setItem("unsavedList", JSON.stringify(my_list))
     }
 
     //add event listeners to new tiles
     addtileListeners()
+
+    function chartTileCycle(){
+      for(i = 0; i < size; i++){
+        if(chartObject[i] !== null){
+          // topWrapper.insertAdjacentHTML('beforeend', `<div style="background-image: url(${my_list.chart[i].album_image})" class="top" rank=${i} active="no"><p class="frontRank">${i+1}</p><p class="frontDel">x</p></div>`)
+          topWrapper.insertAdjacentHTML('beforeend', `<div style="background-image: url(${chartObject[i].album_image})" class="top top${i}" rank=${i} active="no"><p class="frontRank">${i+1}</p><div class="tile-hover" rank=${i}></div><i class="fas fa-times frontDel"></i><i class="fas fa-play-circle frontPlay"></i><p class="tile-title">${chartObject[i].artist} - ${chartObject[i].album_name}</p></div>`)
+        } else{
+          topWrapper.insertAdjacentHTML('beforeend', `<div class="top top${i}" rank=${i} active="no"><p class="frontRank">${i+1}</p><p class="frontDel">x</p></div>`)
+        }
+      }
+    }
   }
   
   //! SET NEW ARTIST NAME DATA FOR SAVED OR UNSAVED CHART
@@ -182,7 +181,7 @@ function chartSizeSet(e){
     for(i=0; i < size; i++){
       console.log(chartObject[i])
         if(chartObject[i] !== null){
-        chartNamesWrapper.insertAdjacentHTML('beforeend', `<p class="albumInfo" rank=${i}>${i+1}. ${my_list.chart[i].artist} - ${my_list.chart[i].album_name}</p>`)
+        chartNamesWrapper.insertAdjacentHTML('beforeend', `<p class="albumInfo" rank=${i}>${i+1}. ${chartObject[i].artist} - ${chartObject[i].album_name}</p>`)
         } else{
         chartNamesWrapper.insertAdjacentHTML('beforeend', `<p class="albumInfo" rank=${i}>${i+1}.</p>`)
         }
