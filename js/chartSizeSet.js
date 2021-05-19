@@ -145,7 +145,7 @@ function chartSizeSet(e){
       my_list.chart.length = size;
   
       for(i = 0; i < size; i++){
-        if(my_list.chart[i]!== null && my_list.chart[i]!== undefined){
+        if(my_list.chart[i] !== null && my_list.chart[i] !== undefined){
           // topWrapper.insertAdjacentHTML('beforeend', `<div style="background-image: url(${my_list.chart[i].album_image})" class="top" rank=${i} active="no"><p class="frontRank">${i+1}</p><p class="frontDel">x</p></div>`)
           topWrapper.insertAdjacentHTML('beforeend', `<div style="background-image: url(${my_list.chart[i].album_image})" class="top top${i}" rank=${i} active="no"><p class="frontRank">${i+1}</p><div class="tile-hover" rank=${i}></div><i class="fas fa-times frontDel"></i><i class="fas fa-play-circle frontPlay"></i><p class="tile-title">${my_list.chart[i].artist} - ${my_list.chart[i].album_name}</p></div>`)
         } else{
@@ -176,23 +176,16 @@ function chartSizeSet(e){
   //! SET NEW ARTIST NAME DATA FOR SAVED OR UNSAVED CHART
   function setChartNameLength(size){
     chartNamesWrapper.innerHTML = ''
+
+    const chartObject = my_list.title != null ? my_list.chart : my_list
   
-    if(my_list.title !== undefined){
-      for(i=0; i < size; i++){
-        if(my_list.chart[i] !== null && my_list.chart[i] !== undefined){
+    for(i=0; i < size; i++){
+      console.log(chartObject[i])
+        if(chartObject[i] !== null){
         chartNamesWrapper.insertAdjacentHTML('beforeend', `<p class="albumInfo" rank=${i}>${i+1}. ${my_list.chart[i].artist} - ${my_list.chart[i].album_name}</p>`)
         } else{
         chartNamesWrapper.insertAdjacentHTML('beforeend', `<p class="albumInfo" rank=${i}>${i+1}.</p>`)
         }
-      }
-    } else if(my_list.title == undefined){
-      for(i=0; i < size; i++){
-        if(my_list[i] !== null && my_list[i] !== undefined){
-        chartNamesWrapper.insertAdjacentHTML('beforeend', `<p class="albumInfo" rank=${i}>${i+1}. ${my_list[i].artist} - ${my_list[i].album_name}</p>`)
-      } else{
-        chartNamesWrapper.insertAdjacentHTML('beforeend', `<p class="albumInfo" rank=${i}>${i+1}.</p>`)
-      }
-    }
-    }
-  }
+     }
+   }
   }
