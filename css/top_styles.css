@@ -682,6 +682,10 @@ fieldset {
     margin-top: 50px;
   }
 
+  .control-wrap .numbers-wrap {
+    display: none;
+  }
+
   .yt-vid {
     z-index: 1000;
     position: fixed;
