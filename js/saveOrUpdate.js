@@ -1,5 +1,23 @@
 const edit = document.querySelector('.chart_title i');
 
+function consolidate(){
+
+  let savedNames = [];
+
+  saved_list.forEach(saved => {
+    saved.chart.forEach(album => {
+      if(album != null && !savedNames.includes(album.artist)){
+        savedNames.push(album.artist)
+      }
+    })
+  })
+
+  if(savedNames.length > 5 && suggsLoaded == false){
+    sugg_load()
+    suggLoader.classList.add('show-sugg-loader');
+  }
+}
+
 //! FUNCTION TO UPDATE A CHART
 function chartUpdate() {
   const listToUpdate = saved_list.find((saved) => saved.title == my_list.title)
@@ -9,7 +27,7 @@ function chartUpdate() {
   req.open("POST", "http://localhost:4001/update", true)
   req.setRequestHeader("Content-Type", "application/x-www-form-urlencoded")
   req.onload = () => {
-    sugg_load()
+    consolidate();
   }
   
 
@@ -61,7 +79,7 @@ function chartSave(fromTyped) {
       //onload, log the post request as sent
       req.onload = function () {
         console.log("post request sent...")
-        sugg_load()
+        consolidate()
       }
 
       //Send the title and new chart array as the request body

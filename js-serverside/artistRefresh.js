@@ -13,7 +13,6 @@ async function artistRefresh(req, res, next) {
       await new Promise((resolve, reject) => {
         
           user.musicCharts.forEach((chart) => {
-            console.log('diss a chart', chart)
             JSON.parse(chart.chart).forEach((album) => {
               if (album !== null && album !== undefined && !req.session.artistNames.includes(album.artist)) {
                 req.session.artistNames.push(album.artist)

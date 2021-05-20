@@ -143,7 +143,6 @@ function sugg_load() {
 
   if (suggsLoaded == false) {
     console.log("PASSED the sugg load because suggsLoaded = " + suggsLoaded)
-    suggLoader.classList.add('show-sugg-loader');
     sugg_loader.send()
   } else {
     console.log("DENIED the sugg load because suggsLoaded = " + suggsLoaded)
@@ -158,7 +157,7 @@ async function appExecute() {
   //   console.log(err)
   // })
 
-  await list_load().then(checkForUnsaved).then(checkForView).then(sugg_load)
+  await list_load().then(checkForUnsaved).then(checkForView).then(consolidate)
   .catch(err => {
     console.log(err)
   })
