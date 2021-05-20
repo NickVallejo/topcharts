@@ -409,6 +409,7 @@ fieldset {
   margin: 0px;
   display: flex;
   align-items: center;
+  width: 50%;
 }
 
 .chart_title i {
@@ -680,6 +681,10 @@ fieldset {
 @media only screen and (max-width: 900px) {
   .top-radio-wrap {
     margin-top: 50px;
+  }
+
+  .chart_title {
+    width: 60%;
   }
 
   .control-wrap .numbers-wrap {
