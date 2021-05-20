@@ -24,6 +24,9 @@ async function regWare(req, res, next) {
 
   const { email, password, password2, username } = req.body //pulls the email, the password, and the retyped password from the request body
 
+  const emailI = new RegExp(email, 'i')
+  const userI = new RegExp(username, 'i')
+
   const errs = [] //keeps a log of what was not a valid register input
 
   if (email) {
@@ -33,7 +36,7 @@ async function regWare(req, res, next) {
       errs.push({ msg: "Invalid email..." }) //if email does not contain valid syntax, push an error to the error array
     } else {
       console.log('we got here')
-      await User.findOne({ email }, (err, user) => { //if email is valid syntax, check to see if the db already contains a user with that email
+      await User.findOne({ email: emailI }, (err, user) => { //if email is valid syntax, check to see if the db already contains a user with that email
         if(err){
           console.log(err)
         }
@@ -61,7 +64,7 @@ async function regWare(req, res, next) {
     }
 
     else{
-      await User.findOne({username}, (err, user) => {
+      await User.findOne({username: userI}, (err, user) => {
         if(user){
           errs.push({msg: "username taken"})
         }

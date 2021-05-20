@@ -15,10 +15,11 @@ async function chartDelete(req, res, next) {
               
               if(deleted){
                 deleted.remove()
-
                 const userChartData = user.musicCharts.find(chart => JSON.stringify(chart) == JSON.stringify(deleted._id))
-                // console.log('USER CHART DATA TO DELETE', JSON.stringify(user.musicCharts[0]))
-                // console.log(JSON.stringify(deleted._id))
+                
+                console.log(deleted._id, 'REMVOED FROM CHART COL')
+                console.log(userChartData, 'REMOVED FROM USER CHART ARRAY')
+
   
                 const index = user.musicCharts.indexOf(userChartData)
                 res.locals.indexOfChart = JSON.stringify(index)

@@ -17,11 +17,24 @@ const userSchema = mongoose.Schema({
   email: {
     type: String,
     required: true,
-    unique: true
+    // index: {
+    //   unique: true,
+    //   collation: {
+    //     locale: 'en',
+    //     strength: 1
+    //   }
+    // }
   },
   username: {
     type: String,
-    required: true
+    required: true,
+    // index: {
+    //   unique: true,
+    //   collation: {
+    //     locale: 'en',
+    //     strength: 1
+    //   }
+    // }
   },
   password: {
     type: String,
