@@ -218,6 +218,10 @@ body {
   top: 10px;
 }
 
+.prof_top_wrapper .top .frontPlay {
+  right: 10px;
+}
+
 nav {
   display: flex;
   align-items: center;
@@ -444,6 +448,10 @@ fieldset {
   position: relative;
   background: #13191b;
   width: 100%;
+}
+
+.prof-display-screen .chart_names {
+  margin-top: 31px;
 }
 
 .display {
@@ -678,6 +686,19 @@ fieldset {
   }
 }
 
+@media (hover: none) {
+  .top:hover .tile-title,
+  .top:hover .frontPlay,
+  .top:hover .frontDel {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .top:hover .tile-hover {
+    display: none;
+  }
+}
+
 @media only screen and (max-width: 900px) {
   .top-radio-wrap {
     margin-top: 50px;
@@ -707,17 +728,6 @@ fieldset {
 
   .yt-vid .yt-exit {
     margin: 10px;
-  }
-
-  .top:hover .tile-hover {
-    display: none;
-  }
-
-  .top:hover .tile-title,
-  .top:hover .frontPlay,
-  .top:hover .frontDel {
-    opacity: 0;
-    pointer-events: none;
   }
 
   .fa-2x {
@@ -903,6 +913,10 @@ fieldset {
 
   .set-slide-up {
     bottom: 90px;
+  }
+
+  .prof-mob-controls .set-slide-up {
+    bottom: 60px;
   }
 
   .set-search-up {

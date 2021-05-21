@@ -24,7 +24,7 @@ function saved_click(event) {
 function list_display(save_clicked) {
 
   console.log('ping')
-  if('ontouchstart' in document.body){
+  if('ontouchstart' in document.body || window.innerWidth < 900){
     saved_list_closer()
   }
 

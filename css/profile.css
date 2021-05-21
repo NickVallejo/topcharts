@@ -231,10 +231,6 @@ header .head-wrap {
   left: 82px;
 }
 
-.set-slide-up {
-  bottom: 60px;
-}
-
 @media (max-width: 1200px) {
   .prof-chart {
     width: 20%;

@@ -7,10 +7,6 @@ const ytWrap = document.querySelector('.yt-wrap')
 const user = pathArray[1]
 const chart = pathArray[3]
 
-//! FIGURE OUT WHY THESE CANT IMPORT
-// import addtileListeners from './chartSizeSet.js'
-// import tileSettings from './tileSettings.js'
-
 function tileSettings(e) {
 
     console.log(window.viewChart, 'YA')
@@ -41,14 +37,13 @@ function tileSettings(e) {
     }
   }
 
-function addtileListeners(){
-    const all_top = document.querySelectorAll(".top")
-    all_top.forEach((top) => {
-      top.addEventListener("click", tileSettings)
-    })
-    console.log('listeners added', all_top)
-  }
-
+// function addtileListeners(){
+//     const all_top = document.querySelectorAll(".top")
+//     all_top.forEach((top) => {
+//       top.addEventListener("click", tileSettings)
+//     })
+//     console.log('listeners added', all_top)
+//   }
 
 const getViewData = async () => {
 

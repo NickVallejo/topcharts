@@ -68,6 +68,8 @@ function timeOutClear(e){
 
     this.addEventListener("touchstart", tileSettings)
 
+    console.log(this.childNodes);
+
     this.childNodes[1].style.display = "block";
     for(i = 1; i < 5; i++){
         this.childNodes[i].style.opacity = "1"
