@@ -7,7 +7,6 @@ async function chartUpdate(req, res, next) {
     const { title, updatedChart } = req.body
   
     try {
-      console.log('updating with this title:', title)
       //find current user by their id
       const user = await User.findById(req.session.userId)
       //find chart with the query string title and user's id as the author

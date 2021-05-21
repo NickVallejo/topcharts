@@ -13,9 +13,13 @@ function consolidate(){
   })
 
   if(savedNames.length > 5 && suggsLoaded == false){
-    sugg_load()
+    sugg_load(savedNames)
     suggLoader.classList.add('show-sugg-loader');
+  } else {
+    console.log("DENIED the sugg load because suggsLoaded = " + suggsLoaded)
   }
+
+  console.log('FROM CONSOLIDATE', savedNames)
 }
 
 //! FUNCTION TO UPDATE A CHART

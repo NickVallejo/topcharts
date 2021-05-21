@@ -42,7 +42,6 @@ const forgot_route = require("./routes/forgotRoute")
 
 //Imported Functions
 require('./js-serverside/albumSuggs.js')
-require('./js-serverside/artistRefresh.js')
 require('./js-serverside/chartUpdate.js')
 require('./js-serverside/chartSave.js')
 require('./js-serverside/chartDelete.js')
@@ -118,7 +117,7 @@ root.get("/", (req, res, next) => {
 })
 
 //! SENDS USER TO DASHBOARD AFTER AUTHCHECK AND REFRESHING ARTISTS
-root.get("/dashboard", authCheck, artistRefresh, (req, res, next) => {
+root.get("/dashboard", authCheck, (req, res, next) => {
   console.log("album suggs loaded? " + req.session.suggsLoaded)
   const logged = req.session.logged
   const userInfo = logged ? req.session.userInfo : '';
@@ -202,20 +201,18 @@ root.get("/my-lists", async (req, res, next) => {
 })
 
 //! UPDATES A CHART AND THEN REFRESHES LIST OF ARTIST NAMES
-root.post("/update", chartUpdate, artistRefresh, (req, res, next) => {
-  console.log("the newset list of artists", req.session.artistNames)
+root.post("/update", chartUpdate, (req, res, next) => {
   res.end()
 })
 
 
 //! SAVES A NEW CHART AND THEN REFRESHES LIST OF ARTIST NAMES
-root.post("/", chartSave, artistRefresh, (req, res, next) => {
-  console.log("the newset list of artists", req.session.artistNames)
+root.post("/", chartSave, (req, res, next) => {
   res.end()
 })
 
 //! DELETES A CHART AND THEN REFRESHES LIST OF ARTIST NAMES
-root.post("/list-delete", chartDelete, artistRefresh, (req, res, next) => {
+root.post("/list-delete", chartDelete, (req, res, next) => {
   console.log("Heres what we sent:" + res.locals.indexOfChart)
   res.end(res.locals.indexOfChart) //sends the index of the chart that needs to be deleted over to front-end
 })

@@ -111,10 +111,12 @@ async function list_load() {
   }
 }
 
-function sugg_load() {
+function sugg_load(savedNames) {
+
+  console.log('SAVED NAMES IN SUGG_LOAD', savedNames)
 
   sugg_loader = new XMLHttpRequest()
-  sugg_loader.open("GET", "http://localhost:4001/similar-artists")
+  sugg_loader.open("GET", `http://localhost:4001/similar-artists?artistNames=${encodeURIComponent(JSON.stringify(savedNames))}`)
   sugg_loader.onload = function () {
     if (sugg_loader.responseText !== "") {
       suggLoader.classList.remove('show-sugg-loader');
@@ -140,13 +142,8 @@ function sugg_load() {
       console.log("SUGGS LOADED HAS BEEN MADE TRUE")
     }
   }
-
-  if (suggsLoaded == false) {
-    console.log("PASSED the sugg load because suggsLoaded = " + suggsLoaded)
-    sugg_loader.send()
-  } else {
-    console.log("DENIED the sugg load because suggsLoaded = " + suggsLoaded)
-  }
+  
+  sugg_loader.send();
 }
 
 async function appExecute() {
@@ -164,6 +161,7 @@ async function appExecute() {
 
   if(all_top){
     await addtileListeners()
+    await addTitleListener('Enter Title Here...')
   }
 }
 
