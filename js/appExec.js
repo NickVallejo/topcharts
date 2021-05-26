@@ -141,9 +141,19 @@ function sugg_load(savedNames) {
       suggsLoaded = true
       console.log("SUGGS LOADED HAS BEEN MADE TRUE")
     }
+          document.removeEventListener('click', suggLoadAborter)
   }
   
   sugg_loader.send();
+
+  document.addEventListener('click', suggLoadAborter)
+  
+  function suggLoadAborter(e) {
+    if(e.target.tagName == 'A'){
+      sugg_loader.abort();
+      document.removeEventListener('click', suggLoadAborter)
+    }
+  }
 }
 
 async function appExecute() {

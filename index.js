@@ -334,6 +334,7 @@ root.get('/:username', async (req,res) => {
 
   await User.findOne({username}, (err, user) => {
     if (user) {
+      console.log('USER IS FOUND')
       console.log(user.username)
       userFound(user)
     } else{
