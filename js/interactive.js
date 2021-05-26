@@ -13,8 +13,23 @@ const navTapped = document.querySelector('.nav-tapped')
 const profBtn = document.querySelector('.prof-img-mob')
 const roundDown = document.querySelector('.round-down-btn')
 const savedTitles = document.querySelectorAll('.saved_item')
+const mobListBtn = document.querySelector('.list-burg')
+const chartNames = document.querySelector('.chart_names')
 
 let up = false;
+
+if(mobListBtn != null){
+    mobListBtn.addEventListener('click', toggleMobChartList)  
+}
+
+function toggleMobChartList(){
+    if(chartNames.classList.contains('chart_names_show')){
+        chartNames.classList.remove('chart_names_show')
+    } else{
+        chartNames.classList.add('chart_names_show')
+
+    }
+}
 
 function saved_list_closer(){
     setTimeout(() => {
@@ -24,6 +39,7 @@ function saved_list_closer(){
 }
 
 profBtn.addEventListener('click', () => {
+    ytExit()
     const slidUp =  document.querySelector('.set-slide-up');
     const navTapped = document.querySelector('.nav-tapped')
     
@@ -39,6 +55,7 @@ profBtn.addEventListener('click', () => {
 
 if(setBtn){
     setBtn.addEventListener('click', () => {
+        ytExit()
         const slidUp =  document.querySelector('.set-slide-up');
         const navTapped = document.querySelector('.nav-tapped')
         
@@ -54,6 +71,7 @@ if(setBtn){
 
 if(reccBtn){
     reccBtn.addEventListener('click', () => {
+        ytExit()
         const slidUp =  document.querySelector('.set-slide-up');
         const navTapped = document.querySelector('.nav-tapped')
 
@@ -70,6 +88,7 @@ if(reccBtn){
 
 if(savedBtn){
     savedBtn.addEventListener('click', () => {
+        ytExit()
         const slidUp =  document.querySelector('.set-slide-up')
         const navTapped = document.querySelector('.nav-tapped')
         const savedItems = document.querySelectorAll('.saved_item')
@@ -109,6 +128,7 @@ if(showReccs){
 
 if(roundUp){
     roundUp.addEventListener('click', () => {
+        ytExit()
         const slidUp =  document.querySelector('.set-slide-up');
         const navTapped = document.querySelector('.nav-tapped')
     
@@ -141,3 +161,11 @@ window.addEventListener('resize', () => {
         roundDown.classList.add('round-hide')
     }
 })
+
+function ytExit(){
+    const ytVid = document.querySelector('.yt-vid')
+
+    if(ytVid){
+        ytVid.remove()
+    }
+}

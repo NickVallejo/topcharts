@@ -11,9 +11,10 @@
 
 <body style="min-height: 100vh;">
     <div class="notice-wrap"></div>
-
-    <%- body %>
+    <section class="home-body">
+        <%- body %>
+    </section>
 
     <%- include('../partials/footer', {logged: logged, userInfo: userInfo}) %>
-  </body>
+</body>
 </html>

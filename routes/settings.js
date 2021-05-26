@@ -126,6 +126,7 @@ settings.post('/email', (req, res, next) => {
                 res.send({noticeType: 'error', noticeTxt: 'Incorrect password. Please try again.'})
               }
             else{
+                req.session.userInfo.email = email
                 user.email = email;
                 user.save(()=> {
                   res.send({noticeType: 'success', noticeTxt: 'Email successfully changed!'})

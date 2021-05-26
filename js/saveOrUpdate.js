@@ -13,8 +13,10 @@ function consolidate(){
   })
 
   if(savedNames.length > 5 && suggsLoaded == false){
+    const noReccsTxt = document.querySelector('.no-reccs-txt')
     sugg_load(savedNames)
     suggLoader.classList.add('show-sugg-loader');
+    noReccsTxt.remove();
   } else {
     console.log("DENIED the sugg load because suggsLoaded = " + suggsLoaded)
   }

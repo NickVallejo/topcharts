@@ -28,9 +28,16 @@ function tileSettings(e) {
           ytWrap.innerHTML = `<div class="yt-vid"><p class="yt-exit">X</p><iframe width="560" height="315" src=${url}?rel=0&controls=1&autoplay=1&mute=0 allow="autoplay" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>`
           ytExit = document.querySelector('.yt-exit')
           ytVid = document.querySelector('.yt-vid')
+
+          const slidUpMenu = document.querySelector('.set-slide-up')
+          if(slidUpMenu){
+            slidUpMenu.classList.remove('set-slide-up')
+          }
+
+          console.log('PANG PANG PANG')
           
           ytExit.addEventListener('click', () => {
-              ytVid.remove()
+            ytVid.remove();
           })
         }
         ytSearch.send()
@@ -66,7 +73,7 @@ const showViewData = (user, chart) => {
   
   //check if the name attr of the clicked save matches one in the saved array, then add it to a new array
 
-    frontEndTitle.innerHTML = `<h3><span><a href="/${user}">${user}</a>: ${chart.title}</span></h3>`
+    frontEndTitle.innerHTML = `<h3 class="view-title-info"><span><a class="view-username" href="/${user}">${user}:</a> ${chart.title}</span></h3>`
   
     //Erase all current tiles and replace with selected list
     topWrapper.innerHTML = '';

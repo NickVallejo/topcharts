@@ -1,55 +1,45 @@
-<div class="logreg-wrap">
+<section class="logreg-hero">
+  <div class="logreg-wrap">
 
-  <div class="logreg-box">
-    <h1>Register</h1>
+    <div class="logreg-box">
+      <h1>Register</h1>
 
-    <% if(errs) {%>
-    <div class="errs">
-      <h5>Invalid Credentials:</h5>
-      <ul>
-        <% for(i = 0; i < errs.length; i++) {%>
-        <li><%- errs[i].msg %></li>
-        <% } %>
-      </ul>
+      <% if(errs) {%>
+      <div class="errs">
+        <h5>Invalid Credentials:</h5>
+        <ul>
+          <% for(i = 0; i < errs.length; i++) {%>
+          <li><%- errs[i].msg %></li>
+          <% } %>
+        </ul>
+      </div>
+    <% } %>
+
+    <% 
+    let x = 0;
+    const inputValue =  inputs ? inputs : ["", "", ""]; 
+    %>
+
+  <form class="reg-form" action="/register" method="post">
+    <input type="text" name="username" placeholder="Username..." value="<%= inputValue[0] %>" />
+    <input type="text" name="email"  placeholder="Email..." value="<%= inputValue[1] %>" />
+    <div class="eye">
+      <input type="password"  name="password"  placeholder="Password..." value="<%= inputValue[2] %>" />
+      <i class="far fa-eye"></i>
     </div>
-  <% } %>
+    <div class="eye">
+      <input type="password" name="password2"  placeholder="Confirm Password..." />
+      <i class="far fa-eye"></i>
+    </div>
+    <button class="new-btn" type="submit" name="button">Register</button>
+  </form>
 
-  <% if(inputs) { %>
-    
-    <form class="reg-form" action="/register" method="post">
-      <input type="text" name="username" placeholder="Username..." value= <%= inputs[0] %> />
-      <input type="text" name="email"  placeholder="Email..." value= <%= inputs[1] %> />
-      <div class="eye">
-        <input type="password"  name="password"  placeholder="Password..." value= <%= inputs[2] %> />
-        <i class="far fa-eye"></i>
-      </div>
-      <div class="eye">
-        <input type="password" name="password2"  placeholder="Confirm Password..." />
-        <i class="far fa-eye"></i>
-      </div>
-      <button type="submit" name="button">Register</button>
-    </form>
-  <% } else {%>
+    <div class="log-opts">
+      <a href="/login">Login</a>
+    </div>
+    </div>
 
-    <form class="reg-form" action="/register" method="post">
-      <input type="text" name="username" value="" placeholder="Username..."/>
-      <input type="text" name="email" value="" placeholder="Email..."/>
-      <div class="eye">
-        <input type="password" name="password"  placeholder="Password..." />
-        <i class="far fa-eye"></i>
-      </div>
-      <div class="eye">
-        <input type="password" name="password2"  placeholder="Confirm Password..." />
-        <i class="far fa-eye"></i>
-      </div>
-      <button type="submit"  name="button">Register</button>
-
-    </form>
-
-  <% } %>
-    <a href="/login">Login</a>
   </div>
-
-</div>
+</section>
 
 <script type="text/javascript" src="http://localhost:8888/topsters3 - copy/js/logreg/logreg.js"></script>

@@ -1,37 +1,42 @@
-<div class="logreg-wrap">
+<section class="logreg-hero">
+  <div class="logreg-wrap">
 
-  <div class="logreg-box">
+    <div class="logreg-box">
 
-    <% if(passChanged == true) {%>
-      <div class="succs">
-        <h5>Password Change complete!</h5>
+      <% if(passChanged == true) {%>
+        <div class="succs">
+          <h5>Password Change complete!</h5>
+        </div>
+      <% } %>
+
+      <% if(errs) {%>
+        <div class="errs">
+          <h5>Invalid Credentials:</h5>
+          <ul>
+            <% for(i = 0; i < errs.length; i++) {%>
+            <li><%- errs[i].msg %></li>
+            <% } %>
+          </ul>
+        </div>
+      <% } %>
+
+    <h1>Welcome to Topsters</h1>
+    <form class="" action="/login" method="post">
+      <input placeholder="Username" type="text" name="username" value="" />
+      <div class="eye">
+        <input placeholder="Password" type="password" name="password" value="" />
+        <i class="far fa-eye"></i>
       </div>
-    <% } %>
+      <button class="new-btn" type="submit">Login</button>
+    </form>
 
-    <% if(errs) {%>
-      <div class="errs">
-        <h5>Invalid Credentials:</h5>
-        <ul>
-          <% for(i = 0; i < errs.length; i++) {%>
-          <li><%- errs[i].msg %></li>
-          <% } %>
-        </ul>
-      </div>
-    <% } %>
-
-  <h1>Welcome to Topsters.</h1>
-  <form class="" action="/login" method="post">
-    <input placeholder="Username" type="text" name="username" value="" />
-    <div class="eye">
-      <input placeholder="Password" type="password" name="password" value="" />
-      <i class="far fa-eye"></i>
+    <div class="log-opts">
+      <a href="/register">Register</a>
+      <a href="/forgot">Forgot</a>
     </div>
-    <button type="submit">Login</button>
-  </form>
 
-  <a href="/register">Register</a>
-
+    </div>
   </div>
-</div>
+</section>
 
 <script type="text/javascript" src="http://localhost:8888/topsters3 - copy/js/logreg/logreg.js"></script>

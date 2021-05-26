@@ -2,7 +2,6 @@ const ytWrap = document.querySelector('.yt-wrap')
 
 //DELETE A TILE FROM A LIST
 function tileSettings(e) {
-  console.log('im listening')
     if (e.target.classList.contains("frontDel")) {
       const position = e.target
       const positionToDel = position.parentNode.getAttribute("rank")
@@ -16,8 +15,6 @@ function tileSettings(e) {
       while(selectedNodes.length > 1){
         topWrapper.childNodes[positionToDel].childNodes[1].remove();
       }
-      
-      console.log('NODES AFTER', topWrapper.childNodes[positionToDel].childNodes)
       //removes the album from the chartnames side-list
       chartNamesWrapper.childNodes[positionToDel].textContent = `${parseInt(positionToDel)+1}.`
 
@@ -66,9 +63,14 @@ function tileSettings(e) {
           ytWrap.innerHTML = `<div class="yt-vid"><p class="yt-exit">X</p><iframe width="560" height="315" src=${url}?rel=0&controls=1&autoplay=1&mute=0 allow="autoplay" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>`
           ytExit = document.querySelector('.yt-exit')
           ytVid = document.querySelector('.yt-vid')
+
+          const slidUpMenu = document.querySelector('.set-slide-up')
+          if(slidUpMenu){
+            slidUpMenu.classList.remove('set-slide-up')
+          }
           
           ytExit.addEventListener('click', () => {
-              ytVid.remove()
+            ytVid.remove()
           })
         }
         ytSearch.send()

@@ -5,6 +5,7 @@ const emailForm = document.querySelector('#emailChangeForm');
 const passForm = document.querySelector('#passChangeForm');
 
 const popup = document.querySelector('.popup');
+const popupInputs = document.querySelectorAll('.popup-wrap input[type="password"], .popup-wrap input[type="email"]')
 
 passEdit.addEventListener('click', showEditOverlay);
 emailEdit.addEventListener('click', showEditOverlay);
@@ -24,18 +25,14 @@ function showEditOverlay(e){
 }
 
 function removeEditOverlay(e){
-    if(e == false){
+    if(e == false || e.target.classList.contains('popup-show')){
         const formShow = document.querySelector('.setting-form-show')
         popup.classList.remove('popup-show')
         setTimeout(()=> {
             formShow.classList.remove('setting-form-show')
-        },400)
-    }
-    else if(e.target.classList.contains('popup-show')){
-        const formShow = document.querySelector('.setting-form-show')
-        popup.classList.remove('popup-show')
-        setTimeout(()=> {
-            formShow.classList.remove('setting-form-show')
+            popupInputs.forEach(input => {
+                input.value = ''
+            })
         },400)
     }
 }

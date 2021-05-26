@@ -112,8 +112,7 @@ root.get("/", (req, res, next) => {
   console.log('reached home page with a logged status of ' + req.session.logged)
   const logged = req.session.logged
   const userInfo = logged ? req.session.userInfo : '';
-  res.render('dashView-home', {home: true, logged, userInfo, layout: './layouts/dashboard'})
-  
+  res.render('dashView-home', {home: true, logged, userInfo, layout: './layouts/home'})
 })
 
 //! SENDS USER TO DASHBOARD AFTER AUTHCHECK AND REFRESHING ARTISTS

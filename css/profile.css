@@ -101,8 +101,12 @@ header .head-wrap {
 .prof-chart-title {
   margin: 0px;
   font-weight: 300;
-  display: inline;
+  display: block;
   margin-bottom: 10px;
+  max-width: 80%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .prof-settings {
@@ -252,6 +256,11 @@ header .head-wrap {
     width: 75px;
     height: 75px;
   }
+
+  .prof-chart .prof-chart-wrapper img {
+    width: calc(50%);
+    max-width: auto;
+  }
 }
 
 @media (max-width: 690px) {
@@ -281,12 +290,23 @@ header .head-wrap {
   }
 
   .profile-box h2 {
-    padding-left: 60px;
-    padding-right: 60px;
+    padding-left: 30px;
+    padding-right: 30px;
+  }
+
+  .profile-charts {
+    padding: 0px 30px;
+  }
+
+  .profile-box h2 {
+    font-size: 20px;
   }
 
   .profile-box h2::before {
-    left: 42px;
+    left: 18px;
+    top: 36px;
+    width: 20px;
+    height: 20px;
   }
 
   .prof-chart {
@@ -297,6 +317,6 @@ header .head-wrap {
 
 @media (max-width: 500px) {
   .prof-padding {
-    padding: 0px 20px;
+    padding: 0px 30px;
   }
 }

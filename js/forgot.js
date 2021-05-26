@@ -71,7 +71,7 @@ forgotForm.addEventListener('submit', (e) => {
                 succTxt.textContent = data.noticeTxt;
             }
             else {
-                noticeInit(data.errorNotice, JSON.stringify(data.noticeTxt));
+                noticeInit(data.errorNotice, data.noticeTxt);
             }
             
         }

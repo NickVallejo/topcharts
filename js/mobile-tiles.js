@@ -47,7 +47,9 @@ function timeOutClear(e){
       e.preventDefault();
       const handler = longPress.bind(this)
       //if the touch is held for delays ms then trigger a function
-      touch = setTimeout(handler, delay)
+      if(this.childNodes[1] !== undefined){
+        touch = setTimeout(handler, delay)
+      }
       //if the touch is ended before the timout function above, then do timeoutClear
       e.target.addEventListener('touchend', timeOutClear); 
     }
@@ -55,6 +57,7 @@ function timeOutClear(e){
 
   //show tile settings for the tile being long pressed
   function longPress(){
+    console.log(this)
     const all_top = document.querySelectorAll('.top');
     const handler = closeSettings.bind(this)
 
@@ -68,13 +71,11 @@ function timeOutClear(e){
 
     this.addEventListener("touchstart", tileSettings)
 
-    console.log(this.childNodes);
-
-    this.childNodes[1].style.display = "block";
-    for(i = 1; i < 5; i++){
-        this.childNodes[i].style.opacity = "1"
-        this.childNodes[i].style.pointerEvents = "all"
-    }
+      this.childNodes[1].style.display = "block";
+      for(i = 1; i < 5; i++){
+          this.childNodes[i].style.opacity = "1"
+          this.childNodes[i].style.pointerEvents = "all"
+      }
 
     function closeSettings(e){
 
@@ -83,11 +84,12 @@ function timeOutClear(e){
       !e.target.classList.contains('frontDel') && 
       !e.target.classList.contains('tile-title') ){
   
-        this.childNodes[1].style.display = "none";
-        for(i = 1; i < 5; i++){
-            this.childNodes[i].style.opacity = "0"
-            this.childNodes[i].style.pointerEvents = "none"
-          }
+          console.log(this.childNodes)
+          this.childNodes[1].style.display = "none";
+          for(i = 1; i < 5; i++){
+              this.childNodes[i].style.opacity = "0"
+              this.childNodes[i].style.pointerEvents = "none"
+            }
   
         this.removeEventListener("touchstart", tileSettings)
         document.removeEventListener("touchstart", handler)

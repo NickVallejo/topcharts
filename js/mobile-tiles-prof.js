@@ -14,14 +14,16 @@ function timeOutClear(e){
       e.preventDefault();
       const handler = longPress.bind(this)
       //if the touch is held for delays ms then trigger a function
-      touch = setTimeout(handler, delay)
+      if(this.childNodes[1] !== undefined){
+        touch = setTimeout(handler, delay)
+      }
       //if the touch is ended before the timout function above, then do timeoutClear
       e.target.addEventListener('touchend', timeOutClear); 
     }
   }
 
   //show tile settings for the tile being long pressed
-  function longPress(){
+  function longPress(e){
     const all_top = document.querySelectorAll('.top');
     const handler = closeSettings.bind(this)
 

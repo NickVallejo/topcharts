@@ -4,6 +4,9 @@ const followBtn = document.querySelector('.follow-btn')
 const profImgSubmit = document.querySelector('#profile-image-submit');
 const profImgDisplay = document.querySelector('#profile-img-display');
 const profImgDisplayLg = document.querySelector('.profile-img-display-lg');
+const passNew = document.querySelector('.pass-pass-new')
+const passConfirm = document.querySelector('.pass-pass-confirm')
+const passCurrentPass = document.querySelector('.pass-curr-pass')
 
 //Password change values
 const passChangeForm = document.querySelector('#passChangeForm');
@@ -34,7 +37,12 @@ if(emailChangeForm){
                 console.log(data);
                 noticeInit(data.noticeType, data.noticeTxt);
                 if(data.noticeType == 'success'){
+                    const emailChangeInput = document.querySelector('.email-change-wrap input')
+                    emailChangeInput.value = formData.get('email')
                     removeEditOverlay(false);
+                } else if(data.noticeType == 'error'){
+                    const emailPassConfirmInput = document.querySelector('.email-pass-confirm')
+                    emailPassConfirmInput.value = ''
                 }
             }
             req.onerror = () => {
@@ -147,6 +155,8 @@ if(passChangeForm){
         if(!formData.get('current') || !formData.get('newPass') || !formData.get('confirmPass')){
             noticeInit('error', 'Form fields missing. Please try again.');
         } else if(formData.get('newPass') !== formData.get('confirmPass')){
+            passNew.value = ''
+            passConfirm.value = ''
             noticeInit('error', 'The passwords you entered were not identical. Please try again.');
         } else if(formData.get('confirmPass').length < 6){
             noticeInit('error', 'Password too weak. Please try again.');
@@ -163,11 +173,13 @@ if(passChangeForm){
                 noticeInit(data.noticeType, data.noticeTxt);
                 if(data.noticeType == 'success'){
                     removeEditOverlay(false);
+                }else if(data.noticeType == 'error'){
+                    passCurrentPass.value = ''
+                    passConfirm.value = ''
                 }
             }
             req.onerror = () => {
                 noticeInit('error', req.responseText);
-
             }
 
             req.send(`current=${formData.get('current')}&newPass=${formData.get('newPass')}&confirmPass=${formData.get('confirmPass')}`);
@@ -183,17 +195,5 @@ const noticeInit = (noticeType, noticeTxt) => {
         notice.style.opacity = '0';
     }, 5000)
 }
-
-// const passChangeHandler = (e) => {
-//     e.preventDefault();
-//     const formEl = document.forms.passChangeForm;
-//     const formData = new FormData(formEl);
-//     console.log(formData)
-//     // e.preventDefault();
-//     // const req = new XMLHttpRequest();
-//     // req.open('')
-// }
-
-//  getProfileData();
 
 chartListeners();
