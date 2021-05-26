@@ -34,7 +34,7 @@ userPages.post("/", async (req, res, next) => {
   const { username, password } = req.body //pulls the email and password from the body of the post request
   const errs = [];
 
-  await User.findOne({ username }, async (err, user) => { //uses mongoose to findOne certain email from the user database model
+  await User.findOne({$or: [{ username: username }, {email: username}]}, async (err, user) => { //uses mongoose to findOne certain email from the user database model
     try{
       if (user) {
         console.log("user found")
