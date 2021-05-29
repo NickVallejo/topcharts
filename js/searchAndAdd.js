@@ -83,7 +83,7 @@ function tileDrop(suggIndex, tileIndex){
     }
     
     //updates front end words for album info on right sidebar
-    chartNamesWrapper.childNodes[tileIndex].innerHTML = `${parseInt(tileIndex)+1}. ${sugg_array[suggIndex].artist} - ${sugg_array[suggIndex].album_name}`
+    chartNamesWrapper.childNodes[tileIndex].innerHTML = `<span class="chartNameNum">${parseInt(tileIndex)+1}.</span> ${sugg_array[suggIndex].artist} - ${sugg_array[suggIndex].album_name}`
     console.log(myListVariable)
     index = ""
 
@@ -145,8 +145,8 @@ function tileDrag(dragFromIndex, dragToIndex){
     myListVariable.splice(dragToIndex, 1, myListVariable[dragFromIndex]);
     myListVariable.splice(dragFromIndex, 1, storedObject);
 
-    chartNamesWrapper.childNodes[dragToIndex].innerHTML = myListVariable[dragToIndex] == null ? `${parseInt(dragToIndex)+1}.` : `${parseInt(dragToIndex)+1}. ${myListVariable[dragToIndex].artist} - ${myListVariable[dragToIndex].album_name}`
-  chartNamesWrapper.childNodes[dragFromIndex].innerHTML = myListVariable[dragFromIndex] == null ? `${parseInt(dragFromIndex)+1}.` : `${parseInt(dragFromIndex)+1}. ${myListVariable[dragFromIndex].artist} - ${myListVariable[dragFromIndex].album_name}`
+    chartNamesWrapper.childNodes[dragToIndex].innerHTML = myListVariable[dragToIndex] == null ? `<span class="chartNameNum">${parseInt(dragToIndex)+1}.</span>` : `<span class="chartNameNum">${parseInt(dragToIndex)+1}.</span> ${myListVariable[dragToIndex].artist} - ${myListVariable[dragToIndex].album_name}`
+    chartNamesWrapper.childNodes[dragFromIndex].innerHTML = myListVariable[dragFromIndex] == null ? `<span class="chartNameNum">${parseInt(dragFromIndex)+1}.</span>` : `<span class="chartNameNum">${parseInt(dragFromIndex)+1}.</span> ${myListVariable[dragFromIndex].artist} - ${myListVariable[dragFromIndex].album_name}`
     }
 
    else{
@@ -167,8 +167,8 @@ function tileDrag(dragFromIndex, dragToIndex){
   all_top[dragToIndex].childNodes[4].innerHTML = myListVariable[dragToIndex] == null ? all_top[dragToIndex].childNodes[4].remove() : all_top[dragFromIndex].childNodes[4].innerHTML
   all_top[dragFromIndex].childNodes[4].innerHTML = myListVariable[dragFromIndex] == null ? all_top[dragFromIndex].childNodes[4].remove() : storedTitle
 
-  chartNamesWrapper.childNodes[dragToIndex].innerHTML = myListVariable[dragToIndex] == null ? `${parseInt(dragToIndex)+1}.` : `${parseInt(dragToIndex)+1}. ${myListVariable[dragToIndex].artist} - ${myListVariable[dragToIndex].album_name}`
-  chartNamesWrapper.childNodes[dragFromIndex].innerHTML = myListVariable[dragFromIndex] == null ? `${parseInt(dragFromIndex)+1}.` : `${parseInt(dragFromIndex)+1}. ${myListVariable[dragFromIndex].artist} - ${myListVariable[dragFromIndex].album_name}`
+  chartNamesWrapper.childNodes[dragToIndex].innerHTML = myListVariable[dragToIndex] == null ? `<span class="chartNameNum">${parseInt(dragToIndex)+1}.</span>` : `<span class="chartNameNum">${parseInt(dragToIndex)+1}.</span> ${myListVariable[dragToIndex].artist} - ${myListVariable[dragToIndex].album_name}`
+  chartNamesWrapper.childNodes[dragFromIndex].innerHTML = myListVariable[dragFromIndex] == null ? `<span class="chartNameNum">${parseInt(dragFromIndex)+1}.</span>` : `<span class="chartNameNum">${parseInt(dragFromIndex)+1}.</span> ${myListVariable[dragFromIndex].artist} - ${myListVariable[dragFromIndex].album_name}`
     }
   //Save chart to localstorage if it's unsaved, or update an already saved chart
   numToggle();

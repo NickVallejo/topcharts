@@ -69,7 +69,7 @@ function recoveryGen(req, res, next){
       to: req.user.email,
       from: 'nico.vallejo97@gmail.com',
       subject: 'Topsters Password Reset',
-      text: `Check this link to reset your password. http://localhost:4001/reset/${req.token}`
+      text: `Check this link to reset your password. http://192.168.0.11:4001/reset/${req.token}`
     }
   
     smtpTransport.sendMail(mailOptions, (err) => {

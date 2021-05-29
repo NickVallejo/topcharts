@@ -37,11 +37,12 @@ userPages.post("/", async (req, res, next) => {
   await User.findOne({$or: [{ username: username }, {email: username}]}, async (err, user) => { //uses mongoose to findOne certain email from the user database model
     try{
       if (user) {
-        console.log("user found")
+        console.log('USER FOUND IN LOGIN PATH')
         if (await bcrypt.compare(password, user.password)) { //if a user is found and the password matches, create the userId session property and redirect to dashboard
           console.log("password match")
           req.session.userId = user._id
           res.redirect("/dashboard")
+          res.end()
         } else { //this else stament fires when the email matches but the password is incorrect. Redirects user back to login page
           errs.push({msg:"Incorrect password"})
           res.render('dashView-login', {layout: './layouts/dashboard', passChanged: false, home: false, logged: false, userInfo: '', errs: errs})

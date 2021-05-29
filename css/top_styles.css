@@ -42,7 +42,7 @@ li {
 }
 
 .home-body {
-  background-image: url("http://localhost:8888/topsters3 - copy/assets/topsters-bg.png");
+  background-image: url("http://192.168.0.11:8888/topsters3 - copy/assets/topsters-bg.png");
   height: calc(100vh - 68.39px);
   display: flex;
   flex-flow: column;
@@ -304,6 +304,12 @@ nav {
 .top_wrapper {
   display: flex;
   flex-wrap: wrap;
+  padding-bottom: 35px;
+}
+
+.chartNameNum {
+  color: #329920;
+  font-weight: 600;
 }
 
 h3,
@@ -473,7 +479,7 @@ fieldset {
 .chart_title h3 {
   font-size: 20px;
   /* margin-bottom: 10px; */
-  max-width: 70%;
+  max-width: 500px;
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
@@ -1223,10 +1229,6 @@ header #profile-img-display {
   .chart_title {
     max-width: 350px;
     width: 100%;
-  }
-
-  .chart_title h3 {
-    max-width: 150px;
   }
 }
 

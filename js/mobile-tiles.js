@@ -1,5 +1,6 @@
 let touch;
 const delay = 300;
+const shortDelay = 100;
 
 function mobSearchAdd(){
 
@@ -49,9 +50,10 @@ function timeOutClear(e){
       //if the touch is held for delays ms then trigger a function
       if(this.childNodes[1] !== undefined){
         touch = setTimeout(handler, delay)
+        // tap = setTimeout(timeOutClear, shortDelay)
       }
       //if the touch is ended before the timout function above, then do timeoutClear
-      e.target.addEventListener('touchend', timeOutClear); 
+       e.target.addEventListener('touchend', timeOutClear); 
     }
   }
 
@@ -71,7 +73,7 @@ function timeOutClear(e){
 
     this.addEventListener("touchstart", tileSettings)
 
-      this.childNodes[1].style.display = "block";
+    this.childNodes[1].style.display = "block";
       for(i = 1; i < 5; i++){
           this.childNodes[i].style.opacity = "1"
           this.childNodes[i].style.pointerEvents = "all"

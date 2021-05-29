@@ -73,9 +73,9 @@ if(my_list.chart == undefined){
   chartNamesWrapper.innerHTML = ''
   for(i = 0; i < my_list.chart.length; i++){
   if (my_list.chart[i] !== null && my_list.chart[i] !== undefined) {
-    chartNamesWrapper.insertAdjacentHTML('beforeend', `<p class="albumInfo" rank=${i}> ${i+1}. ${my_list.chart[i].artist} - ${my_list.chart[i].album_name}</p>`)
+    chartNamesWrapper.insertAdjacentHTML('beforeend', `<p class="albumInfo" rank=${i}> <span class="chartNameNum">${i+1}.</span> ${my_list.chart[i].artist} - ${my_list.chart[i].album_name}</p>`)
   } else{
-    chartNamesWrapper.insertAdjacentHTML('beforeend', `<p class="albumInfo" rank=${i}> ${i+1}.</p>`)
+    chartNamesWrapper.insertAdjacentHTML('beforeend', `<p class="albumInfo" rank=${i}><span class="chartNameNum">${i+1}.</span></p>`)
   }
   }
 

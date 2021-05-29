@@ -105,7 +105,7 @@ function chartSizeSet(e){
             // topWrapper.insertAdjacentHTML('beforeend', `<div style="background-image: url(${my_list.chart[i].album_image})" class="top" rank=${i} active="no"><p class="frontRank">${i+1}</p><p class="frontDel">x</p></div>`)
             topWrapper.insertAdjacentHTML('beforeend', `<div style="background-image: url(${chartObject[i].album_image})" class="top top${i}" rank=${i} active="no"><p class="frontRank">${i+1}</p><div class="tile-hover" rank=${i}></div><i class="fas fa-times frontDel"></i><i class="fas fa-play-circle frontPlay"></i><p class="tile-title">${chartObject[i].artist} - ${chartObject[i].album_name}</p></div>`)
           } else{
-            topWrapper.insertAdjacentHTML('beforeend', `<div class="top top${i}" rank=${i} active="no"><p class="frontRank">${i+1}</p><p class="frontDel">x</p></div>`)
+            topWrapper.insertAdjacentHTML('beforeend', `<div class="top top${i}" rank=${i} active="no"><p class="frontRank">${i+1}</p></div>`)
           }
         }
       }
@@ -120,9 +120,9 @@ function chartSizeSet(e){
     for(i=0; i < size; i++){
       console.log(chartObject[i])
         if(chartObject[i] !== null && chartObject[i] !== undefined){
-        chartNamesWrapper.insertAdjacentHTML('beforeend', `<p class="albumInfo" rank=${i}>${i+1}. ${chartObject[i].artist} - ${chartObject[i].album_name}</p>`)
+        chartNamesWrapper.insertAdjacentHTML('beforeend', `<p class="albumInfo" rank=${i}><span class="chartNameNum">${i+1}.</span> ${chartObject[i].artist} - ${chartObject[i].album_name}</p>`)
         } else{
-        chartNamesWrapper.insertAdjacentHTML('beforeend', `<p class="albumInfo" rank=${i}>${i+1}.</p>`)
+        chartNamesWrapper.insertAdjacentHTML('beforeend', `<p class="albumInfo" rank=${i}><span class="chartNameNum">${i+1}.</span></p>`)
         }
      }
    }
