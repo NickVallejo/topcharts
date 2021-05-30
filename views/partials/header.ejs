@@ -1,7 +1,7 @@
 
   <header>
     <div class="head-wrap">
-      <a href="/"><img class="logo" src="http://192.168.0.11:8888/topsters3 - copy/assets/topsters-logo.png" alt=""></a>
+      <a href="/"><img class="logo" src="http://localhost:8888/topsters3 - copy/assets/topsters-logo.png" alt=""></a>
 
       <nav>
         <% if(logged == false) { %>
@@ -13,7 +13,7 @@
           <li><a href="/settings">Settings</a></li>
           <li><a href="/logout">Logout</a></li>
           <a class="prof-go" href="/<%= userInfo.username %>">
-            <div id="profile-img-display" style="background-image: url('http://192.168.0.11:4001/<%= userImage %>')"></div>
+            <div id="profile-img-display" style="background-image: url('http://localhost:4001/<%= userImage %>')"></div>
           </a>
         <% }  %>
       </nav>

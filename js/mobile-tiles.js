@@ -1,6 +1,7 @@
 let touch;
+let touchMoved;
 const delay = 300;
-const shortDelay = 100;
+const shortDelay = 100
 
 function mobSearchAdd(){
 
@@ -35,16 +36,26 @@ function mobSearchAdd(){
 }
 
 function timeOutClear(e){
+  console.log('touch end detected')
     clearTimeout(touch)
-    //start a switch with another tile
     mobSwitch(e);
     e.target.removeEventListener('touchend', timeOutClear); 
   }
 
+function touchMove(){
+  console.log('move detexted, touchmoved is true')
+  touchMoved = true
+
+  all_top.forEach(top => {
+    top.addEventListener("touchstart", touchStart)
+  })
+}
 
   //starts a touch on an existing tile
   function touchStart(e){
-    if(e.target.classList.contains('top')){
+    console.log("TOUCH START DETECXTED")
+    touchMoved = false;
+
       e.preventDefault();
       const handler = longPress.bind(this)
       //if the touch is held for delays ms then trigger a function
@@ -53,8 +64,7 @@ function timeOutClear(e){
         // tap = setTimeout(timeOutClear, shortDelay)
       }
       //if the touch is ended before the timout function above, then do timeoutClear
-       e.target.addEventListener('touchend', timeOutClear); 
-    }
+       e.target.addEventListener('touchend', timeOutClear);
   }
 
   //show tile settings for the tile being long pressed

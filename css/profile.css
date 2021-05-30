@@ -226,7 +226,7 @@ header .head-wrap {
 }
 
 .profile-box h2::before {
-  content: url("http://192.168.0.11:8888/topsters3 - copy/assets/title-rec.svg");
+  content: url("http://localhost:8888/topsters3 - copy/assets/title-rec.svg");
   display: block;
   width: 30px;
   height: 30px;

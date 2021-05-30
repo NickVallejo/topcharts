@@ -42,7 +42,7 @@ li {
 }
 
 .home-body {
-  background-image: url("http://192.168.0.11:8888/topsters3 - copy/assets/topsters-bg.png");
+  background-image: url("http://localhost:8888/topsters3 - copy/assets/topsters-bg.png");
   height: calc(100vh - 68.39px);
   display: flex;
   flex-flow: column;

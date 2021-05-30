@@ -53,7 +53,7 @@ function tileSettings(e) {
   //youtube play function for both the top tiles and reccs tiles
   function ytPlay(artist, album){
     let ytSearch = new XMLHttpRequest()
-    ytSearch.open("GET", `http://192.168.0.11:4001/yt-listen?artist=${artist}&album=${album}`)
+    ytSearch.open("GET", `http://localhost:4001/yt-listen?artist=${artist}&album=${album}`)
         ytSearch.onload = () => {
 
           let ytExit
