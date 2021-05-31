@@ -10,7 +10,7 @@ function addtileListeners(){
       if('ontouchstart' in document.body){
         console.log('touchstart detected')
         all_top.forEach((top) => {
-          top.addEventListener("touchstart", touchStart)
+          top.addEventListener("touchend", touchStart)
           top.addEventListener('touchmove', touchMove)
           // top.addEventListener("click", mobSwitch)
           top.setAttribute("draggable", "false")

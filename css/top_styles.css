@@ -21,6 +21,10 @@ li {
   font-weight: 300;
 }
 
+.select-border {
+  border: 2px solid #23b12a !important;
+}
+
 .list-burg {
   display: none !important;
   background: #329920;

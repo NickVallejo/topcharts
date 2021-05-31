@@ -42,9 +42,8 @@ function search(input) {
     const loadedSuggs = document.querySelectorAll(".sugg_album")
 
     loadedSuggs.forEach((sugg) => {
-      console.log('listener added!!!')
       if('ontouchstart' in document.body){
-        sugg.addEventListener("touchstart", mobSearchAdd)
+        sugg.addEventListener("touchend", mobSearchAdd)
       } else{
         sugg.addEventListener("dragstart", dragSearchDeskMob)
       }
