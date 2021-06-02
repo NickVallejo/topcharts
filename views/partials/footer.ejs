@@ -1,28 +1,25 @@
 <div class="mobile-controls prof-mob-controls">
-
-    <div class="mobile-nav mob-profile-nav">
-      <div class="mobile-nav-wrap">
-  
-        <div>
-          <i class="fas fa-bars fa-2x prof-img-mob"></i>      
-        </div>
-  
+  <div class="mobile-nav mob-profile-nav">
+    <div class="mobile-nav-wrap">
+      <div>
+        <i class="fas fa-bars fa-2x prof-img-mob"></i>
       </div>
-    </div>
-  
-    <div class="mob-settings mob-slider profile-slide">
-      <ul>
-        <% if(logged == false) { %>
-          <li><a href="/login">Login</a></li>
-          <li><a href="/register">Register</a></li>
-        <% }  else { %>
-        <li class="dash-li"><a href="/dashboard">Dashboard</a></li>
-        <li class="profile-li"><a href="/<%= userInfo.username %>">Profile</a></li>
-        <li class="settings-li"><a href="/settings">Settings</a></li>
-        <li class="logout-li"><a href="/logout">Logout</a></li>
-        <% } %>
-      </ul>
     </div>
   </div>
 
-  <script type="text/javascript" src="http://localhost:8888/topsters3 - copy/js/interactive.js"></script>
+  <div class="mob-settings mob-slider profile-slide">
+    <ul>
+      <% if(logged == false) { %>
+      <li><a href="/login">Login</a></li>
+      <li><a href="/register">Register</a></li>
+      <% } else { %>
+      <li class="dash-li"><a href="/dashboard">Dashboard</a></li>
+      <li class="profile-li"><a href="/<%= userInfo.username %>">Profile</a></li>
+      <li class="settings-li"><a href="/settings">Settings</a></li>
+      <li class="logout-li"><a href="/logout">Logout</a></li>
+      <% } %>
+    </ul>
+  </div>
+</div>
+
+<script type="text/javascript" src="http://localhost:8888/topsters3 - copy/js/interactive.js"></script>

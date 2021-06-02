@@ -1,41 +1,31 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
+  <% if (home) {%> <%- include('../partials/head-home') %> <% } else { %> <%- include('../partials/head-logreg') %> <% }
+  %> <% const userImage = userInfo.profileImage.replace(/\\/g, "/") %>
 
-<% if (home) {%>
-  <%- include('../partials/head-home') %>
-<% } else { %>
-  <%- include('../partials/head-logreg') %>
-<% } %>
-
-<% const userImage = userInfo.profileImage.replace(/\\/g, "/") %>
-
-<div class="header-hide-wrap">
-  <%- include('../partials/header', {logged: logged, userInfo: userInfo}) %>
-</div>
-  <body style="min-height: 100vh;">
+  <div class="header-hide-wrap"><%- include('../partials/header', {logged: logged, userInfo: userInfo}) %></div>
+  <body style="min-height: 100vh">
     <div class="notice-wrap"></div>
 
-    <%- body %>
-
-    <%- include('../partials/mobile-nav', {logged: logged, userInfo: userInfo, userImage: userImage}) %>
+    <%- body %> <%- include('../partials/mobile-nav', {logged: logged, userInfo: userInfo, userImage: userImage}) %>
 
     <script
-    src="https://code.jquery.com/jquery-3.4.1.js"
-    integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
-    crossorigin="anonymous"
-  ></script>
-  <script type="text/javascript" src="http://localhost:8888/topsters3 - copy/js/userSettings.js"></script>
-  <script type="text/javascript" src="http://localhost:8888/topsters3 - copy/js/tileSettings.js"></script>
-  <script type="text/javascript" src="http://localhost:8888/topsters3 - copy/js/trashOrDisplay.js"></script>
-  <script type="text/javascript" src="http://localhost:8888/topsters3 - copy/js/saveOrUpdate.js"></script>
-  <script type="text/javascript" src="http://localhost:8888/topsters3 - copy/js/mobile-tiles.js"></script>
-  <script type="text/javascript" src="http://localhost:8888/topsters3 - copy/js/searchAndAdd.js"></script>
-  <script type="text/javascript" src="http://localhost:8888/topsters3 - copy/js/unsavedChart.js"></script>
-  <script type="text/javascript" src="http://localhost:8888/topsters3 - copy/js/appExec.js"></script>
-  <script type="text/javascript" src="http://localhost:8888/topsters3 - copy/js/tileListeners.js"></script>
-  <script type="text/javascript" src="http://localhost:8888/topsters3 - copy/js/chartSizeSet.js"></script>
-  <script type="text/javascript" src="http://localhost:8888/topsters3 - copy/js/addCustomAlbum.js"></script>
-  <script type="text/javascript" src="http://localhost:8888/topsters3 - copy/js/html2canvas.js"></script>
-  <script type="text/javascript" src="http://localhost:8888/topsters3 - copy/js/screencap.js"></script>
+      src="https://code.jquery.com/jquery-3.4.1.js"
+      integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+      crossorigin="anonymous"
+    ></script>
+    <script type="text/javascript" src="http://localhost:8888/topsters3 - copy/js/userSettings.js"></script>
+    <script type="text/javascript" src="http://localhost:8888/topsters3 - copy/js/tileSettings.js"></script>
+    <script type="text/javascript" src="http://localhost:8888/topsters3 - copy/js/trashOrDisplay.js"></script>
+    <script type="text/javascript" src="http://localhost:8888/topsters3 - copy/js/saveOrUpdate.js"></script>
+    <script type="text/javascript" src="http://localhost:8888/topsters3 - copy/js/mobile-tiles.js"></script>
+    <script type="text/javascript" src="http://localhost:8888/topsters3 - copy/js/searchAndAdd.js"></script>
+    <script type="text/javascript" src="http://localhost:8888/topsters3 - copy/js/unsavedChart.js"></script>
+    <script type="text/javascript" src="http://localhost:8888/topsters3 - copy/js/appExec.js"></script>
+    <script type="text/javascript" src="http://localhost:8888/topsters3 - copy/js/tileListeners.js"></script>
+    <script type="text/javascript" src="http://localhost:8888/topsters3 - copy/js/chartSizeSet.js"></script>
+    <script type="text/javascript" src="http://localhost:8888/topsters3 - copy/js/addCustomAlbum.js"></script>
+    <script type="text/javascript" src="http://localhost:8888/topsters3 - copy/js/html2canvas.js"></script>
+    <script type="text/javascript" src="http://localhost:8888/topsters3 - copy/js/screencap.js"></script>
   </body>
 </html>

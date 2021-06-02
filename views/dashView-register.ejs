@@ -1,6 +1,5 @@
 <section class="logreg-hero">
   <div class="logreg-wrap">
-
     <div class="logreg-box">
       <h1>Register</h1>
 
@@ -13,32 +12,26 @@
           <% } %>
         </ul>
       </div>
-    <% } %>
+      <% } %> <% let x = 0; const inputValue = inputs ? inputs : ["", "", ""]; %>
 
-    <% 
-    let x = 0;
-    const inputValue =  inputs ? inputs : ["", "", ""]; 
-    %>
+      <form class="reg-form" action="/register" method="post">
+        <input type="text" name="username" placeholder="Username..." value="<%= inputValue[0] %>" />
+        <input type="text" name="email" placeholder="Email..." value="<%= inputValue[1] %>" />
+        <div class="eye">
+          <input type="password" name="password" placeholder="Password..." value="<%= inputValue[2] %>" />
+          <i class="far fa-eye"></i>
+        </div>
+        <div class="eye">
+          <input type="password" name="password2" placeholder="Confirm Password..." />
+          <i class="far fa-eye"></i>
+        </div>
+        <button class="new-btn" type="submit" name="button">Register</button>
+      </form>
 
-  <form class="reg-form" action="/register" method="post">
-    <input type="text" name="username" placeholder="Username..." value="<%= inputValue[0] %>" />
-    <input type="text" name="email"  placeholder="Email..." value="<%= inputValue[1] %>" />
-    <div class="eye">
-      <input type="password"  name="password"  placeholder="Password..." value="<%= inputValue[2] %>" />
-      <i class="far fa-eye"></i>
+      <div class="log-opts">
+        <a href="/login">Login</a>
+      </div>
     </div>
-    <div class="eye">
-      <input type="password" name="password2"  placeholder="Confirm Password..." />
-      <i class="far fa-eye"></i>
-    </div>
-    <button class="new-btn" type="submit" name="button">Register</button>
-  </form>
-
-    <div class="log-opts">
-      <a href="/login">Login</a>
-    </div>
-    </div>
-
   </div>
 </section>
 

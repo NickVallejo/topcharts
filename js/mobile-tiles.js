@@ -8,50 +8,45 @@ function mobSearchAdd(e){
 //     sugg.removeEventListener("touchend", mobSearchAdd)
 // })
 
-    if(handler){
-      document.removeEventListener("touchend", handler)
-    }
+    document.removeEventListener("touchend", mobSearchPlace)
 
     const all_top = document.querySelectorAll('.top')
-    const fromIndex = this.getAttribute('index')
-    const handler = mobSearchPlace.bind(this)
+    const fromIndex = e.target.getAttribute('index')
+    const chosen = e.target
     
-    this.style.border = "2px solid #23b12a"
+    e.target.style.border = "2px solid #23b12a"
 
     all_top.forEach(top => {
       top.removeEventListener("touchend", touchStart)
     })
 
     setTimeout(()=>{
-      document.addEventListener("touchend", handler);
+      document.addEventListener("touchend", mobSearchPlace)
     }, 50)
 
    async function mobSearchPlace(e){
 
-      if(e.target.classList.contains('.sugg_album')){
+      if(e.target.classList.contains('sugg_album')){
             mobSearchAdd(e);
+            chosen.style.border = "none";
       }
 
       else if(e.target.classList.contains('top')){
             const toIndex = e.target.getAttribute('rank')
             await tileDrop(fromIndex, toIndex)
 
-            this.style.border = "none";
+            chosen.style.border = "none";
             setTimeout(() => {
               addtileListeners();
             }, 50)
         } else{
-            this.style.border = "none";
-            setTimeout(() => {
-              addtileListeners();
-            }, 50)
+            chosen.style.border = "none";
+            // setTimeout(() => {
+            //   addtileListeners();
+            // }, 50)
         }
-        // document.removeEventListener("touchstart", mobSearchPlace);
-        // document.removeEventListener("touchend", handler);
 
-        // loadedSuggs.forEach((sugg) => {
-        //     sugg.addEventListener("touchend", mobSearchAdd)
-        // })
+        document.removeEventListener("touchend", mobSearchPlace)
     }
 }
 
@@ -80,29 +75,47 @@ function touchStart(e){
 
     setTimeout(() => {
       document.addEventListener("touchend", switchTo)
-    }, 100)
+    }, 0.0001)
 
     async function switchTo(e){
+      console.log('switch to ', e.target, fromBox)
 
-      if(e.target.closest('.top') == null){
-        console.log('NUL NUL NUL')
-        document.removeEventListener("touchend", switchTo)
+      // if(e.target.classList.contains('tile-hover') && touchMoved == true){
+      //   console.log('CONDITIONS MET HERE')
+      // }
 
-        if(fromBox.childNodes[1] != undefined){
-          fromBox.childNodes[1].style.display = "none"
-              for(i = 1; i < 5; i++){
-                fromBox.childNodes[i].style.opacity = "0"
-                fromBox.childNodes[i].style.pointerEvents = "none"
-              }
-              fromBox.removeEventListener("touchend", tileSettings)
-          }
+      if(
+      e.target.closest('.top') == null || 
+      touchMoved == true && e.target.classList.contains('tile-hover') ||
+      e.target.classList.contains('tile-hover')
+      ){
+      all_top.forEach(top => {
+            top.addEventListener("touchend", touchStart)
+            top.style.opacity = 1;
+      })
+
+      document.removeEventListener("touchend", switchTo)
+
+      fromBox.classList.remove('select-border')
+      if(fromBox.childNodes[1] != undefined){
+        fromBox.childNodes[1].style.display = "none"
+            for(i = 1; i < 5; i++){
+              fromBox.childNodes[i].style.opacity = "0"
+              fromBox.childNodes[i].style.pointerEvents = "none"
+            }
+            fromBox.removeEventListener("touchend", tileSettings)
+        }
+
+        return
       }
 
-      if(touchMoved != true && 
+      else if(touchMoved != true && 
         !e.target.classList.contains("frontPlay") && 
         !e.target.classList.contains("frontRank") &&
         !e.target.classList.contains("tile-title")
         ){
+
+      console.log('IN THE MOOVE', e.target)
       
       const toBox = e.target;
       const toIndex = e.target.getAttribute("rank");
@@ -113,7 +126,19 @@ function touchStart(e){
         await tileDrag(fromIndex, toIndex)
       }
 
-      fromBox.style.border =  "2px solid #13191b";
+
+      //! THIS IS THE SAME
+      fromBox.classList.remove('select-border')
+
+      if(fromBox.childNodes[1] != undefined){
+        fromBox.childNodes[1].style.display = "none"
+            for(i = 1; i < 5; i++){
+              fromBox.childNodes[i].style.opacity = "0"
+              fromBox.childNodes[i].style.pointerEvents = "none"
+            }
+            fromBox.removeEventListener("touchend", tileSettings)
+      }
+
       all_top.forEach(top => {
             top.addEventListener("touchend", touchStart)
             top.style.opacity = 1;
@@ -121,6 +146,7 @@ function touchStart(e){
 
       document.removeEventListener("touchend", switchTo)
 
+      //! THIS IS THE SAME
       if(theBox.childNodes[1] != undefined){
         theBox.childNodes[1].style.display = "none"
             for(i = 1; i < 5; i++){
@@ -129,12 +155,7 @@ function touchStart(e){
             }
             theBox.removeEventListener("touchend", tileSettings)
         }
-
-          const selectBorder = document.querySelector('.select-border')
-          selectBorder.classList.remove('select-border')
-    
     }
-  }
 
     function tileSettings(e) {
       if (e.target.classList.contains("frontDel")) {
@@ -189,6 +210,7 @@ function touchStart(e){
     }
   }
 }
+}
 
 function touchMove(){
   console.log('scrolling')
@@ -200,5 +222,5 @@ function touchMove(){
     console.log('scrolling has stopped')
     // addtileListeners();
     touchMoved = false;
-  }, 66)
+  }, 100)
 }

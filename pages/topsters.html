@@ -4,7 +4,12 @@
     <meta charset="utf-8" />
     <link rel="stylesheet" type="text/css" href="http://localhost:8888/topsters3 - copy/css/top_styles.css" />
 
-    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+    <link
+      rel="stylesheet"
+      href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+      integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p"
+      crossorigin="anonymous"
+    />
 
     <title>Music Topsters</title>
   </head>
@@ -18,7 +23,9 @@
         <li><a class="prof-go">My Profile</a></li>
         <li><a href="#">Discover</a></li>
         <li><a href="#">Logout</a></li>
-        <li><a href="#"><i class="fas fa-user-circle fa-2x"></i></a></li>
+        <li>
+          <a href="#"><i class="fas fa-user-circle fa-2x"></i></a>
+        </li>
       </nav>
     </div>
   </header>
@@ -28,7 +35,6 @@
     <div id="primary" class="content-area">
       <main id="main" class="site-main">
         <div class="set">
-
           <div class="field-info">
             <input class="top_input" type="text" name="" value="" />
             <form class="input-form">
@@ -38,36 +44,34 @@
           </div>
 
           <fieldset>
-            <div class="input_suggs">
-            </div>
+            <div class="input_suggs"></div>
           </fieldset>
 
           <div class="tile-opts">
             <button class="save field-btn" type="button" name="button">Save</button>
             <button class="clear field-btn" type="button" name="button">New</button>
             <div class="numbers-wrap">
-              <p>Numbers?</p> <input type="checkbox" checked="true" class="chartNums" name="chartNums" value="true" />
+              <p>Numbers?</p>
+              <input type="checkbox" checked="true" class="chartNums" name="chartNums" value="true" />
             </div>
           </div>
           <div class="saved"></div>
         </div>
 
         <section class="display-screen">
-        <div class="display">
-          <div class="title-wrap">
-            <div class="chart_title">
-              <h3>Chart Title:</h3>
-              <i class="far fa-edit edit"></i>
-              <input class="title-change" type="text">
+          <div class="display">
+            <div class="title-wrap">
+              <div class="chart_title">
+                <h3>Chart Title:</h3>
+                <i class="far fa-edit edit"></i>
+                <input class="title-change" type="text" />
+              </div>
             </div>
+            <div class="top_wrapper"></div>
           </div>
-          <div class="top_wrapper">
 
-          </div>
-        </div>
-
-        <div class="chart_names">
-          <!-- <p class="albumInfo" rank="0">1.</p>
+          <div class="chart_names">
+            <!-- <p class="albumInfo" rank="0">1.</p>
           <p class="albumInfo" rank="1">2.</p>
           <p class="albumInfo" rank="2">3.</p>
           <p class="albumInfo" rank="3">4.</p>
@@ -77,8 +81,8 @@
           <p class="albumInfo" rank="7">8.</p>
           <p class="albumInfo" rank="8">9.</p>
           <p class="albumInfo" rank="9">10.</p> -->
-        </div>
-      </section>
+          </div>
+        </section>
 
         <form action="/logout" method="post">
           <button type="submit">Logout</button>
@@ -87,23 +91,22 @@
           <button class="screencap-btn" type="submit">screencap!</button>
         </div>
 
-
         <div>
-          <input class="top-select" type="radio" id="top-ten" name="top-select" value="top-ten">
-          <label>Top 10</label><br>
-          <input class="top-select" type="radio" id="top-twenty" name="top-select" value="top-twenty">
-          <label>Top 20</label><br>
-          <input class="top-select" type="radio" id="top-fifty" name="top-select" value="top-fifty">
-          <label>Top 50</label><br>
-          <input class="top-select" type="radio" id="top-hundred" name="top-select" value="top-hundred">
-          <label>Top 100</label><br>
+          <input class="top-select" type="radio" id="top-ten" name="top-select" value="top-ten" />
+          <label>Top 10</label><br />
+          <input class="top-select" type="radio" id="top-twenty" name="top-select" value="top-twenty" />
+          <label>Top 20</label><br />
+          <input class="top-select" type="radio" id="top-fifty" name="top-select" value="top-fifty" />
+          <label>Top 50</label><br />
+          <input class="top-select" type="radio" id="top-hundred" name="top-select" value="top-hundred" />
+          <label>Top 100</label><br />
         </div>
       </main>
       <!-- #main -->
     </div>
 
     <div class="album_reccs">
-      <img class="sugg-loader" src="http://localhost:8888/topsters3 - copy/assets/loader.gif" alt="">
+      <img class="sugg-loader" src="http://localhost:8888/topsters3 - copy/assets/loader.gif" alt="" />
     </div>
 
     <div class="yt-wrap"></div>

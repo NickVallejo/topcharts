@@ -1,21 +1,19 @@
+<header>
+  <div class="head-wrap">
+    <a href="/"><img class="logo" src="http://localhost:8888/topsters3 - copy/assets/topsters-logo.png" alt="" /></a>
 
-  <header>
-    <div class="head-wrap">
-      <a href="/"><img class="logo" src="http://localhost:8888/topsters3 - copy/assets/topsters-logo.png" alt=""></a>
-
-      <nav>
-        <% if(logged == false) { %>
-          <li><a href="/login">Login</a></li>
-          <li><a href="/register">Register</a></li>
-        <% }  else { %>
-          <% const userImage = userInfo.profileImage.replace(/\\/g, "/") %>
-          <li><a href="/dashboard">Dashboard</a></li>
-          <li><a href="/settings">Settings</a></li>
-          <li><a href="/logout">Logout</a></li>
-          <a class="prof-go" href="/<%= userInfo.username %>">
-            <div id="profile-img-display" style="background-image: url('http://localhost:4001/<%= userImage %>')"></div>
-          </a>
-        <% }  %>
-      </nav>
-    </div>
-  </header>
+    <nav>
+      <% if(logged == false) { %>
+      <li><a href="/login">Login</a></li>
+      <li><a href="/register">Register</a></li>
+      <% } else { %> <% const userImage = userInfo.profileImage.replace(/\\/g, "/") %>
+      <li><a href="/dashboard">Dashboard</a></li>
+      <li><a href="/settings">Settings</a></li>
+      <li><a href="/logout">Logout</a></li>
+      <a class="prof-go" href="/<%= userInfo.username %>">
+        <div id="profile-img-display" style="background-image: url('http://localhost:4001/<%= userImage %>')"></div>
+      </a>
+      <% } %>
+    </nav>
+  </div>
+</header>
