@@ -3,9 +3,9 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" type="text/css" href="http://localhost:8888/topsters3 - copy/css/top_styles.css" />
-    <link rel="stylesheet" type="text/css" href="http://localhost:8888/topsters3 - copy/css/profile.css" />
-    <link rel="stylesheet" type="text/css" href="http://localhost:8888/topsters3 - copy/css/settings.css" />
+    <link rel="stylesheet" type="text/css" href="http://192.168.0.11:8888/topsters3 - copy/css/top_styles.css" />
+    <link rel="stylesheet" type="text/css" href="http://192.168.0.11:8888/topsters3 - copy/css/profile.css" />
+    <link rel="stylesheet" type="text/css" href="http://192.168.0.11:8888/topsters3 - copy/css/settings.css" />
     <link
       rel="stylesheet"
       href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
@@ -26,7 +26,7 @@
           <div
             id="profile-img-display"
             class="profile-img-display-lg"
-            style="background-image: url('http://localhost:4001/<%= userImage %>')"
+            style="background-image: url('http://192.168.0.11:4001/<%= userImage %>')"
           >
             <label class="edit-wrap" for="profile-image-submit">
               <i class="far fa-edit fa-2x"></i>
@@ -59,7 +59,7 @@
 
     <div class="popup">
       <div class="popup-wrap">
-        <img class="logo" src="http://localhost:8888/topsters3 - copy/assets/topsters-logo-2.png" alt="" />
+        <img class="logo" src="http://192.168.0.11:8888/topsters3 - copy/assets/topsters-logo-2.png" alt="" />
         <form id="emailChangeForm" class="pass-change" action="" method="">
           <label for="email">New Email</label>
           <input name="email" type="email" />
@@ -89,7 +89,7 @@
 
     <%- include('../partials/footer', {logged: logged, userInfo: userInfo}) %>
 
-    <script src="http://localhost:8888/topsters3 - copy/js/profile/settings-ui.js"></script>
-    <script src="http://localhost:8888/topsters3 - copy/js/profile/profile.js"></script>
+    <script src="http://192.168.0.11:8888/topsters3 - copy/js/profile/settings-ui.js"></script>
+    <script src="http://192.168.0.11:8888/topsters3 - copy/js/profile/profile.js"></script>
   </body>
 </html>

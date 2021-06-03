@@ -22,6 +22,7 @@ function addtileListeners(){
         console.log('touchstart not detected')
       all_top.forEach((top) => {
         top.removeEventListener("touchstart", touchStart)
+        top.removeEventListener('touchmove', touchMove)
         top.addEventListener("click", tileSettings)      
         //checks if the dropped tile is from a top tile or a sugg tile
         top.addEventListener("drop", dropDeskMob)

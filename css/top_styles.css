@@ -46,7 +46,7 @@ li {
 }
 
 .home-body {
-  background-image: url("http://localhost:8888/topsters3 - copy/assets/topsters-bg.png");
+  background-image: url("http://192.168.0.11:8888/topsters3 - copy/assets/topsters-bg.png");
   height: calc(100vh - 68.39px);
   display: flex;
   flex-flow: column;
@@ -483,7 +483,7 @@ fieldset {
 .chart_title h3 {
   font-size: 20px;
   /* margin-bottom: 10px; */
-  max-width: 500px;
+  max-width: 100%;
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
@@ -692,7 +692,6 @@ fieldset {
 .mob-settings li {
   width: 100%;
   border-bottom: 1px solid #3299206b;
-  padding: 10px 0px;
   color: white;
   list-style: none;
   cursor: pointer;
@@ -703,6 +702,13 @@ fieldset {
 
 .mob-settings li a {
   text-decoration: none;
+  padding: 10px 0px;
+  display: inline-block;
+  width: 100%;
+}
+
+.setting-slide li {
+  padding: 10px 0px;
 }
 
 .mob-settings li:hover {
@@ -839,6 +845,23 @@ fieldset {
 }
 
 @media only screen and (max-width: 900px) {
+  .chart_title {
+    max-width: 350px;
+    width: 100%;
+  }
+
+  .field-info {
+    padding: 7px 20px;
+  }
+
+  .top i,
+  .recc-wrap i {
+    transform: scale(1.3);
+  }
+
+  .mine-wrapper .top .frontPlay {
+    right: 35px;
+  }
   .prof-display-screen .chart_names {
     margin-top: 0px;
   }
@@ -858,7 +881,6 @@ fieldset {
 
   .notice-wrap .notice {
     position: fixed;
-    background-color: #862323;
     bottom: 80px;
     left: 20px;
     padding: 20px 10px;
@@ -868,10 +890,6 @@ fieldset {
 
   .home-body {
     height: calc(100vh);
-  }
-
-  .chart_title {
-    width: 60%;
   }
 
   .control-wrap .numbers-wrap {
@@ -944,7 +962,7 @@ fieldset {
     left: -100%;
     width: 100%;
     height: 100%;
-    background-color: #202020c7;
+    background-color: #202020f1;
     max-width: 100%;
     margin-top: 0px;
     overflow: scroll;
@@ -1121,7 +1139,7 @@ fieldset {
   }
 
   fieldset {
-    max-height: 300px;
+    height: 25vh;
     position: relative;
   }
 
@@ -1144,11 +1162,11 @@ fieldset {
   }
 
   .top_input {
-    height: 40px;
+    height: 20px;
   }
 
   .fa-plus-square {
-    font-size: 3em !important;
+    font-size: 1.5em !important;
   }
 }
 
@@ -1230,10 +1248,10 @@ header #profile-img-display {
     width: 100%;
   }
 
-  .chart_title {
+  /* .chart_title {
     max-width: 350px;
     width: 100%;
-  }
+  } */
 }
 
 @media (max-width: 450px) {

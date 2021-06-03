@@ -2,12 +2,6 @@ let touch, touchMoved, isScrolling;
 
 function mobSearchAdd(e){
 
-//   const loadedSuggs = document.querySelectorAll(".sugg_album")
-
-//   loadedSuggs.forEach((sugg) => {
-//     sugg.removeEventListener("touchend", mobSearchAdd)
-// })
-
     document.removeEventListener("touchend", mobSearchPlace)
 
     const all_top = document.querySelectorAll('.top')
