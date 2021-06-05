@@ -28,6 +28,7 @@ const db_connect = mongoose.createConnection(
 
 const Chart = db_connect.model('Topsters Charts', require("./models/chart_model"), "topsters-chart-data")
 const User = db_connect.model('Users', require("./models/user_model"), "topsters-user-data")
+const Sessions = db_connect.model('Sessions', new mongoose.Schema({}, {strict: false, lean: true}), "newest-storage")
 
 exports.User = User
 exports.Chart = Chart
@@ -246,7 +247,7 @@ root.post('/title-change', async (req, res) => {
             }
           })
         } else{
-          res.end(JSON.stringify({err: `already a chart with the name ${newtitle_}`}));
+          res.end(JSON.stringify({err: `You already have a chart with this name`}));
         }
       }
 

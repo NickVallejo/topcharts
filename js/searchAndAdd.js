@@ -12,6 +12,8 @@ function search(input) {
       "&api_key=0bb289309c3ad8b8a89446a23919f273&format=json"
   )
   req.onload = function () {
+    const input = document.querySelector('.top_input')
+    input.value = ''
     albums = JSON.parse(req.response).results.albummatches.album
     console.log('returned albums', albums)
     for (i = 0; i < 50; i++) {

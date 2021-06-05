@@ -1,7 +1,7 @@
 let touch, touchMoved, isScrolling;
 
 function mobSearchAdd(e){
-
+  console.log('mob search add triggered')
     document.removeEventListener("touchend", mobSearchPlace)
 
     const all_top = document.querySelectorAll('.top')
@@ -22,7 +22,9 @@ function mobSearchAdd(e){
 
       if(e.target.classList.contains('sugg_album')){
             mobSearchAdd(e);
-            chosen.style.border = "none";
+            if(e.target != chosen){
+              chosen.style.border = "none"; 
+            }
       }
 
       else if(e.target.classList.contains('top')){
@@ -45,6 +47,12 @@ function mobSearchAdd(e){
 }
 
 function touchStart(e){  
+  const suggAlbums = document.querySelectorAll('.sugg_album')
+  
+    suggAlbums.forEach(album => {
+      album.removeEventListener('touchend', mobSearchAdd)
+    })
+
     if(touchMoved != true){
     const all_top = document.querySelectorAll(".top")
     let fromBox = e.target;
@@ -72,16 +80,21 @@ function touchStart(e){
     }, 0.0001)
 
     async function switchTo(e){
-      console.log('switch to ', e.target, fromBox)
+      
+      suggAlbums.forEach(album => {
+        album.addEventListener('touchend', mobSearchAdd)
+      })
 
-      // if(e.target.classList.contains('tile-hover') && touchMoved == true){
-      //   console.log('CONDITIONS MET HERE')
-      // }
+      if(e.target.classList.contains('sugg_album')){
+        console.log('SUGG ALBUM CLIEKC ON SWITCH')
+        document.removeEventListener("touchend", switchTo)
+      }
 
       if(
       e.target.closest('.top') == null || 
       touchMoved == true && e.target.classList.contains('tile-hover') ||
-      e.target.classList.contains('tile-hover')
+      e.target.classList.contains('tile-hover') ||
+      e.target.classList.contains('sugg_album')
       ){
       all_top.forEach(top => {
             top.addEventListener("touchend", touchStart)

@@ -55,6 +55,13 @@ function chartSave(fromTyped) {
     var title_ = symbolFilterTitle.replace(/ /g, "_") //check if the underscored title is already in the saved_array with filter
     console.log("FINAL OUTPUT", title_)
 
+    if(symbolFilterTitle.length > 35){
+      titleInput = document.querySelector('.title-change')
+      alert('Chart name too long!')
+      titleInput.value = ''
+      return false;
+    }
+
     const name_check = saved_list.some((saved) => saved.title == title_)
     //If length is 0 there is no other list with that name
     if (name_check == false) {
@@ -93,12 +100,14 @@ function chartSave(fromTyped) {
       console.log("new list is now complete", my_list)
       localStorage.removeItem("unsavedList")
       addTitleListener(symbolFilterTitle)
+      return true
     } else {
-      alert("You already have a list with this name")
-      chartUpdate()
+      alert("You already have a chart with this name")
+      return false
     }
   } else {
     console.log("You cant save a saved chart")
+    return false;
   }
 }
 
@@ -153,6 +162,13 @@ function titleChange(e, titleChanger, textCapture) {
     const currentTitle = document.querySelector(".chart_title h3")
     const savedOnFront = document.querySelectorAll(".saved_title")
     const newTitleFiltered = titleChanger.value.replace(/&/g, "and")
+
+    if(newTitleFiltered.length > 35){
+      titleInput = document.querySelector('.title-change')
+      alert('Chart name too long!')
+      titleInput.value = ''
+      return;
+    }
 
     if (e.key == "Enter" && titleChanger.value) {
       const req = new XMLHttpRequest()

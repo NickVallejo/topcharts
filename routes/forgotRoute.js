@@ -3,6 +3,7 @@ const forgot = express.Router()
 const validator = require("validator")
 const crypto = require("crypto")
 const nodemailer = require("nodemailer")
+require("dotenv").config()
 
 const { User } = require("../index")
 
@@ -60,8 +61,8 @@ async function recoverySend(req, res, next) {
   const smtpTransport = nodemailer.createTransport({
     service: "Gmail",
     auth: {
-      user: "nico.vallejo97@gmail.com",
-      pass: "Blingboi2K",
+      user: process.env.GMAIL_EMAIL,
+      pass: process.env.GMAIL_PASS,
     },
   })
 

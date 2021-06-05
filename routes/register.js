@@ -40,7 +40,9 @@ async function regWare(req, res, next) {
         if(err){
           console.log(err)
         }
-        
+        if(emailI.length > 30){
+          errs.push({ msg: "Email too long..." }) //if mongoose finds a user with that email, push an error to the error array
+        }
         if (user) {
           errs.push({ msg: "Email in use..." }) //if mongoose finds a user with that email, push an error to the error array
         } else {
@@ -78,6 +80,10 @@ async function regWare(req, res, next) {
 
   if (password.length < 6) {
     errs.push({ msg: "Password too weak" }) //if password i less than 6 chars, push an error to the error array
+  }
+
+  if(password.length > 20){
+    errs.push({msg: 'Password too long'})
   }
 
   if (password && password2 && password !== password2) { //if the password does not match the retyped password, push an error to the error array

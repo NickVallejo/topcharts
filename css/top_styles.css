@@ -646,11 +646,12 @@ fieldset {
   margin-right: 10px;
   padding: 6px 12px;
   font-size: 14px;
-  border: 1px solid #329920;
-  color: white;
-  background-color: #329920;
+  border: 1px solid #1f2b31;
+  color: #329920;
+  background-color: #1f2b31;
   cursor: pointer;
   border-radius: 3px;
+  font-weight: 400;
 }
 
 .top-radio-wrap input[type="radio"]:checked + label {
@@ -1155,6 +1156,7 @@ fieldset {
     width: 25%;
     border: 2px solid rgb(31, 43, 49);
     box-sizing: border-box;
+    object-fit: contain;
   }
 
   .top_wrapper {

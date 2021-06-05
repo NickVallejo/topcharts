@@ -39,15 +39,24 @@ function list_display(save_clicked) {
 
 console.log('TEST', my_list[0])
 
+function titleSavePrompt(){
+
+    const chartName = prompt('Enter Chart Title Here:')
+    const saved = chartSave(chartName)
+    if(!saved){
+      titleSavePrompt()
+    } else{
+      return
+    }
+}
+
 
 if(my_list.chart == undefined){
   const allEmpty = my_list.every(album => album == undefined)
   if(!allEmpty){
     const saveOrNot = confirm('You are exiting an unsaved chart. Do you wish to save?')
     if(saveOrNot == true){
-      const chartName = prompt('Enter Chart Title Here:')
-      chartSave(chartName)
-      alert(`${chartName} saved!`)
+      titleSavePrompt()
     }
   }
 }
