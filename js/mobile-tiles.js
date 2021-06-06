@@ -27,7 +27,7 @@ function mobSearchAdd(e){
             }
       }
 
-      else if(e.target.classList.contains('top')){
+      else if(e.target.classList.contains('top') && touchMoved != true){
             const toIndex = e.target.getAttribute('rank')
             await tileDrop(fromIndex, toIndex)
 
@@ -48,10 +48,8 @@ function mobSearchAdd(e){
 
 function touchStart(e){  
   const suggAlbums = document.querySelectorAll('.sugg_album')
-  
-    suggAlbums.forEach(album => {
-      album.removeEventListener('touchend', mobSearchAdd)
-    })
+  console.log('TOUCH START HAPPENED')
+
 
     if(touchMoved != true){
     const all_top = document.querySelectorAll(".top")
@@ -61,6 +59,11 @@ function touchStart(e){
     fromBox.classList.add('select-border')
 
     if(fromBox.childNodes[1] != undefined){
+
+      suggAlbums.forEach(album => {
+        album.removeEventListener('touchend', mobSearchAdd)
+      })
+
       fromBox.childNodes[1].style.display = "block";
       for(i = 1; i < 5; i++){
           fromBox.childNodes[i].style.opacity = "1"
@@ -75,9 +78,9 @@ function touchStart(e){
       fromBox.style.opacity = 1;
     })
 
-    setTimeout(() => {
+
       document.addEventListener("touchend", switchTo)
-    }, 0.0001)
+
 
     async function switchTo(e){
       
@@ -86,7 +89,6 @@ function touchStart(e){
       })
 
       if(e.target.classList.contains('sugg_album')){
-        console.log('SUGG ALBUM CLIEKC ON SWITCH')
         document.removeEventListener("touchend", switchTo)
       }
 

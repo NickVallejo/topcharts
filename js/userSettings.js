@@ -1,3 +1,5 @@
+const notice = document.querySelector('.notice-wrap')
+
 function numToggle(e) {
 
 const deskNumRadio = document.querySelector("#desk-numRadio")
@@ -26,4 +28,13 @@ const chartNameNums = document.querySelectorAll('.chartNameNum')
     })  -
     console.log('its true')    
   }
+}
+
+const noticeInit = (noticeType, noticeTxt, time) => {
+  showTime = time ? time : 5000
+  notice.innerHTML = `<div class="notice ${noticeType}-notice"><span>${noticeTxt}</span></div>`
+  notice.style.opacity = "1"
+  setTimeout(() => {
+    notice.style.opacity = "0"
+  }, showTime)
 }

@@ -24,8 +24,6 @@ async function albumSuggs(req, res, next) {
               simArtists.push(JSON.parse(gen.responseText).similarartists.artist[i])
               // i++;
             } 
-            // else{}
-            //console.log('simArtists getting filled...', simArtists);
           }
         }
   

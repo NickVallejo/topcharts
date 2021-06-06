@@ -33,6 +33,7 @@ header .head-wrap {
   margin: 0px 20px;
   margin-top: 50px;
   width: 16%;
+  object-fit: contain;
 }
 
 .prof-chart .prof-chart-del {
@@ -44,12 +45,13 @@ header .head-wrap {
 }
 
 .prof-chart .prof-chart-del:hover {
-  transform: scale(0.92);
   opacity: 0.8;
 }
 
 .prof-chart img {
   max-width: 50%;
+  object-fit: contain;
+  float: left;
 }
 
 .prof-chart a {
@@ -57,19 +59,18 @@ header .head-wrap {
   color: #f5f5f5;
 }
 
-.prof-chart div {
+/* .prof-chart div {
   display: flex;
   flex-wrap: wrap;
-}
+} */
 
 .prof-chart-wrapper {
   position: relative;
   margin-top: 10px;
   transition: 0.3s all;
-}
-
-.prof-chart:hover .prof-chart-wrapper {
-  transform: scale(0.96);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
 }
 
 .prof-chart-cover {
@@ -78,7 +79,7 @@ header .head-wrap {
   position: absolute;
   top: 0;
   left: 0;
-  z-index: 2000;
+  z-index: 2;
   background-color: hsla(111, 65%, 25%, 0.705);
   opacity: 0;
   display: flex;

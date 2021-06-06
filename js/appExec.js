@@ -88,6 +88,7 @@ function list_new() {
   numToggle()
 }
 
+
 async function list_load() {
   try {
     await new Promise((resolve, reject) => {
@@ -101,7 +102,7 @@ async function list_load() {
         loaded_lists.forEach((load) => {
           saved_list.push({ title: load.title, chart: JSON.parse(load.chart) })
           var space_title = load.title.replace(/_/g, " ")
-          var saved_front = `<div class="saved_item"><h2 class="saved_title" name="${load.title}">${space_title}</h2><i class="far fa-trash"></i></div>`
+          var saved_front = `<div class="saved_item"><h2 class="saved_title" name="${load.title}">${space_title}</h2><div class="saved-opts"><i class="fas fa-link share"></i><i class="far fa-trash trash"></i></div></div>`
           saved_div.insertAdjacentHTML("beforeend", saved_front)
           saved_div.addEventListener("click", saved_click)
         })
@@ -123,13 +124,13 @@ function sugg_load(savedNames) {
   sugg_loader = new XMLHttpRequest()
   sugg_loader.open(
     "GET",
-    `http://192.168.0.11:4001/similar-artists?artistNames=${encodeURIComponent(JSON.stringify(savedNames))}`
+    `http://192.168.0.11:4001/similar-artists?artistNames=${encodeURIComponent(JSON.stringify(savedNames))}`, 
+    true
   )
   sugg_loader.onload = function () {
     if (sugg_loader.responseText !== "") {
       suggLoader.classList.remove("show-sugg-loader")
       var sugg_albums = JSON.parse(sugg_loader.responseText)
-      console.log("YOUR SUGGESTED ALBUMS ARE HERE", sugg_albums)
 
       sugg_albums.forEach((sugg, index) => {
         if (sugg.image[2]["#text"] !== undefined) {

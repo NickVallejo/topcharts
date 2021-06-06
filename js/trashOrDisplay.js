@@ -15,15 +15,30 @@ function saved_click(event) {
 
   if (save_clicked.classList.contains("saved_title")) {
     list_display(save_clicked)
-  } else if (save_clicked.classList.contains("fa-trash")) {
-    list_trash(save_clicked.parentNode)
+  } else if (save_clicked.classList.contains("trash")) {
+    list_trash(save_clicked.parentNode.parentNode)
+  } else if(save_clicked.classList.contains('share')){
+    list_share(save_clicked.parentNode.parentNode)
   }
+}
+
+function list_share(save_clicked){
+  const profileName = document.querySelector('.prof-go').getAttribute('href').replace("/", "");
+  const chartName = save_clicked.childNodes[0].getAttribute("name")
+  const urlString = `${window.location.origin}/${profileName}/chart/${chartName}`
+
+  navigator.clipboard.writeText(urlString).then((err) => {
+    if(!err){
+      noticeInit("success", 'URL copied to clipboard!')
+    } else{
+      noticeInit("error", 'Error occurred. Could not copy to clipboard.')
+    }
+  })
 }
 
 //! FUNCTION TO DISPLAY THE LIST
 function list_display(save_clicked) {
 
-  console.log('ping')
   if('ontouchstart' in document.body || window.innerWidth < 900){
     saved_list_closer()
   }
@@ -36,8 +51,6 @@ function list_display(save_clicked) {
 
   //get that clicked element's name attribute and store in variable
   var clickedNameNoScore = clicked_save_name.replace(/_/g, " ")
-
-console.log('TEST', my_list[0])
 
 function titleSavePrompt(){
 
@@ -105,7 +118,7 @@ function list_trash(save_clicked, profile) {
   console.log(profile)
 
   var del = new XMLHttpRequest()
-  del.open("POST", "/list-delete")
+  del.open("POST", "/list-delete", true)
   del.setRequestHeader("Content-Type", "application/x-www-form-urlencoded")
 
   del.onload = function () {

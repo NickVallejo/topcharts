@@ -132,9 +132,8 @@ const getProfileData = async (myProfile) => {
         `<div class="prof-chart"><a href="/${data.username}/chart/${chart.title}" name=${chart.title.replace(
           / /g,
           "_"
-        )}><h3 class="prof-chart-title">${title}</h3><div class="prof-chart-wrapper"><div class="prof-chart-cover"></div><img src=${
-          firstFour[0]
-        }><img src=${firstFour[1]}><img src=${firstFour[2]}><img src=${firstFour[3]}></div></a>${exitOrNot}</div>`
+        )}><h3 class="prof-chart-title">${title}</h3><div class="prof-chart-wrapper"><div class="prof-chart-cover"></div>
+        <img src=${firstFour[0]}/><img src=${firstFour[1]}/><img src=${firstFour[2]}/><img src=${firstFour[3]}/></div></a>${exitOrNot}</div>`
       )
     })
 

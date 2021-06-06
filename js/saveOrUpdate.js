@@ -41,6 +41,8 @@ function chartUpdate() {
 //! FUNCTION TO SAVE A CHART
 function chartSave(fromTyped) {
   if (my_list.title == undefined) {
+    titleInput = document.querySelector('.title-change')
+    titleInput.value = ''
     //my_list is walways reflecting what is currently on screen
     //When we save, we are copying the current my_list to new_array
     let title
@@ -56,7 +58,6 @@ function chartSave(fromTyped) {
     console.log("FINAL OUTPUT", title_)
 
     if(symbolFilterTitle.length > 35){
-      titleInput = document.querySelector('.title-change')
       alert('Chart name too long!')
       titleInput.value = ''
       return false;
@@ -70,11 +71,7 @@ function chartSave(fromTyped) {
       //Create an html string with the title as an attr and as title on front end
       frontEndTitle.innerText = symbolFilterTitle
       var saved_front =
-        '<div class="saved_item"><h2 class="saved_title" name=' +
-        title_ +
-        ">" +
-        symbolFilterTitle +
-        '</h2><i class="far fa-trash" aria-hidden="true"></i></div>'
+        `<div class="saved_item"><h2 class="saved_title" name=${title_}>${symbolFilterTitle}</h2><div class="saved-opts"><i class="fas fa-link share"></i><i class="far fa-trash trash"></i></div></div>`
       //add saved_front to list of front end saved lists
       saved_div.insertAdjacentHTML("beforeend", saved_front)
       //add a listener to the saved_div element, to execute func on click
@@ -102,6 +99,7 @@ function chartSave(fromTyped) {
       addTitleListener(symbolFilterTitle)
       return true
     } else {
+      titleInput.value = ''
       alert("You already have a chart with this name")
       return false
     }
@@ -165,8 +163,8 @@ function titleChange(e, titleChanger, textCapture) {
 
     if(newTitleFiltered.length > 35){
       titleInput = document.querySelector('.title-change')
-      alert('Chart name too long!')
       titleInput.value = ''
+      alert('Chart name too long!')
       return;
     }
 
