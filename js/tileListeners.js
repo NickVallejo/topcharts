@@ -1,17 +1,16 @@
 //! ADD EVENT LISTENERS TO NEWLY SELECTED LIST TILES
 //! WE ARE WORKING ON TILE DRAG HERE
 function addtileListeners(){
-    console.log('checking')
       //redefines all the top tiles
       const all_top = document.querySelectorAll(".top")
   
       const width = window.innerWidth;
   
       if('ontouchstart' in document.body){
-        console.log('touchstart detected')
         all_top.forEach((top) => {
           top.addEventListener("touchend", touchStart)
           top.addEventListener('touchmove', touchMove)
+          // top.addEventListener("scroll", touchMove)
           // top.addEventListener("click", mobSwitch)
           top.setAttribute("draggable", "false")
           top.removeEventListener("dragstart", dragDeskMob)

@@ -48,22 +48,23 @@ function mobSearchAdd(e){
 
 function touchStart(e){  
   const suggAlbums = document.querySelectorAll('.sugg_album')
-  console.log('TOUCH START HAPPENED')
 
-
+    //If currently not scrolling, do this on touchstart
     if(touchMoved != true){
     const all_top = document.querySelectorAll(".top")
-    let fromBox = e.target;
     const fromIndex = e.target.getAttribute("rank");
+    let fromBox = e.target;
 
+    //add select border whether it's a filled tile or not
     fromBox.classList.add('select-border')
 
+    //remove event listeners for thee sugg albums in the search field
+    suggAlbums.forEach(album => {
+      album.removeEventListener('touchend', mobSearchAdd)
+    })
+
+    //if it's a filled tile, add some styles that are hidden
     if(fromBox.childNodes[1] != undefined){
-
-      suggAlbums.forEach(album => {
-        album.removeEventListener('touchend', mobSearchAdd)
-      })
-
       fromBox.childNodes[1].style.display = "block";
       for(i = 1; i < 5; i++){
           fromBox.childNodes[i].style.opacity = "1"
@@ -72,40 +73,38 @@ function touchStart(e){
       fromBox.addEventListener("touchend", tileSettings)
     }
 
+    //make the other tiles darker and remove the touchstart event listener 
     all_top.forEach(top => {
       top.removeEventListener("touchend", touchStart)
       top.style.opacity = .5;
       fromBox.style.opacity = 1;
     })
 
-
+    //add the switchTo event lsitener
+    setTimeout(()=>{
       document.addEventListener("touchend", switchTo)
+    },1)
 
 
     async function switchTo(e){
-      
-      suggAlbums.forEach(album => {
-        album.addEventListener('touchend', mobSearchAdd)
-      })
 
-      if(e.target.classList.contains('sugg_album')){
-        document.removeEventListener("touchend", switchTo)
-      }
-
+      //if a the currently seelected tile is tapped, a random area is tapped, or a sugg_album is tapped
       if(
+      touchMoved != true &&
       e.target.closest('.top') == null || 
       touchMoved == true && e.target.classList.contains('tile-hover') ||
       e.target.classList.contains('tile-hover') ||
       e.target.classList.contains('sugg_album')
       ){
-      all_top.forEach(top => {
-            top.addEventListener("touchend", touchStart)
-            top.style.opacity = 1;
-      })
 
-      document.removeEventListener("touchend", switchTo)
+      reAdd()
+      
+      console.log('FIRST BIG IF')
 
+      //remove selection border
       fromBox.classList.remove('select-border')
+
+      //remove extra select styles if it was a filled tile
       if(fromBox.childNodes[1] != undefined){
         fromBox.childNodes[1].style.display = "none"
             for(i = 1; i < 5; i++){
@@ -114,29 +113,18 @@ function touchStart(e){
             }
             fromBox.removeEventListener("touchend", tileSettings)
         }
-
-        return
       }
 
-      else if(touchMoved != true && 
-        !e.target.classList.contains("frontPlay") && 
-        !e.target.classList.contains("frontRank") &&
-        !e.target.classList.contains("tile-title")
-        ){
+      else if(touchMoved != true && e.target.classList.contains("top")){
 
-      console.log('IN THE MOOVE', e.target)
+      console.log('SECOND BIG IF')
       
       const toBox = e.target;
       const toIndex = e.target.getAttribute("rank");
       const theBox = toBox.childNodes[1] == undefined ? toBox : fromBox
-      console.log('GOING TO ', e.target, fromIndex, toIndex)
 
-      if(e.target.classList.contains('top') && fromIndex !== toIndex){
-        await tileDrag(fromIndex, toIndex)
-      }
+      await tileDrag(fromIndex, toIndex)
 
-
-      //! THIS IS THE SAME
       fromBox.classList.remove('select-border')
 
       if(fromBox.childNodes[1] != undefined){
@@ -148,22 +136,34 @@ function touchStart(e){
             fromBox.removeEventListener("touchend", tileSettings)
       }
 
-      all_top.forEach(top => {
-            top.addEventListener("touchend", touchStart)
-            top.style.opacity = 1;
+      if(toBox.childNodes[1] != undefined){
+        toBox.childNodes[1].style.display = "none"
+            for(i = 1; i < 5; i++){
+              toBox.childNodes[i].style.opacity = "0"
+              toBox.childNodes[i].style.pointerEvents = "none"
+            }
+            toBox.removeEventListener("touchend", tileSettings)
+        }
+
+      reAdd()
+
+    } 
+
+    function reAdd(){
+      
+      //no matter where a switch to is made, turn the sugg album event listeners back on
+      suggAlbums.forEach(album => {
+        album.addEventListener('touchend', mobSearchAdd)
       })
 
       document.removeEventListener("touchend", switchTo)
 
-      //! THIS IS THE SAME
-      if(theBox.childNodes[1] != undefined){
-        theBox.childNodes[1].style.display = "none"
-            for(i = 1; i < 5; i++){
-              theBox.childNodes[i].style.opacity = "0"
-              theBox.childNodes[i].style.pointerEvents = "none"
-            }
-            theBox.removeEventListener("touchend", tileSettings)
-        }
+      setTimeout(() => {
+          all_top.forEach(top => {
+            top.addEventListener("touchend", touchStart)
+            top.style.opacity = 1;
+        })
+      }, 10)
     }
 
     function tileSettings(e) {
@@ -222,14 +222,13 @@ function touchStart(e){
 }
 
 function touchMove(){
-  console.log('scrolling')
+  console.log('SCROLLING')
   touchMoved = true;
 
   clearTimeout(isScrolling);
 
   isScrolling = setTimeout(() => {
-    console.log('scrolling has stopped')
-    // addtileListeners();
+    console.log('STOPPED SCROLLING')
     touchMoved = false;
-  }, 100)
+  }, 65)
 }

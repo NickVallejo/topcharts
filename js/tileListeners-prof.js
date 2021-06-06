@@ -1,5 +1,4 @@
 function addtileListeners(){
-    console.log('checking')
       //redefines all the top tiles
       const all_top = document.querySelectorAll(".top")
   
