@@ -3,10 +3,6 @@ const topSelect = document.querySelectorAll('.top-select')
 
 const width = window.innerWidth;
 
-window.addEventListener('resize', () => {
-  addtileListeners();
-})
-
 //chcks the top 10 radio button on app execute
 if(topTen != null){
   topTen.checked = true;

@@ -1,7 +1,7 @@
 //! ADD EVENT LISTENERS TO NEWLY SELECTED LIST TILES
 //! WE ARE WORKING ON TILE DRAG HERE
 function addtileListeners(){
-      //redefines all the top tiles
+      console.log('TILE LISTENERS WAS TRIGGERED')
       const all_top = document.querySelectorAll(".top")
   
       const width = window.innerWidth;

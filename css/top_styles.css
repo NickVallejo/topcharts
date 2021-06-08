@@ -450,7 +450,6 @@ fieldset {
 
 .saved_title {
   font-size: 16px;
-  max-width: 190px;
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
@@ -459,7 +458,7 @@ fieldset {
   margin-left: 0px;
   padding-left: 10px;
   box-sizing: border-box;
-  width: 100%;
+  width: calc(100% - 50px);
 }
 
 .saved_item {

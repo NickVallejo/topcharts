@@ -55,11 +55,14 @@ function list_display(save_clicked) {
 function titleSavePrompt(){
 
     const chartName = prompt('Enter Chart Title Here:')
-    const saved = chartSave(chartName)
-    if(!saved){
-      titleSavePrompt()
-    } else{
-      return
+    if(chartName != null){
+      const saved = chartSave(chartName)
+
+      if(saved == false){
+        titleSavePrompt()
+      } else{
+        return
+      }
     }
 }
 

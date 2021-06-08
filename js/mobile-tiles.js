@@ -21,8 +21,15 @@ function mobSearchAdd(e){
    async function mobSearchPlace(e){
 
       if(e.target.classList.contains('sugg_album')){
-            mobSearchAdd(e);
+        console.log(e.target)
+        console.log(chosen)
+
             if(e.target != chosen){
+              console.log('picked first if')
+              mobSearchAdd(e);
+              chosen.style.border = "none"; 
+            } else{
+              console.log('picked second if')
               chosen.style.border = "none"; 
             }
       }
@@ -35,22 +42,22 @@ function mobSearchAdd(e){
             setTimeout(() => {
               addtileListeners();
             }, 50)
-        } else{
+        } 
+        
+      else{
             chosen.style.border = "none";
-            // setTimeout(() => {
-            //   addtileListeners();
-            // }, 50)
         }
 
-        document.removeEventListener("touchend", mobSearchPlace)
+      document.removeEventListener("touchend", mobSearchPlace)
     }
 }
 
 function touchStart(e){  
   const suggAlbums = document.querySelectorAll('.sugg_album')
+  console.log("NEW TOUCH START")
 
     //If currently not scrolling, do this on touchstart
-    if(touchMoved != true){
+    if(touchMoved != true && e.target.classList.contains('top')){
     const all_top = document.querySelectorAll(".top")
     const fromIndex = e.target.getAttribute("rank");
     let fromBox = e.target;
@@ -88,6 +95,7 @@ function touchStart(e){
 
     async function switchTo(e){
 
+      console.log('SWITCH TO TRIGGERED')
       //if a the currently seelected tile is tapped, a random area is tapped, or a sugg_album is tapped
       if(
       touchMoved != true &&
@@ -150,7 +158,6 @@ function touchStart(e){
     } 
 
     function reAdd(){
-      
       //no matter where a switch to is made, turn the sugg album event listeners back on
       suggAlbums.forEach(album => {
         album.addEventListener('touchend', mobSearchAdd)

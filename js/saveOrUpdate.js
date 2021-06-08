@@ -40,6 +40,7 @@ function chartUpdate() {
 
 //! FUNCTION TO SAVE A CHART
 function chartSave(fromTyped) {
+
   if (my_list.title == undefined) {
     titleInput = document.querySelector('.title-change')
     titleInput.value = ''
@@ -50,7 +51,9 @@ function chartSave(fromTyped) {
     let new_array = Array.from(my_list) //User is prompted for a title for their new list
 
     console.log(typeof fromTyped)
+
     typeof fromTyped == "string" ? (title = fromTyped) : (title = prompt("What is the name of this list?"))
+
     console.log(title)
 
     var symbolFilterTitle = title.replace(/&/g, "and")
