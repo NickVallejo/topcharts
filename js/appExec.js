@@ -68,7 +68,7 @@ function list_new() {
   for (i = 0; i < my_list.length; i++) {
     chartNamesWrapper.insertAdjacentHTML(
       "beforeend",
-      `<p class="albumInfo" rank=${i}><span class="chartNameNum">${i + 1}.</span></p>`
+      `<p class="albumInfo" rank=${i}><span class="chartNameNum">${i + 1}. </span></p>`
     )
   }
 
@@ -99,6 +99,7 @@ async function list_load() {
         console.log("Get request sent to database...")
 
         loaded_lists = JSON.parse(req.responseText)
+
         loaded_lists.forEach((load) => {
           saved_list.push({ title: load.title, chart: JSON.parse(load.chart) })
           var space_title = load.title.replace(/_/g, " ")

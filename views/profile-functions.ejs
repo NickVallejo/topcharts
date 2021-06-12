@@ -37,7 +37,9 @@ const displayProfileCharts = async (myProfile, username, profileCharts) => {
         %>
         <div class="no-charts-wrap">
             <p class="no-charts-txt">There are no charts currently associated with this account.</p>
+            <% if(myProfile){ %>
             <a href="/dashboard" class="profile-btn">Make One</a>
+            <% } %>
         </div>
         <%
     }

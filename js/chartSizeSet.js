@@ -116,9 +116,9 @@ function chartSizeSet(e){
     for(i=0; i < size; i++){
       console.log(chartObject[i])
         if(chartObject[i] !== null && chartObject[i] !== undefined){
-        chartNamesWrapper.insertAdjacentHTML('beforeend', `<p class="albumInfo" rank=${i}><span class="chartNameNum">${i+1}.</span> ${chartObject[i].artist} - ${chartObject[i].album_name}</p>`)
+        chartNamesWrapper.insertAdjacentHTML('beforeend', `<p class="albumInfo" rank=${i}><span class="chartNameNum">${i+1}. </span> ${chartObject[i].artist} - ${chartObject[i].album_name}</p>`)
         } else{
-        chartNamesWrapper.insertAdjacentHTML('beforeend', `<p class="albumInfo" rank=${i}><span class="chartNameNum">${i+1}.</span></p>`)
+        chartNamesWrapper.insertAdjacentHTML('beforeend', `<p class="albumInfo" rank=${i}><span class="chartNameNum">${i+1}. </span></p>`)
         }
      }
    }

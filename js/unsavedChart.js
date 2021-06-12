@@ -22,9 +22,9 @@ function checkForUnsaved() {
     //Put each corresponding album name in the corresponding chartData slot on front end
     for(i = 0; i < my_list.length; i++){
       if (my_list[i] !== null) {
-        chartNamesWrapper.insertAdjacentHTML('beforeend', `<p class="albumInfo" rank=${i}><span class="chartNameNum">${i+1}.</span>${my_list[i].artist} - ${my_list[i].album_name}</p>`)
+        chartNamesWrapper.insertAdjacentHTML('beforeend', `<p class="albumInfo" rank=${i}><span class="chartNameNum">${i+1}. </span>${my_list[i].artist} - ${my_list[i].album_name}</p>`)
       } else{
-        chartNamesWrapper.insertAdjacentHTML('beforeend', `<p class="albumInfo" rank=${i}><span class="chartNameNum">${i+1}.</span></p>`)
+        chartNamesWrapper.insertAdjacentHTML('beforeend', `<p class="albumInfo" rank=${i}><span class="chartNameNum">${i+1}. </span></p>`)
       }
     }
     }

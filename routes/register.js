@@ -33,7 +33,7 @@ async function regWare(req, res, next) {
     const emailValid = validator.isEmail(email) //uses the validator api to check if the email uses valid syntax and returns a true or false
 
     if (!emailValid) {
-      errs.push({ msg: "Invalid email..." }) //if email does not contain valid syntax, push an error to the error array
+      errs.push({ msg: "Invalid email" }) //if email does not contain valid syntax, push an error to the error array
     } else {
       console.log('we got here')
       await User.findOne({ email: emailI }, (err, user) => { //if email is valid syntax, check to see if the db already contains a user with that email
@@ -41,12 +41,12 @@ async function regWare(req, res, next) {
           console.log(err)
         }
         if(emailI.length > 30){
-          errs.push({ msg: "Email too long..." }) //if mongoose finds a user with that email, push an error to the error array
+          errs.push({ msg: "Email too long" }) //if mongoose finds a user with that email, push an error to the error array
         }
         if (user) {
-          errs.push({ msg: "Email in use..." }) //if mongoose finds a user with that email, push an error to the error array
+          errs.push({ msg: "Email in use" }) //if mongoose finds a user with that email, push an error to the error array
         } else {
-          console.log("Email is free...") //
+          console.log("Email is free")
         }
       })
     }

@@ -16,7 +16,7 @@ function tileSettings(e) {
       topWrapper.childNodes[positionToDel].childNodes[1].remove()
     }
     //removes the album from the chartnames side-list
-    chartNamesWrapper.childNodes[positionToDel].innerHTML = `<span class="chartNameNum">${parseInt(positionToDel) + 1}.</span>`
+    chartNamesWrapper.childNodes[positionToDel].innerHTML = `<span class="chartNameNum">${parseInt(positionToDel) + 1}. </span>`
 
     //removes the element from the list array nad updates
     if (my_list.title !== undefined) {

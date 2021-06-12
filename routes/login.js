@@ -33,8 +33,10 @@ userPages.get("/", logCheck, (req, res) => { //check if already logged in, and i
 userPages.post("/", async (req, res, next) => {
   const { username, password } = req.body //pulls the email and password from the body of the post request
   const errs = [];
+  
+  const userI = new RegExp(username, 'i')
 
-  await User.findOne({$or: [{ username: username }, {email: username}]}, async (err, user) => { //uses mongoose to findOne certain email from the user database model
+  await User.findOne({$or: [{ username: userI }, {email: userI}]}, async (err, user) => { //uses mongoose to findOne certain email from the user database model
     try{
       if (user) {
         console.log('USER FOUND IN LOGIN PATH')

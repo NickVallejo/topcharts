@@ -5,6 +5,7 @@ function mobSearchAdd(e){
     document.removeEventListener("touchend", mobSearchPlace)
 
     const all_top = document.querySelectorAll('.top')
+    const sugg_albums = document.querySelectorAll('.sugg_album')
     const fromIndex = e.target.getAttribute('index')
     const chosen = e.target
     
@@ -14,11 +15,16 @@ function mobSearchAdd(e){
       top.removeEventListener("touchend", touchStart)
     })
 
+    sugg_albums.forEach(sugg => {
+      sugg.removeEventListener("touchend", mobSearchAdd)
+    })
+
     setTimeout(()=>{
       document.addEventListener("touchend", mobSearchPlace)
     }, 50)
 
    async function mobSearchPlace(e){
+    const sugg_albums = document.querySelectorAll('.sugg_album')
 
       if(e.target.classList.contains('sugg_album')){
         console.log(e.target)
@@ -30,7 +36,10 @@ function mobSearchAdd(e){
               chosen.style.border = "none"; 
             } else{
               console.log('picked second if')
-              chosen.style.border = "none"; 
+              chosen.style.border = "none";
+              setTimeout(() => {
+                addtileListeners();
+              }, 50)
             }
       }
 
@@ -45,10 +54,18 @@ function mobSearchAdd(e){
         } 
         
       else{
+        console.log('else is puicked')
             chosen.style.border = "none";
+            setTimeout(() => {
+              addtileListeners();
+            }, 50)
         }
 
       document.removeEventListener("touchend", mobSearchPlace)
+  
+      sugg_albums.forEach(sugg => {
+        sugg.addEventListener("touchend", mobSearchAdd)
+      })
     }
 }
 

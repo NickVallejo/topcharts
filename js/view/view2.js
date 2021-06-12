@@ -102,14 +102,14 @@ const showViewData = (user, chart) => {
     if (viewChart[i] !== null && viewChart[i] !== undefined) {
       chartNamesWrapper.insertAdjacentHTML(
         "beforeend",
-        `<p class="albumInfo" rank=${i}><span class="chartNameNum">${i + 1}.</span>${viewChart[i].artist} - ${
+        `<p class="albumInfo" rank=${i}><span class="chartNameNum">${i + 1}. </span>${viewChart[i].artist} - ${
           viewChart[i].album_name
         }</p>`
       )
     } else {
       chartNamesWrapper.insertAdjacentHTML(
         "beforeend",
-        `<p class="albumInfo" rank=${i}><span class="chartNameNum">${i + 1}.</span></p>`
+        `<p class="albumInfo" rank=${i}><span class="chartNameNum">${i + 1}. </span></p>`
       )
     }
   }
