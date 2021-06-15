@@ -16,13 +16,6 @@ async function chartUpdate(req, res, next) {
         chart.chart = updatedChart;
         chart.save();
       }
-  
-      // if (user) {
-      //   let chartToUpdate = await user.musicCharts.find((chart) => chart.title == title)
-      //   const index = await user.musicCharts.indexOf(chartToUpdate)
-      //   user.musicCharts[index].chart = updatedChart //This is the line where the chart is updated
-      //   user.markModified("musicCharts")
-      //   await user.save()
       next()
       }
      catch (err) {

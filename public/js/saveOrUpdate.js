@@ -41,7 +41,19 @@ function chartUpdate() {
 //! FUNCTION TO SAVE A CHART
 function chartSave(fromTyped) {
 
-  if (saved_list.length >= 3){
+  var format = /[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
+  console.log(format.test(fromTyped), "TESTING");
+
+  if(fromTyped == ''){
+    return false;
+  }
+
+  if(format.test(fromTyped)){
+    alert("Invalid Characters.");
+    return false;
+  }
+
+  if (saved_list.length >= 10){
     alert("Max chart limit reached for beta.");
     return;
   }
