@@ -128,7 +128,7 @@ function touchStart(e) {
 
           ytSearch.open(
             "GET",
-            `http://192.168.0.11:4001/yt-listen?artist=${ytAlbum.artist}&album=${ytAlbum.album_name}`
+            `http://localhost:4001/yt-listen?artist=${ytAlbum.artist}&album=${ytAlbum.album_name}`
           )
           ytSearch.onload = () => {
             let ytExit

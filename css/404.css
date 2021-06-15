@@ -1,0 +1,76 @@
+body {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: "Montserrat", sans-serif;
+  background-image: url("http://localhost:8888/topsters3 - copy/assets/topsters-bg.png");
+  background-size: cover;
+  flex-flow: column;
+  margin: 0px;
+}
+
+body h1 {
+  font-size: 120px;
+  color: white;
+  margin-top: 0px;
+  margin-bottom: 5px;
+}
+
+body h3 {
+  color: white;
+  margin: 0px;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+}
+
+body a {
+  color: #329920;
+}
+
+.desk-footer {
+  background-color: #040c0e;
+  width: 100%;
+}
+
+.desk-footer-wrap {
+  display: flex;
+  max-width: 1250px;
+  margin: 0 auto;
+  justify-content: space-between;
+  align-items: center;
+  padding: 7px 30px;
+}
+
+.desk-footer-wrap .footer-menu {
+  padding-left: 0px;
+  margin: 0px;
+}
+
+.desk-footer-wrap .footer-menu a {
+  display: inline;
+  list-style: none;
+  font-weight: 500;
+  color: #535f69;
+  margin-right: 7px;
+  text-decoration: none;
+}
+
+.desk-footer-wrap .soc-icons i {
+  font-size: 25px;
+  margin: 0px 7px;
+  color: #535f69;
+}
+
+.desk-footer-wrap .footer-menu a:hover,
+.desk-footer-wrap .soc-icons i:hover {
+  opacity: 0.75;
+}
+
+.fof-info {
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-flow: column;
+}

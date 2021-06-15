@@ -22,23 +22,26 @@ input {
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   -webkit-box-align: start;
-  -ms-flex-align: start;
-  align-items: flex-start;
+      -ms-flex-align: start;
+          align-items: flex-start;
   max-width: 1200px;
   margin: 0 auto;
   padding: 0px 30px;
+  width: 100%;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
 }
 
 .settings {
-  margin-top: 120px;
+  margin-top: 90px;
   margin-bottom: 40px;
   width: 100%;
   background: #13191b;
   -webkit-box-shadow: 0px 0px 26px 0px rgba(0, 0, 0, 0.75);
-  box-shadow: 0px 0px 26px 0px rgba(0, 0, 0, 0.75);
+          box-shadow: 0px 0px 26px 0px rgba(0, 0, 0, 0.75);
   min-height: 540px;
 }
 
@@ -48,14 +51,14 @@ input {
   display: flex;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
-  -ms-flex-flow: column;
-  flex-flow: column;
+      -ms-flex-flow: column;
+          flex-flow: column;
   -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
   -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   position: relative;
 }
 
@@ -76,11 +79,11 @@ input {
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
   position: absolute;
   left: 100px;
   bottom: -10px;
@@ -92,7 +95,7 @@ input {
   -webkit-transition: 0.2s all;
   transition: 0.2s all;
   -webkit-transform: scale(0.6);
-  transform: scale(0.6);
+          transform: scale(0.6);
 }
 
 .fa-edit:hover {
@@ -108,8 +111,8 @@ input {
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: justify;
-  -ms-flex-pack: justify;
-  justify-content: space-between;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
   max-width: 840px;
   margin: 0 auto;
   padding: 30px;
@@ -134,7 +137,7 @@ input {
   right: 5px;
   top: 37px;
   -webkit-transform: scale(0.6);
-  transform: scale(0.6);
+          transform: scale(0.6);
 }
 
 .coming-soon {
@@ -159,7 +162,7 @@ input {
 .popup {
   opacity: 0;
   pointer-events: none;
-  height: 100%;
+  height: 100vh;
   position: absolute;
   width: 100%;
   background: rgba(3, 6, 7, 0.699);
@@ -167,22 +170,22 @@ input {
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
-  -ms-flex-flow: column;
-  flex-flow: column;
+      -ms-flex-flow: column;
+          flex-flow: column;
   top: 0;
   left: 0;
   -webkit-transition: 0.4s all;
   transition: 0.4s all;
   padding: 30px;
   -webkit-box-sizing: border-box;
-  box-sizing: border-box;
+          box-sizing: border-box;
 }
 
 .popup .logo {
@@ -192,7 +195,7 @@ input {
 
 .popup .popup-wrap {
   -webkit-box-sizing: border-box;
-  box-sizing: border-box;
+          box-sizing: border-box;
   max-width: 640px;
   width: 100%;
   background: #13191b;
@@ -240,7 +243,7 @@ input[type="password"] {
   height: 35px;
   padding-left: 20px;
   -webkit-box-sizing: border-box;
-  box-sizing: border-box;
+          box-sizing: border-box;
 }
 
 .new-btn {
@@ -276,11 +279,11 @@ input[type="password"] {
   .change-fields {
     -webkit-box-orient: vertical;
     -webkit-box-direction: normal;
-    -ms-flex-flow: column;
-    flex-flow: column;
+        -ms-flex-flow: column;
+            flex-flow: column;
     -webkit-box-align: center;
-    -ms-flex-align: center;
-    align-items: center;
+        -ms-flex-align: center;
+            align-items: center;
     padding-top: 0px;
     margin-top: -25px;
   }

@@ -59,7 +59,7 @@ function recoveryGen(req, res, next) {
 //! CHECK HERE
 async function recoverySend(req, res, next) {
   const smtpTransport = nodemailer.createTransport({
-    service: "Gmail",
+    service: process.env.EMAIL_SERVICE,
     auth: {
       user: process.env.GMAIL_EMAIL,
       pass: process.env.GMAIL_PASS,
@@ -68,9 +68,9 @@ async function recoverySend(req, res, next) {
 
   const mailOptions = {
     to: req.user.email,
-    from: "nico.vallejo97@gmail.com",
+    from: process.env.GMAIL_EMAIL,
     subject: "Topsters Password Reset",
-    text: `Check this link to reset your password. http://192.168.0.11:4001/reset/${req.token}`,
+    text: `Check this link to reset your password. http://localhost:4001/reset/${req.token}`,
   }
 
   smtpTransport.sendMail(mailOptions, (err) => {

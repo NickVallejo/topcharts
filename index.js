@@ -28,7 +28,7 @@ const db_connect = mongoose.createConnection(
 
 const Chart = db_connect.model('Topsters Charts', require("./models/chart_model"), "topsters-chart-data")
 const User = db_connect.model('Users', require("./models/user_model"), "topsters-user-data")
-const Sessions = db_connect.model('Sessions', new mongoose.Schema({}, {strict: false, lean: true}), "newest-storage")
+// const Sessions = db_connect.model('Sessions', new mongoose.Schema({}, {strict: false, lean: true}), process.env.SESSION_COLLECTION)
 
 exports.User = User
 exports.Chart = Chart
@@ -47,15 +47,15 @@ require('./js-serverside/chartUpdate.js')
 require('./js-serverside/chartSave.js')
 require('./js-serverside/chartDelete.js')
 
-const TWO_HOURS = 1000 * 60 * 60
+const SESS_AGE = 1000 * 60 * 60
 
-const {
-  PORT = 3000,
-  SESS_AGE = TWO_HOURS,
-  NODE_ENV = "development",
-  SESS_NAME = "sid",
-  SESS_SECRET = "diplodocus",
-} = process.env
+// const {
+//   PORT = 3000,
+//   SESS_AGE = TWO_HOURS,
+//   NODE_ENV = "development",
+//   SESS_NAME = "sid",
+//   SESS_SECRET = "diplodocus",
+// } = process.env
 
 root.use(expressLayouts)
 root.set('view engine', 'ejs')
@@ -79,13 +79,13 @@ root.listen(port, (err) => {
 //! CREATES A STORAGE COLLECTION FOR SESSIONS USING THE DATABASE CONNECTION ESTABLISHED ABOVE
 const sessionStore = new MongoStore({
   mongooseConnection: db_connect,
-  collection: "newest-storage",
+  collection: process.env.SESSION_COLLECTION
 })
 
 //! ESTABLISHES THE SESSION MIDDLEWARE THAT PLANTS A SESSION COOKIE ON THE BRWOSER & ADDS A NEW ENTRY TO SESSION STORAGE ON THE SERVER
 root.use(
   session({
-    secret: "secret",
+    secret: process.env.SESS_SECRET,
     resave: true,
     saveUninitialized: true,
     store: sessionStore, //uses the session storage established with express-session and connect-mongo modules
@@ -173,6 +173,13 @@ root.post('/reset/:token', (req, res) => {
   })
 });
 
+root.get('/about', function(req, res){
+  const logged = req.session.logged
+  const userInfo = logged ? req.session.userInfo : '';
+  // res.render('dashView-mine', {home: true, logged: true, userInfo, layout: './layouts/dashboard-edit'})
+  res.render('about-data', {logged, userInfo, layout: './layouts/about'});
+});
+
 //! CHECKS TO SEE IF USER IS LOGGED IN BEFORE GRANTING ACCESS TO DASHBOARD
 function authCheck(req, res, next) {
   if (req.session.userId && req.path == "/dashboard") {
@@ -221,11 +228,7 @@ root.post('/title-change', async (req, res) => {
   const {title, newtitle} = req.body;
   const title_ = title.replace(/ /g,"_");
   const newtitle_ = newtitle.replace(/ /g,"_");
-
-  console.log('we wuz pingz')
-
-
-    const user = await User.findById(req.session.userId).populate('musicCharts')
+  const user = await User.findById(req.session.userId).populate('musicCharts')
 
 
       if(user){

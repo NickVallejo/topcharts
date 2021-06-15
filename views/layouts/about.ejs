@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" type="text/css" href="http://localhost:8888/topsters3 - copy/css/top_styles.css" />
+    <link rel="stylesheet" type="text/css" href="http://localhost:8888/topsters3 - copy/css/about.css" />
+    <link
+      rel="stylesheet"
+      href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+      integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p"
+      crossorigin="anonymous"
+    />
+
+    <title>Profile</title>
+  </head>
+
+  <% 
+  if(userInfo != ''){
+    const userImage = userInfo.profileImage.replace(/\\/g, "/"); 
+  }  
+  %>
+<body>
+    <%- include('../partials/header', {logged: logged, userInfo: userInfo}) %> 
+
+    <section class="about-hero">
+        <div class="about-wrap">
+            <a href="https://discord.gg/d7cTJZUu">
+                <img class="discord" src="http://localhost:8888/topsters3 - copy/assets/discord.png" alt="">
+            </a>
+            <h1>Welcome to Top Charts</h1>
+            <p>I've been working on-and-off on this project for almost a year now. It started as a fun challenge for myself, but quickly grew into an idea that I wanted to take live. There have been many charting sites in the past that are still really popular on Reddit and 4chan, and while those sites are fantastic, I felt like there was a lot more that could be done with the concept as a whole. With this platform, users can save charts, share charts, listen to albums on their charts, and get new recommendations for music based off those charts they've created. There's still a lot more that I want to do with this platform.<span class="green-span"> Some of the features I want to implement in the future are as follows:</span></p>
+            <ul>
+                <li>The ability to follow other users and see when they create new charts</li>
+                <li>The ability to save albums to a “listen later” list</li>
+                <li>Establish a proper dashboard that gives recommendations to charts you might be interested in, depending on the music you like, as well as a feed possibly? (This idea isn't entirely fleshed out)</li>
+                <li>Offer more customization options for chart image downloads if the feature is requested</li>
+                <li>Flesh out user profiles more to allow a “favourite albums” section, bio, and other info about the user</li>
+                <li>Finally, expand to other mediums in the future
+                    including video games, movies, books and other kinds of charts</li>
+            </ul>
+            <h2>For Developers</h2>
+            <p>If you wish to contribute to this project, you can reach out to me on <a class="about-link" href="https://discord.gg/d7cTJZUu">Discord</a>. I've created a server in the hopes of starting a community where users can report bugs and contribute to the project. In order to contribute, users will have to have knowledge of:</p>
+            <ul>
+                <li>Node.js</li>
+                <li>MongoDB</li>
+                <li>Express</li>
+                <li>The EJS templating language</li>
+                <li>Knowledge of Mongoose helps</li>
+            </ul>
+        </div>
+    </section>
+
+    <%- include('../partials/desk-footer') %>
+    <%- include('../partials/footer', {logged: logged, userInfo: userInfo}) %>
+</body>
+</html>

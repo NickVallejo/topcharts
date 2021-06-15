@@ -53,13 +53,13 @@ function reccPlay(sugg_albums, e) {
 //youtube play function for both the top tiles and reccs tiles
 function ytPlay(artist, album) {
   let ytSearch = new XMLHttpRequest()
-  ytSearch.open("GET", `http://192.168.0.11:4001/yt-listen?artist=${artist}&album=${album}`)
+  ytSearch.open("GET", `http://localhost:4001/yt-listen?artist=${artist}&album=${album}`)
   ytSearch.onload = () => {
     let ytExit
     let ytVid
 
     const url = ytSearch.responseText.replace("watch?v=", "embed/")
-    ytWrap.innerHTML = `<div class="yt-vid"><p class="yt-exit">X</p><iframe width="560" height="315" src=${url}?rel=0&controls=1&autoplay=1&mute=0 allow="autoplay" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>`
+    ytWrap.innerHTML = `<div class="yt-vid"><div class="yt-exit"><i class="fas fa-times"></div><iframe width="560" height="315" src=${url}?rel=0&controls=1&autoplay=1&mute=0 allow="autoplay" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>`
     ytExit = document.querySelector(".yt-exit")
     ytVid = document.querySelector(".yt-vid")
 

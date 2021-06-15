@@ -136,7 +136,7 @@ header .head-wrap {
   align-items: center;
   justify-content: space-between;
   margin-bottom: 50px;
-  margin-top: 90px;
+  margin-top: 40px;
 }
 
 .profile-row-info {
@@ -200,6 +200,7 @@ header .head-wrap {
 
 .profile-row .profile-charts-title .chart-amnt {
   color: #329920;
+  font-weight: 400;
 }
 
 .profile-row .profile-title,
@@ -227,7 +228,7 @@ header .head-wrap {
 }
 
 .profile-box h2::before {
-  content: url("http://192.168.0.11:8888/topsters3 - copy/assets/title-rec.svg");
+  content: url("http://localhost:8888/topsters3 - copy/assets/title-rec.svg");
   display: block;
   width: 30px;
   height: 30px;

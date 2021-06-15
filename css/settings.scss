@@ -29,10 +29,12 @@ input {
   max-width: 1200px;
   margin: 0 auto;
   padding: 0px 30px;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .settings {
-  margin-top: 120px;
+  margin-top: 90px;
   margin-bottom: 40px;
   width: 100%;
   background: $lightblack;

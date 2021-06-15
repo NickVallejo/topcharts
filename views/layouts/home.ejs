@@ -9,12 +9,13 @@
 
   <%- include('../partials/header', {logged: logged, userInfo: userInfo}) %>
 
-<body style="min-height: 100vh;">
+<body>
     <div class="notice-wrap"></div>
     <section class="home-body">
         <%- body %>
     </section>
 
+    <%- include('../partials/desk-footer') %>
     <%- include('../partials/footer', {logged: logged, userInfo: userInfo}) %>
 </body>
 </html>
