@@ -50,7 +50,7 @@ body {
 }
 
 .logreg-hero {
-  background-image: url("http://localhost:8888/topcharts/public/assets/topsters-bg.png");
+  background-image: url("http://192.168.0.13:8888/topcharts/public/assets/topsters-bg.png");
   background-size: cover;
 }
 

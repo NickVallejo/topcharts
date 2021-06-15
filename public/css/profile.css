@@ -228,7 +228,7 @@ header .head-wrap {
 }
 
 .profile-box h2::before {
-  content: url("http://localhost:8888/topcharts/public/assets/title-rec.svg");
+  content: url("http://192.168.0.13:8888/topcharts/public/assets/title-rec.svg");
   display: block;
   width: 30px;
   height: 30px;
