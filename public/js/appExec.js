@@ -93,7 +93,7 @@ async function list_load() {
   try {
     await new Promise((resolve, reject) => {
       req = new XMLHttpRequest()
-      req.open("GET", "http://143.198.119.208:8080/my-lists", true)
+      req.open("GET", "http://143.198.119.208:80/my-lists", true)
       req.setRequestHeader("Content-Type", "application/x-www-form-urlencoded")
       req.onload = () => {
         console.log("Get request sent to database...")
@@ -125,7 +125,7 @@ function sugg_load(savedNames) {
   sugg_loader = new XMLHttpRequest()
   sugg_loader.open(
     "GET",
-    `http://143.198.119.208:8080/similar-artists?artistNames=${encodeURIComponent(JSON.stringify(savedNames))}`, 
+    `http://143.198.119.208:80/similar-artists?artistNames=${encodeURIComponent(JSON.stringify(savedNames))}`, 
     true
   )
   sugg_loader.onload = function () {
