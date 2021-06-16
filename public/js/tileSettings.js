@@ -53,7 +53,7 @@ function reccPlay(sugg_albums, e) {
 //youtube play function for both the top tiles and reccs tiles
 function ytPlay(artist, album) {
   let ytSearch = new XMLHttpRequest()
-  ytSearch.open("GET", `http://143.198.119.208:4001/yt-listen?artist=${artist}&album=${album}`)
+  ytSearch.open("GET", `http://143.198.119.208:80/yt-listen?artist=${artist}&album=${album}`)
   ytSearch.onload = () => {
     let ytExit
     let ytVid

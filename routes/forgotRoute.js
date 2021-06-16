@@ -70,7 +70,7 @@ async function recoverySend(req, res, next) {
     to: req.user.email,
     from: process.env.GMAIL_EMAIL,
     subject: "Topsters Password Reset",
-    text: `Check this link to reset your password. http://143.198.119.208:4001/reset/${req.token}`,
+    text: `Check this link to reset your password. http://143.198.119.208:80/reset/${req.token}`,
   }
 
   smtpTransport.sendMail(mailOptions, (err) => {

@@ -1,5 +1,5 @@
 body {
-  background-image: url("http://143.198.119.208:4001/topcharts/public/assets/topsters-bg.png");
+  background-image: url("http://143.198.119.208:80/topcharts/public/assets/topsters-bg.png");
   display: flex;
   flex-flow: column;
   min-height: 100vh;

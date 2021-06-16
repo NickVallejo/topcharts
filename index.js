@@ -65,7 +65,7 @@ root.use(express.urlencoded({ extended: true }))
 
 const MongoStore = require("connect-mongo")(session)
 
-const port = process.env.PORT || 4001
+const port = process.env.PORT || 80
 
 root.listen(port, (err) => {
   try {
