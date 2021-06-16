@@ -29,7 +29,7 @@ function chartUpdate() {
   listToUpdate.chart = my_list.chart
 
   req = new XMLHttpRequest()
-  req.open("POST", "http://143.198.119.208:80/update", true)
+  req.open("POST", "http://143.198.119.208:8080/update", true)
   req.setRequestHeader("Content-Type", "application/x-www-form-urlencoded")
   req.onload = () => {
     consolidate()
@@ -101,7 +101,7 @@ function chartSave(fromTyped) {
 
       //open new POSt request
       req = new XMLHttpRequest()
-      req.open("POST", "http://143.198.119.208:80/", true)
+      req.open("POST", "http://143.198.119.208:8080/", true)
       //Use regular urlencoding as request header content type
       req.setRequestHeader("Content-Type", "application/x-www-form-urlencoded")
       //onload, log the post request as sent
