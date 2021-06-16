@@ -96,7 +96,7 @@ function chartListeners() {
 //! LOOK FOR CHARTS BASED ON THE USER IN THE URL PATH
 const getProfileData = async (myProfile) => {
   const req = new XMLHttpRequest()
-  req.open("POST", "http://192.168.0.13:4001/profile/charts")
+  req.open("POST", "http://143.198.119.208:4001/profile/charts")
   req.setRequestHeader("Content-Type", "application/x-www-form-urlencoded")
 
   //get the pathname and look for charts based on this username
