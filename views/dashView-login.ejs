@@ -1,0 +1,37 @@
+<section class="logreg-hero">
+  <div class="logreg-wrap">
+    <div class="logreg-box">
+      <% if(passChanged == true) {%>
+      <div class="succs">
+        <h5>Password Change complete!</h5>
+      </div>
+      <% } %> <% if(errs) {%>
+      <div class="errs">
+        <h5>Invalid Credentials:</h5>
+        <ul>
+          <% for(i = 0; i < errs.length; i++) {%>
+          <li><%- errs[i].msg %></li>
+          <% } %>
+        </ul>
+      </div>
+      <% } %>
+
+      <h1>Welcome to Top Charts</h1>
+      <form class="" action="/login" method="post">
+        <input placeholder="Username" type="text" name="username" value="<%= username %>" />
+        <div class="eye">
+          <input placeholder="Password" type="password" name="password" value="" />
+          <i class="far fa-eye"></i>
+        </div>
+        <button class="new-btn" type="submit">Login</button>
+      </form>
+
+      <div class="log-opts">
+        <a href="/register">Register</a>
+        <a href="/forgot">Forgot</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script type="text/javascript" src="http://143.198.119.208:3000/topcharts/public/js/logreg/logreg.js"></script>

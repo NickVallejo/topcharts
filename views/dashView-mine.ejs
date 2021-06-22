@@ -1,0 +1,77 @@
+<i class="fas fa-chevron-circle-up recc-show fa-3x"></i>
+<div id="primary" class="content-area">
+  <main id="main" class="site-main">
+    <div class="set-wrap">
+      <div class="set">
+        <div class="field-wrap">
+          <div class="field-info">
+            <input class="top_input" type="text" name="" value="" placeholder="Search for albums..." />
+            <i title="add your own album from the internet..." class="far fa-plus-square add-btn fa-2x"></i>
+            <!-- <form class="input-form">
+                <p class="click-to-add">Click to add a custom album</p>
+                <i class="far fa-plus-square add-btn"></i>
+              </form> -->
+          </div>
+
+          <fieldset>
+            <div class="input_suggs"></div>
+
+            <div class="round-down-btn round-hide">
+              <i class="fas fa-chevron-up fa-2x"></i>
+            </div>
+          </fieldset>
+        </div>
+        <div class="saved"></div>
+      </div>
+    </div>
+
+    <section class="display-screen">
+      <div class="display">
+        <div class="control-wrap">
+          <div class="numbers-wrap" data-html2canvas-ignore="true">
+            <p>Numbers?</p>
+            <input id="desk-numRadio" type="checkbox" checked="true" class="chartNums" name="chartNums" value="true" />
+          </div>
+
+          <div class="top-radio-wrap" data-html2canvas-ignore="true">
+            <input class="top-select" type="radio" id="top-ten" name="top-select" value="top-ten" />
+            <label value="top-ten" for="top-ten" class="top-select">Top 10</label><br />
+            <input class="top-select" type="radio" id="top-twenty" name="top-select" value="top-twenty" />
+            <label value="top-twenty" for="top-twenty" class="top-select">Top 20</label><br />
+            <input class="top-select" type="radio" id="top-fifty" name="top-select" value="top-fifty" />
+            <label value="top-fifty" for="top-fifty" class="top-select">Top 50</label><br />
+            <input class="top-select" type="radio" id="top-hundred" name="top-select" value="top-hundred" />
+            <label value="top-hundred" for="top-hundred" class="top-select">Top 100</label><br />
+          </div>
+        </div>
+        <div class="title-wrap">
+          <div class="chart_title">
+            <h3>Chart Title:</h3>
+            <i class="far fa-edit edit" data-html2canvas-ignore="true"></i>
+            <input class="title-change" type="text" />
+          </div>
+
+          <div class="control-btns" data-html2canvas-ignore="true">
+            <button class="screencap-btn prim-btn" type="submit">Download Img</button>
+            <button class="prim-btn clear">New</button>
+          </div>
+        </div>
+        <div class="top_wrapper mine-wrapper"></div>
+      </div>
+
+      <div class="chart_names"></div>
+
+      <div class="list-burg" data-html2canvas-ignore="true">
+        <i class="fas fa-ellipsis-h"></i>
+      </div>
+    </section>
+  </main>
+  <!-- #main -->
+</div>
+
+<div class="album_reccs">
+  <p class="no-reccs-txt">You need to save more albums to your charts before we can give you album reccomendations!</p>
+  <img class="sugg-loader" src="http://143.198.119.208:3000/topcharts/public/assets/loader.gif" alt="" />
+</div>
+
+<div class="yt-wrap"></div>

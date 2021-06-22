@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<% if (home) {%>
+  <%- include('../partials/head-home') %>
+<% } else { %>
+  <%- include('../partials/head-logreg') %>
+<% } %>
+
+  <%- include('../partials/header', {logged: logged, userInfo: userInfo}) %>
+
+<body>
+    <div class="notice-wrap"></div>
+    <section class="home-body">
+        <%- body %>
+    </section>
+
+    <%- include('../partials/desk-footer') %>
+    <%- include('../partials/footer', {logged: logged, userInfo: userInfo}) %>
+</body>
+</html>

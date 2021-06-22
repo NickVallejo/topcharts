@@ -1,0 +1,29 @@
+<header>
+  <div class="head-wrap">
+    <a class="logo-anc" href="/"><img class="logo" src="http://143.198.119.208:3000/topcharts/public/assets/logo.png"
+        alt="" /></a>
+
+    <% if(logged==true) { %>
+      <div class="prof-search-wrap">
+        <input type="text" class="prof-input">
+        <button class="prof-search">Search</button>
+      </div>
+      <% } %>
+
+        <nav>
+          <% if(logged==false) { %>
+            <li><a href="/login">Login</a></li>
+            <li><a href="/register">Register</a></li>
+            <% } else { %>
+              <% const userImage=userInfo.profileImage.replace(/\\/g, "/" ) %>
+                <li><a href="/dashboard">Dashboard</a></li>
+                <li><a href="/settings">Settings</a></li>
+                <li><a href="/logout">Logout</a></li>
+                <a class="prof-go" href="/<%= userInfo.username %>">
+                  <div id="profile-img-display"
+                    style="background-image: url('http://143.198.119.208:3000/<%= userImage %>')"></div>
+                </a>
+                <% } %>
+        </nav>
+  </div>
+</header>

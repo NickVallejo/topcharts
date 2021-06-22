@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" type="text/css" href="http://143.198.119.208:3000/topcharts/public/css/top_styles.css" />
+    <link rel="stylesheet" type="text/css" href="http://143.198.119.208:3000/topcharts/public/css/profile.css" />
+    <link rel="stylesheet" type="text/css" href="http://143.198.119.208:3000/topcharts/public/css/settings.css" />
+    <link
+      rel="stylesheet"
+      href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+      integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p"
+      crossorigin="anonymous"
+    />
+
+    <title>Profile</title>
+  </head>
+
+  <%- include('../partials/header', {logged: logged, userInfo: userInfo}) %> <% const userImage =
+  userInfo.profileImage.replace(/\\/g, "/") %>
+
+  <body>
+    <div class="section">
+      <div class="settings">
+        <div class="profile-display">
+          <div
+            id="profile-img-display"
+            class="profile-img-display-lg"
+            style="background-image: url('http://143.198.119.208:3000/<%= userImage %>')"
+          >
+            <label class="edit-wrap" for="profile-image-submit">
+              <i class="far fa-edit fa-2x"></i>
+            </label>
+            <input id="profile-image-submit" type="file" />
+          </div>
+        </div>
+
+        <div class="change-fields">
+          <div class="change-wrap email-change-wrap">
+            <label for="email-change">Email</label>
+            <input disabled type="email" value="<%= userInfo.email %>" />
+            <i class="far email-edit fa-edit fa-2x"></i>
+          </div>
+
+          <div class="change-wrap password-change-wrap">
+            <label for="password-change">Password</label>
+            <input disabled type="password" value="<%= userInfo.password %>" />
+            <i class="far password-edit fa-edit fa-2x"></i>
+          </div>
+        </div>
+
+        <div class="coming-soon">
+          <h3>Followers, Bios, Favorite Artists, and much more with Topsters <span>Premium.</span></h3>
+          <p>Lol just kidding it's free. Learn how you can contribute.</p>
+          <a class="new-btn" href="/">Learn More</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="popup">
+      <div class="popup-wrap">
+        <img class="logo" src="http://143.198.119.208:3000/topcharts/public/assets/logo-2.png" alt="" />
+        <form id="emailChangeForm" class="pass-change" action="" method="">
+          <label for="email">New Email</label>
+          <input name="email" type="email" />
+
+          <label for="confirmPass">Confirm Password</label>
+          <input class="email-pass-confirm" name="confirmPass" type="password" />
+
+          <input class="new-btn" type="submit" value="Change Email" />
+        </form>
+
+        <form id="passChangeForm" class="pass-change" action="" method="">
+          <label for="current">Current Password</label>
+          <input class="pass-curr-pass" name="current" type="password" />
+
+          <label for="newPass">New Password</label>
+          <input class="pass-pass-new" name="newPass" type="password" />
+
+          <label for="confirmPass">Confirm New Password</label>
+          <input class="pass-pass-confirm" name="confirmPass" type="password" />
+
+          <input class="new-btn" type="submit" value="Change Password" />
+        </form>
+      </div>
+    </div>
+
+    <div class="notice-wrap"></div>
+
+    <%- include('../partials/desk-footer') %> <%- include('../partials/footer', {logged: logged, userInfo: userInfo}) %>
+
+    <script src="http://143.198.119.208:3000/topcharts/public/js/profile/settings-ui.js"></script>
+    <script src="http://143.198.119.208:3000/topcharts/public/js/profile/profile.js"></script>
+  </body>
+</html>
