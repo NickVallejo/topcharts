@@ -21,6 +21,7 @@ const numRadios = document.querySelectorAll(".chartNums")
 const suggLoader = document.querySelector(".sugg-loader")
 const profInput = document.querySelector('.prof-input')
 const profBtn = document.querySelector('.prof-search')
+const profRes = document.querySelector('.src-results')
 let sugg_array
 
 let savedOnFrontEnd
