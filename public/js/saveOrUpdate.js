@@ -29,7 +29,7 @@ function chartUpdate() {
   listToUpdate.chart = my_list.chart
 
   req = new XMLHttpRequest()
-  req.open("POST", "http://143.198.119.208:3000/update", true)
+  req.open("POST", "/update", true)
   req.setRequestHeader("Content-Type", "application/x-www-form-urlencoded")
   req.onload = () => {
     consolidate()
@@ -44,16 +44,16 @@ function chartSave(fromTyped) {
   var format = /[`!@#$%^*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
   console.log(format.test(fromTyped), "TESTING");
 
-  if(fromTyped == ''){
+  if (fromTyped == '') {
     return false;
   }
 
-  if(format.test(fromTyped)){
+  if (format.test(fromTyped)) {
     alert("Invalid Characters.");
     return false;
   }
 
-  if (saved_list.length >= 10){
+  if (saved_list.length >= 10) {
     alert("Max chart limit reached for beta.");
     return;
   }
@@ -77,7 +77,7 @@ function chartSave(fromTyped) {
     var title_ = symbolFilterTitle.replace(/ /g, "_") //check if the underscored title is already in the saved_array with filter
     console.log("FINAL OUTPUT", title_)
 
-    if(symbolFilterTitle.length > 35){
+    if (symbolFilterTitle.length > 35) {
       alert('Chart name too long!')
       titleInput.value = ''
       return false;
@@ -101,7 +101,7 @@ function chartSave(fromTyped) {
 
       //open new POSt request
       req = new XMLHttpRequest()
-      req.open("POST", "http://143.198.119.208:3000/", true)
+      req.open("POST", "/", true)
       //Use regular urlencoding as request header content type
       req.setRequestHeader("Content-Type", "application/x-www-form-urlencoded")
       //onload, log the post request as sent
@@ -181,7 +181,7 @@ function titleChange(e, titleChanger, textCapture) {
     const savedOnFront = document.querySelectorAll(".saved_title")
     const newTitleFiltered = titleChanger.value.replace(/&/g, "and")
 
-    if(newTitleFiltered.length > 35){
+    if (newTitleFiltered.length > 35) {
       titleInput = document.querySelector('.title-change')
       titleInput.value = ''
       alert('Chart name too long!')

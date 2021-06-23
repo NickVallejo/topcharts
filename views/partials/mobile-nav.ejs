@@ -12,11 +12,7 @@
 
       <div class="ico-group">
         <i class="fas fa-cog fa-2x"></i>
-        <div
-          id="profile-img-display"
-          class="prof-img-mob"
-          style="background-image: url('http://143.198.119.208:3000/<%= userImage %>')"
-        ></div>
+        <div id="profile-img-display" class="prof-img-mob" style="background-image: url('/<%= userImage %>')"></div>
       </div>
     </div>
   </div>
@@ -34,14 +30,15 @@
     <ul>
       <li class="save">Save</li>
       <li class="clear">New</li>
-      <label for="mob-numRadio"
-        ><li>
+      <label for="mob-numRadio">
+        <li>
           Numbers?
-          <input id="mob-numRadio" type="checkbox" checked="true" class="chartNums" name="chartNums" value="true" /></li
-      ></label>
+          <input id="mob-numRadio" type="checkbox" checked="true" class="chartNums" name="chartNums" value="true" />
+        </li>
+      </label>
       <li class="screencap-btn">Download Image</li>
     </ul>
   </div>
 </div>
 
-<script type="text/javascript" src="http://143.198.119.208:3000/topcharts/public/js/interactive.js"></script>
+<script type="text/javascript" src="js/interactive.js"></script>

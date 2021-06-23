@@ -75,8 +75,7 @@ function list_new() {
   for (i = 0; i < my_list.length; i++) {
     topWrapper.insertAdjacentHTML(
       "beforeend",
-      `<div style="background-image: url()" class="top top${i}" rank=${i} active="no"><p class="frontRank">${
-        i + 1
+      `<div style="background-image: url()" class="top top${i}" rank=${i} active="no"><p class="frontRank">${i + 1
       }</p></div>`
     )
   }
@@ -93,7 +92,7 @@ async function list_load() {
   try {
     await new Promise((resolve, reject) => {
       req = new XMLHttpRequest()
-      req.open("GET", "http://143.198.119.208:3000/my-lists", true)
+      req.open("GET", "/my-lists", true)
       req.setRequestHeader("Content-Type", "application/x-www-form-urlencoded")
       req.onload = () => {
         console.log("Get request sent to database...")
@@ -125,7 +124,7 @@ function sugg_load(savedNames) {
   sugg_loader = new XMLHttpRequest()
   sugg_loader.open(
     "GET",
-    `http://143.198.119.208:3000/similar-artists?artistNames=${encodeURIComponent(JSON.stringify(savedNames))}`, 
+    `/similar-artists?artistNames=${encodeURIComponent(JSON.stringify(savedNames))}`,
     true
   )
   sugg_loader.onload = function () {

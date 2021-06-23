@@ -1,32 +1,38 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-  <% if (home) {%> <%- include('../partials/head-home') %> <% } else { %> <%- include('../partials/head-logreg') %> <% }
-  %> <% const userImage = userInfo.profileImage.replace(/\\/g, "/") %>
+<% if (home) {%>
+  <%- include('../partials/head-home') %>
+    <% } else { %>
+      <%- include('../partials/head-logreg') %>
+        <% } %>
+          <% const userImage=userInfo.profileImage.replace(/\\/g, "/" ) %>
 
-  <div class="header-hide-wrap"><%- include('../partials/header', {logged: logged, userInfo: userInfo}) %></div>
-  <body style="min-height: 100vh">
-    <div class="notice-wrap"></div>
+            <div class="header-hide-wrap">
+              <%- include('../partials/header', {logged: logged, userInfo: userInfo}) %>
+            </div>
 
-    <%- body %> <%- include('../partials/desk-footer') %> <%- include('../partials/mobile-nav', {logged: logged,
-    userInfo: userInfo, userImage: userImage}) %>
+            <body style="min-height: 100vh">
+              <div class="notice-wrap"></div>
 
-    <script
-      src="https://code.jquery.com/jquery-3.4.1.js"
-      integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
-      crossorigin="anonymous"
-    ></script>
-    <script type="text/javascript" src="http://143.198.119.208:3000/topcharts/public/js/userSettings.js"></script>
-    <script type="text/javascript" src="http://143.198.119.208:3000/topcharts/public/js/tileSettings.js"></script>
-    <script type="text/javascript" src="http://143.198.119.208:3000/topcharts/public/js/trashOrDisplay.js"></script>
-    <script type="text/javascript" src="http://143.198.119.208:3000/topcharts/public/js/saveOrUpdate.js"></script>
-    <script type="text/javascript" src="http://143.198.119.208:3000/topcharts/public/js/mobile-tiles.js"></script>
-    <script type="text/javascript" src="http://143.198.119.208:3000/topcharts/public/js/searchAndAdd.js"></script>
-    <script type="text/javascript" src="http://143.198.119.208:3000/topcharts/public/js/unsavedChart.js"></script>
-    <script type="text/javascript" src="http://143.198.119.208:3000/topcharts/public/js/appExec.js"></script>
-    <script type="text/javascript" src="http://143.198.119.208:3000/topcharts/public/js/tileListeners.js"></script>
-    <script type="text/javascript" src="http://143.198.119.208:3000/topcharts/public/js/chartSizeSet.js"></script>
-    <script type="text/javascript" src="http://143.198.119.208:3000/topcharts/public/js/addCustomAlbum.js"></script>
-    <script type="text/javascript" src="http://143.198.119.208:3000/topcharts/public/js/html2canvas.js"></script>
-    <script type="text/javascript" src="http://143.198.119.208:3000/topcharts/public/js/screencap.js"></script>
-  </body>
+              <%- body %>
+                <%- include('../partials/desk-footer') %>
+                  <%- include('../partials/mobile-nav', {logged: logged, userInfo: userInfo, userImage: userImage}) %>
+
+                    <script src="https://code.jquery.com/jquery-3.4.1.js"
+                      integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+                    <script type="text/javascript" src="js/userSettings.js"></script>
+                    <script type="text/javascript" src="js/tileSettings.js"></script>
+                    <script type="text/javascript" src="js/trashOrDisplay.js"></script>
+                    <script type="text/javascript" src="js/saveOrUpdate.js"></script>
+                    <script type="text/javascript" src="js/mobile-tiles.js"></script>
+                    <script type="text/javascript" src="js/searchAndAdd.js"></script>
+                    <script type="text/javascript" src="js/unsavedChart.js"></script>
+                    <script type="text/javascript" src="js/appExec.js"></script>
+                    <script type="text/javascript" src="js/tileListeners.js"></script>
+                    <script type="text/javascript" src="js/chartSizeSet.js"></script>
+                    <script type="text/javascript" src="js/addCustomAlbum.js"></script>
+                    <script type="text/javascript" src="js/html2canvas.js"></script>
+                    <script type="text/javascript" src="js/screencap.js"></script>
+            </body>
+
 </html>

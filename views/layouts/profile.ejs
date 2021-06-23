@@ -1,56 +1,67 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" type="text/css" href="http://143.198.119.208:3000/topcharts/public/css/top_styles.css" />
-    <link rel="stylesheet" type="text/css" href="http://143.198.119.208:3000/topcharts/public/css/profile.css" />
-    <link
-      rel="stylesheet"
-      href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
-      integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p"
-      crossorigin="anonymous"
-    />
 
-    <title>Profile</title>
-  </head>
-  <% const userImage = profileInfo.profileImage.replace(/\\/g, "/") %>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" type="text/css" href="css/top_styles.css" />
+  <link rel="stylesheet" type="text/css" href="css/profile.css" />
+  <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+    integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+
+  <title>Profile</title>
+</head>
+<% const userImage=profileInfo.profileImage.replace(/\\/g, "/" ) %>
 
   <!-- <div class="prof-settings">
     <p>Followers: <%- followers %></p>
     <p>Following: <%- following %></p>
 
   </div> -->
+
   <body>
     <%- include('../partials/header', {logged: logged, userInfo: userInfo}) %>
 
-    <div class="prof-padding">
-      <section class="profile-row prof-sec">
-        <div class="profile-row-info">
-          <div class="profile-img" style="background-image: url('http://143.198.119.208:3000/<%= userImage %>')"></div>
-          <div>
-            <h1 class="profile-title"><%= profileInfo.username %></h1>
-            <h3 class="profile-charts-title">
-              Charts: <span class="chart-amnt"><%= profileInfo.musicCharts.length %></span>
-            </h3>
+      <div class="prof-padding">
+        <section class="profile-row prof-sec">
+          <div class="profile-row-info">
+            <div class="profile-img" style="background-image: url('/<%= userImage %>')">
+            </div>
+            <div>
+              <h1 class="profile-title">
+                <%= profileInfo.username %>
+              </h1>
+              <h3 class="profile-charts-title">
+                Charts: <span class="chart-amnt">
+                  <%= profileInfo.musicCharts.length %>
+                </span>
+              </h3>
+            </div>
           </div>
-        </div>
 
-        <div><%- body %></div>
-      </section>
+          <div>
+            <%- body %>
+          </div>
+        </section>
 
-      <section class="profile-box prof-sec">
-        <h2><%= profileInfo.username %>'s Charts</h2>
-        <div class="profile-charts"><%- include('../profile-functions.ejs') %></div>
-      </section>
-    </div>
+        <section class="profile-box prof-sec">
+          <h2>
+            <%= profileInfo.username %>'s Charts
+          </h2>
+          <div class="profile-charts">
+            <%- include('../profile-functions.ejs') %>
+          </div>
+        </section>
+      </div>
 
-    <%- include('../partials/desk-footer') %> <%- include('../partials/footer', {logged: logged, userInfo: userInfo}) %>
+      <%- include('../partials/desk-footer') %>
+        <%- include('../partials/footer', {logged: logged, userInfo: userInfo}) %>
 
-    <!--<h2>Favourite Artists</h2>
+          <!--<h2>Favourite Artists</h2>
     <h2>Listen List</h2> -->
 
-    <script src="http://143.198.119.208:3000/topcharts/public/js/trashOrDisplay.js"></script>
-    <script src="http://143.198.119.208:3000/topcharts/public/js/profile/profile.js"></script>
+          <script src="js/trashOrDisplay.js"></script>
+          <script src="js/profile/profile.js"></script>
   </body>
+
 </html>

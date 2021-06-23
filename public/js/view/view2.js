@@ -17,7 +17,7 @@ function tileSettings(e) {
     ytAlbum = window.viewChart[e.target.parentNode.getAttribute("rank")]
     console.log(ytAlbum)
 
-    ytSearch.open("GET", `http://143.198.119.208:3000/yt-listen?artist=${ytAlbum.artist}&album=${ytAlbum.album_name}`)
+    ytSearch.open("GET", `/yt-listen?artist=${ytAlbum.artist}&album=${ytAlbum.album_name}`)
     ytSearch.onload = () => {
       let ytExit
       let ytVid
@@ -52,7 +52,7 @@ function tileSettings(e) {
 
 const getViewData = async () => {
   const req = new XMLHttpRequest()
-  req.open("GET", `http://143.198.119.208:3000/profile/onechart?username=${user}&chartname=${chart}`)
+  req.open("GET", `/profile/onechart?username=${user}&chartname=${chart}`)
   req.setRequestHeader("Content-Type", "application/x-www-form-urlencoded")
   req.onload = () => {
     const view = JSON.parse(req.responseText)
@@ -78,19 +78,15 @@ const showViewData = (user, chart) => {
     if (viewChart[i] !== undefined && viewChart[i] !== null) {
       topWrapper.insertAdjacentHTML(
         "beforeend",
-        `<div style="background-image: url(${
-          viewChart[i].album_image
-        })" class="top ${i}" rank=${i} active="no"><p class="frontRank">${
-          i + 1
-        }</p><div class="tile-hover" rank=${i}></div><i class="fas fa-play-circle frontPlay"></i><p class="tile-title">${
-          viewChart[i].artist
+        `<div style="background-image: url(${viewChart[i].album_image
+        })" class="top ${i}" rank=${i} active="no"><p class="frontRank">${i + 1
+        }</p><div class="tile-hover" rank=${i}></div><i class="fas fa-play-circle frontPlay"></i><p class="tile-title">${viewChart[i].artist
         } - ${viewChart[i].album_name}</p></div>`
       )
     } else {
       topWrapper.insertAdjacentHTML(
         "beforeend",
-        `<div style="background-image: url()" class="top ${i}" rank=${i} active="no"><p class="frontRank">${
-          i + 1
+        `<div style="background-image: url()" class="top ${i}" rank=${i} active="no"><p class="frontRank">${i + 1
         }</p></div>`
       )
     }
@@ -102,8 +98,7 @@ const showViewData = (user, chart) => {
     if (viewChart[i] !== null && viewChart[i] !== undefined) {
       chartNamesWrapper.insertAdjacentHTML(
         "beforeend",
-        `<p class="albumInfo" rank=${i}><span class="chartNameNum">${i + 1}. </span>${viewChart[i].artist} - ${
-          viewChart[i].album_name
+        `<p class="albumInfo" rank=${i}><span class="chartNameNum">${i + 1}. </span>${viewChart[i].artist} - ${viewChart[i].album_name
         }</p>`
       )
     } else {
