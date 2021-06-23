@@ -300,14 +300,14 @@ root.get('/:username/chart/:chartname', async (req, res) => {
 
         if (theChart) {
           if (!req.session.userId) {
-            res.render('dashView-user', { home: true, logged: false, userInfo: '', layout: './layouts/dashboard' })
+            res.render('dashView-user', { home: true, logged: false, userInfo: '', layout: './layouts/dashboard-visit' })
           } else {
             User.findById(req.session.userId, async (err, user) => {
               try {
                 if (user.username == username) {
                   res.redirect(`/dashboard?chart=${chartname}`)
                 } else {
-                  res.render('dashView-user', { home: true, logged: true, userInfo: req.session.userInfo, layout: './layouts/dashboard' })
+                  res.render('dashView-user', { home: true, logged: true, userInfo: req.session.userInfo, layout: './layouts/dashboard-visit' })
                 }
               } catch (err) {
                 res.status(404)
