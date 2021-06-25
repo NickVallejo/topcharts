@@ -50,7 +50,7 @@ body {
 }
 
 .logreg-hero {
-  background-image: url("assets/topsters-bg.png");
+  background-image: url("/assets/topsters-bg.png");
   background-size: cover;
 }
 

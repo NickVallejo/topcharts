@@ -4,7 +4,7 @@ body {
   justify-content: center;
   align-items: center;
   font-family: "Montserrat", sans-serif;
-  background-image: url("assets/topsters-bg.png");
+  background-image: url("/assets/topsters-bg.png");
   background-size: cover;
   flex-flow: column;
   margin: 0px;

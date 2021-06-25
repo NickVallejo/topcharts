@@ -1,5 +1,5 @@
 body {
-  background-image: url("assets/topsters-bg.png");
+  background-image: url("/assets/topsters-bg.png");
   display: flex;
   flex-flow: column;
   min-height: 100vh;
