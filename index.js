@@ -68,7 +68,7 @@ const MongoStore = require("connect-mongo")(session)
 
 const port = process.env.PORT || 3000
 
-root.listen(port, '192.168.0.11', (err) => {
+root.listen(port, (err) => {
   try {
     console.log("Connected to port " + port)
   } catch (err) {
