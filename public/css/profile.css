@@ -228,7 +228,7 @@ header .head-wrap {
 }
 
 .profile-box h2::before {
-  content: url("images/title-rec.svg");
+  content: url("/images/title-rec.svg");
   display: block;
   width: 30px;
   height: 30px;
