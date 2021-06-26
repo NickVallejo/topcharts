@@ -38,9 +38,6 @@ const fileFilterer = (req, file, cb) => {
 //that belong to the object argument passed into the multer function
 const upload = multer({
   storage: storage, 
-  limits: {
-  fileSize: fileFilterer
-},
   fileFilter: fileFilterer
 });
 
