@@ -64,7 +64,7 @@ settings.post('/image', upload.single('profileImage'), (req, res, next) => {
     delete req.fileValidationError
   } 
   else if(req.file.size > 500000){
-    console.log('File size too large')
+    console.log('File is size too large')
     res.status(400).send({noticeType: 'error', noticeTxt: 'Image size must be under 500kb'});
     return;
   }
