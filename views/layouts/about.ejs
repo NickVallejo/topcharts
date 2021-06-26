@@ -1,16 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" type="text/css" href="css/top_styles.css" />
-  <link rel="stylesheet" type="text/css" href="css/about.css" />
-  <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
-    integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
-
-  <title>Profile</title>
-</head>
+  <%- include('../partials/head-about') %>
 
 <% if(userInfo !='' ){ const userImage=userInfo.profileImage.replace(/\\/g, "/" ); } %>
 
@@ -19,7 +10,7 @@
 
       <section class="about-hero">
         <div class="about-wrap">
-          <a href="https://discord.gg/d7cTJZUu">
+          <a href="https://discord.gg/eCEJdW2uPR">
             <img class="discord" src="images/discord.png" alt="" />
           </a>
           <h1>Welcome to Top Charts</h1>
@@ -55,7 +46,7 @@
           <h2>For Developers</h2>
           <p>
             If you wish to contribute to this project, you can reach out to me on
-            <a class="about-link" href="https://discord.gg/d7cTJZUu">Discord</a>. I've created a server in the hopes of
+            <a class="about-link" href="https://discord.gg/eCEJdW2uPR">Discord</a>. I've created a server in the hopes of
             starting a community where users can report bugs and contribute to the project. In order to contribute,
             users
             will have to have knowledge of:

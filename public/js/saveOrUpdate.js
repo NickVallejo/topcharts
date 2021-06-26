@@ -41,7 +41,7 @@ function chartUpdate() {
 //! FUNCTION TO SAVE A CHART
 function chartSave(fromTyped) {
 
-  var format = /[`!@#$%^*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
+  var format = /[!@#$%^*()_+\-=\[\]{};"\\|,.<>\/~]/;
   console.log(format.test(fromTyped), "TESTING");
 
   if (fromTyped == '') {
