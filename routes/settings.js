@@ -25,9 +25,12 @@ const storage = multer.diskStorage({
 //another piece of qonq middleware that accepts the request, file object and a callback as arguments 
 const fileFilterer = (req, file, cb) => {
   //checks if img file mimetype is an acceptable format
+  console.log('in file filter')
   if(file.mimetype === 'image/jpeg' || file.mimetype === 'image/png'){
+    console.log('image type is correct')
     cb(null, true);
   } else{
+    console.log('image type is not correct')
     req.fileValidationError = 'Not a valid file type';
     cb(null, false, 'goes wrong on the mimetype');
   }
@@ -38,6 +41,7 @@ const fileFilterer = (req, file, cb) => {
 //that belong to the object argument passed into the multer function
 const upload = multer({
   storage: storage, 
+  limits: {fileSize: 500000},
   fileFilter: fileFilterer
 });
 
@@ -49,55 +53,63 @@ settings.get('/', (req, res) => {
     }           
 })
 
+function multerErr(err, req, res, next){
+  console.log('in middleware', req.fileValidationError)
+
+  if(err){
+    err.code == 'LIMIT_FILE_SIZE' ?
+      res.status(400).send({noticeType: 'error', noticeTxt: 'Image size must be under 500kb'})
+    :
+      res.status(400).send({noticeType: 'error', noticeTxt: err.code});
+  } else{
+    next();
+  }
+}
 
 //a method called .single is called as middleware during the /image post process
 //since this is a method of the upload object, all our parameters that were set previously
 //are magically used and processed with the function
-settings.post('/image', upload.single('profileImage'), (req, res, next) => {
-  //when the upload.single middleware is complete, the file property is appended to the request object 
+settings.post('/image', upload.single('profileImage'), multerErr, (req, res, next) => {
+  //when the upload.single middleware is complete, the file property is appended to the request object
+
   if(req.fileValidationError){
     console.log(req.fileValidationError, 'ERROR')
     res.status(400).send({noticeType: 'error', noticeTxt: req.fileValidationError});
     delete req.fileValidationError
   } 
-  else if(req.file.size > 500000){
-    console.log('File is size too large')
-    res.status(400).send({noticeType: 'error', noticeTxt: 'Image size must be under 500kb'});
-    return;
-  }
-  else{
+ else{
+    console.log('got in the else')
+      User.findById(req.session.userId, async (err, user) => {
+        try{
+          console.log(req.session.userInfo)
+            if(user){
+              //finds you, the user, and makes your profileImage property = the path property appended to the file object
+              if(user.profileImage != ''){
+                if(fs.existsSync(user.profileImage)){
+                  fs.unlinkSync(`${user.profileImage}`);
+                }
+              }
 
-  User.findById(req.session.userId, async (err, user) => {
-    try{
-      console.log(req.session.userInfo)
-        if(user){
-          //finds you, the user, and makes your profileImage property = the path property appended to the file object
-          if(user.profileImage != ''){
-            if(fs.existsSync(user.profileImage)){
-              fs.unlinkSync(`${user.profileImage}`);
-            }
-          }
+              user.profileImage = req.file.path
 
-          user.profileImage = req.file.path
-
-          user.save()
-            .then(() => {
-              console.log('saved', user.profileImage)
-              req.session.userInfo.profileImage = user.profileImage;
-              //returns the path to the image
-              res.send(user.profileImage);
-            }
-              )
-            .catch(err => console.log(err));
-          } else{
-            res.sendStatus(404);
-          }
-    }
-    catch(err){
-        console.log(err)
-        res.status(500).send({noticeType: 'error', noticeTxt: 'Error Code (500) Internal Server Error.'});
-    }
-})
+              user.save()
+                .then(() => {
+                  console.log('saved', user.profileImage)
+                  req.session.userInfo.profileImage = user.profileImage;
+                  //returns the path to the image
+                  res.send(user.profileImage);
+                }
+                  )
+                .catch(err => console.log(err));
+              } else{
+                res.sendStatus(404);
+              }
+        }
+        catch(err){
+            console.log(err)
+            res.status(500).send({noticeType: 'error', noticeTxt: 'Error Code (500) Internal Server Error.'});
+        }
+    })
   }
 })
 
