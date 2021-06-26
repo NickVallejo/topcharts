@@ -6,6 +6,7 @@ const {User} = require("../index")
 const multer = require('multer');
 const fs = require('fs');
 const bcrypt = require('bcrypt');
+const { resolveMx } = require("dns");
 
 //var created called storage
 //takes the request, the file object, and a callback as arguments
@@ -25,14 +26,7 @@ const storage = multer.diskStorage({
 const fileFilterer = (req, file, cb) => {
   //checks if img file mimetype is an acceptable format
   if(file.mimetype === 'image/jpeg' || file.mimetype === 'image/png'){
-    //checks to make sure image size is under a certain amounts
-    if(file.size < 2097152){
-      req.fileValidationError = 'Image size too large';
-      cb(null, false, 'goes wrong on the image size');
-    } else{
-      console.log('file is smaller')
-      cb(null, true);
-    }
+    cb(null, true);
   } else{
     req.fileValidationError = 'Not a valid file type';
     cb(null, false, 'goes wrong on the mimetype');
@@ -68,7 +62,13 @@ settings.post('/image', upload.single('profileImage'), (req, res, next) => {
     console.log(req.fileValidationError, 'ERROR')
     res.status(400).send({noticeType: 'error', noticeTxt: req.fileValidationError});
     delete req.fileValidationError
-  } else{
+  } 
+  else if(req.file.size > 500000){
+    console.log('File size too large')
+    res.status(400).send({noticeType: 'error', noticeTxt: 'Image size must be under 500kb'});
+    return;
+  }
+  else{
 
   User.findById(req.session.userId, async (err, user) => {
     try{
