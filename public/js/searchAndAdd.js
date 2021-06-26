@@ -7,7 +7,7 @@ function search(input) {
   req = new XMLHttpRequest()
   req.open(
     "GET",
-    "http://ws.audioscrobbler.com/2.0/?method=album.search&album=" +
+    "https://ws.audioscrobbler.com/2.0/?method=album.search&album=" +
       input +
       "&api_key=0bb289309c3ad8b8a89446a23919f273&format=json"
   )
