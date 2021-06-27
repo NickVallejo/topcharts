@@ -336,15 +336,20 @@ root.get('/:username/chart/:chartname', async (req, res) => {
 root.get('/:username', async (req, res) => {
 
   const username = req.params.username
-
-  await User.findOne({ username }, (err, user) => {
-    if (user) {
-      console.log('USER IS FOUND')
-      console.log(user.username)
-      userFound(user)
-    } else {
-      console.log('USER NOT FOUND')
-      res.render('404-data', { layout: './layouts/404' });
+  const userI = new RegExp(username, 'i')
+  
+  await User.findOne({ username: userI }, (err, user) => {
+    try{
+      if (user) {
+        console.log('USER IS FOUND')
+        console.log(user.username)
+        userFound(user)
+      } else {
+        console.log('USER NOT FOUND')
+        res.render('404-data', { layout: './layouts/404' });
+      }
+    } catch(err){
+      error.log('Caught an error on /:username route')
     }
   }).populate('musicCharts')
 
