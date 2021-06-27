@@ -934,7 +934,7 @@ fieldset {
   }
 
   .control-btns .clear {
-    display: none;
+    margin-left: 10px;
   }
 
   .top-radio-wrap {
@@ -1340,6 +1340,13 @@ header #profile-img-display {
     width: 30%;
     justify-content: space-between;
   }
+  .chart_title {
+    max-width: 100%;
+    width: 75%;
+  }
+  .chart_title h3 {
+    font-size: 16px;
+  }
 }
 
 @media (max-width: 400px) {
@@ -1354,6 +1361,16 @@ header #profile-img-display {
 }
 
 @media (max-width: 380px) {
+  .control-btns {
+    width: 100%;
+    padding: 0px 8px;
+    margin-right: 0px;
+  }
+  .control-btns .clear {
+    width: 100%;
+    margin-top: 14px;
+    margin-left: 0px;
+  }
   .ico-group {
     width: 35%;
     justify-content: space-between;

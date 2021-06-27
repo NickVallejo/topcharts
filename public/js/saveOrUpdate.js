@@ -42,23 +42,22 @@ function chartUpdate() {
 function chartSave(fromTyped) {
 
   var format = /[!@#$%^*()_+\-=\[\]{};"\\|,.<>\/~]/;
-  console.log(format.test(fromTyped), "TESTING");
+  // console.log(format.test(fromTyped), "TESTING");
 
-  if (fromTyped == '') {
-    return false;
-  }
+    console.log('its a string')
+    console.log(format.test(fromTyped))
 
-  if (format.test(fromTyped)) {
-    alert("Invalid Characters.");
-    return false;
-  }
+    const titlePass = titleTester(fromTyped)
+    if(titlePass == false){
+      return false
+    }
 
-  if (saved_list.length >= 10) {
-    alert("Max chart limit reached for beta.");
-    return;
-  }
+    if (saved_list.length >= 10) {
+      alert("Max chart limit reached for beta.")
+      return
+    }
 
-  if (my_list.title == undefined) {
+  else if (my_list.title == undefined) {
     titleInput = document.querySelector('.title-change')
     titleInput.value = ''
     //my_list is walways reflecting what is currently on screen
@@ -76,12 +75,6 @@ function chartSave(fromTyped) {
     var symbolFilterTitle = title.replace(/&/g, "and")
     var title_ = symbolFilterTitle.replace(/ /g, "_") //check if the underscored title is already in the saved_array with filter
     console.log("FINAL OUTPUT", title_)
-
-    if (symbolFilterTitle.length > 35) {
-      alert('Chart name too long!')
-      titleInput.value = ''
-      return false;
-    }
 
     const name_check = saved_list.some((saved) => saved.title == title_)
     //If length is 0 there is no other list with that name
@@ -123,9 +116,6 @@ function chartSave(fromTyped) {
       alert("You already have a chart with this name")
       return false
     }
-  } else {
-    console.log("You cant save a saved chart")
-    return false;
   }
 }
 
@@ -164,6 +154,23 @@ function addTitleListener(saved_name) {
   })
 }
 
+function titleTester(title){
+  const titleInput = document.querySelector('.title-change')
+  const format = /[!@#$%^*()_+\-=\[\]{};"\\|,.<>\/~]/;
+
+  if (title.length > 35) {
+    titleInput.value = ''
+    alert('Chart name too long!')
+    return false;
+  } else if(format.test(title)){
+    alert('invalid characters!')
+    titleInput.value = ''
+    return false;
+  } else if(title == ''){
+    return false;
+  }
+}
+
 //! UPDATE AN EXISTING CHART'S TITLE
 function titleChange(e, titleChanger, textCapture) {
   const titleChanger2 = document.querySelector(".title-change") //the input field that shows up
@@ -181,11 +188,15 @@ function titleChange(e, titleChanger, textCapture) {
     const savedOnFront = document.querySelectorAll(".saved_title")
     const newTitleFiltered = titleChanger.value.replace(/&/g, "and")
 
-    if (newTitleFiltered.length > 35) {
-      titleInput = document.querySelector('.title-change')
-      titleInput.value = ''
-      alert('Chart name too long!')
-      return;
+    // if (newTitleFiltered.length > 35) {
+    //   titleInput = document.querySelector('.title-change')
+    //   titleInput.value = ''
+    //   alert('Chart name too long!')
+    //   return;
+    // }
+    const titlePass = titleTester(newTitleFiltered)
+    if(titlePass == false){
+      return
     }
 
     if (e.key == "Enter" && titleChanger.value) {

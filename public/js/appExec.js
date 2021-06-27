@@ -24,9 +24,9 @@ let suggsLoaded = false
 let my_list = new Array(10)
 var saved_list = []
 
-saves.forEach((save) => {
-  save.addEventListener("click", chartSave)
-})
+// saves.forEach((save) => {
+//   save.addEventListener("click", chartSave)
+// })
 
 clears.forEach((clear) => {
   clear.addEventListener("click", list_new)
