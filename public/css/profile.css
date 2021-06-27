@@ -225,6 +225,7 @@ header .head-wrap {
   padding: 45px 100px;
   position: relative;
   padding-bottom: 20px;
+  padding-left: 80px;
 }
 
 .profile-box h2::before {
@@ -234,7 +235,7 @@ header .head-wrap {
   height: 30px;
   position: absolute;
   top: 32px;
-  left: 82px;
+  left: 62px;
 }
 
 @media (max-width: 1200px) {
