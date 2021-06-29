@@ -65,6 +65,7 @@ if (profImgSubmit) {
 
     const req = new XMLHttpRequest()
     req.open("POST", "settings/image")
+    req.setRequestHeader('Accept', 'multipart/form-data')
 
     req.onload = () => {
       if (req.status == 400) {
