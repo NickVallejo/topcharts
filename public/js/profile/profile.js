@@ -71,7 +71,9 @@ if (profImgSubmit) {
       console.log('REQ', req)
       if (req.status !== 200) {
         const data = JSON.parse(req.responseText)
-        noticeInit(data.noticeType, data.noticeTxt)
+        const noticeType =  data.noticeType ? data.noticeType : req.status
+        const noticeTxt = data.noticeTxt ? data.noticeTxt : 'Error Uploading Image'
+        noticeInit(noticeType, noticeTxt)
       } else {
         const myNewProfImg = req.responseText.replace(/\\/g, "/")
         profImgDisplay.style.backgroundImage = `url(${myNewProfImg})`
