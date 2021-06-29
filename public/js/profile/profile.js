@@ -63,6 +63,13 @@ if (profImgSubmit) {
     //we append the raw image file to the form and name it profileImage
     formData.append("profileImage", profImg)
 
+    const uploadImage = formData.get("profileImage").size
+
+    if(uploadImage > 500000){
+      noticeInit("error", "Image size must be under 500kb")
+      return;
+    }
+
     const req = new XMLHttpRequest()
     req.open("POST", "settings/image")
     req.setRequestHeader('Accept', 'multipart/form-data')

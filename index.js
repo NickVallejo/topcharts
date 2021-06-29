@@ -61,8 +61,8 @@ root.use(expressLayouts)
 root.set('view engine', 'ejs')
 root.use('/uploads', express.static('uploads'));
 root.use(express.static('public'))
-root.use(express.json({limit: '5mb'}))
-root.use(express.urlencoded({ extended: true, limit: '5mb' }))
+root.use(express.json({limit: '50mb'}))
+root.use(express.urlencoded({ extended: true, limit: '50mb' }))
 
 const MongoStore = require("connect-mongo")(session)
 
