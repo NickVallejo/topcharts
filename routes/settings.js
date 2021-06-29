@@ -53,23 +53,23 @@ settings.get('/', (req, res) => {
     }           
 })
 
-function multerErr(err, req, res, next){
-  console.log('in middleware', req.fileValidationError)
+// function multerErr(err, req, res, next){
+//   console.log('in middleware', req.fileValidationError)
 
-  if(err){
-    err.code == 'LIMIT_FILE_SIZE' ?
-      res.status(400).send({noticeType: 'error', noticeTxt: 'Image size must be under 500kb'})
-    :
-      res.status(400).send({noticeType: 'error', noticeTxt: err.code});
-  } else{
-    next();
-  }
-}
+//   if(err){
+//     err.code == 'LIMIT_FILE_SIZE' ?
+//       res.status(400).send({noticeType: 'error', noticeTxt: 'Image size must be under 500kb'})
+//     :
+//       res.status(400).send({noticeType: 'error', noticeTxt: err.code});
+//   } else{
+//     next();
+//   }
+// }
 
 //a method called .single is called as middleware during the /image post process
 //since this is a method of the upload object, all our parameters that were set previously
 //are magically used and processed with the function
-settings.post('/image', upload.single('profileImage'), multerErr, async (req, res, next) => {
+settings.post('/image', upload.single('profileImage'), async (req, res, next) => {
   //when the upload.single middleware is complete, the file property is appended to the request object
 
   if(req.fileValidationError){
