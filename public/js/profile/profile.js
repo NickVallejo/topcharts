@@ -68,7 +68,8 @@ if (profImgSubmit) {
     req.setRequestHeader('Accept', 'multipart/form-data')
 
     req.onload = () => {
-      if (req.status == 400) {
+      console.log('REQ', req)
+      if (req.status !== 200) {
         const data = JSON.parse(req.responseText)
         noticeInit(data.noticeType, data.noticeTxt)
       } else {
