@@ -304,7 +304,7 @@ nav {
 }
 
 .logo-anc {
-  height: 29px;
+  height: 22.81px;
 }
 
 .frontRank {
@@ -1403,8 +1403,8 @@ header #profile-img-display {
   text-decoration: none;
 }
 
-.desk-footer-wrap .soc-icons i {
-  font-size: 25px;
+.desk-footer-wrap .soc-icon i {
+  font-size: 20px;
   margin: 0px 7px;
   color: #535f69;
 }
