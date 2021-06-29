@@ -69,7 +69,7 @@ function multerErr(err, req, res, next){
 //a method called .single is called as middleware during the /image post process
 //since this is a method of the upload object, all our parameters that were set previously
 //are magically used and processed with the function
-settings.post('/image', upload.single('profileImage'), multerErr, (req, res, next) => {
+settings.post('/image', upload.single('profileImage'), multerErr, async (req, res, next) => {
   //when the upload.single middleware is complete, the file property is appended to the request object
 
   if(req.fileValidationError){
@@ -78,20 +78,17 @@ settings.post('/image', upload.single('profileImage'), multerErr, (req, res, nex
     delete req.fileValidationError
   } 
  else{
-    console.log('got in the else')
-      User.findById(req.session.userId, async (err, user) => {
+      await User.findById(req.session.userId, async (err, user) => {
         try{
           console.log(req.session.userInfo)
-            if(user){
+            if(user && req.file){
               //finds you, the user, and makes your profileImage property = the path property appended to the file object
               if(user.profileImage != ''){
                 if(fs.existsSync(user.profileImage)){
                   fs.unlinkSync(`${user.profileImage}`);
                 }
               }
-
               user.profileImage = req.file.path
-
               user.save()
                 .then(() => {
                   console.log('saved', user.profileImage)
@@ -102,7 +99,7 @@ settings.post('/image', upload.single('profileImage'), multerErr, (req, res, nex
                   )
                 .catch(err => console.log(err));
               } else{
-                res.sendStatus(404);
+                res.status(404).send({noticeType: 'error', noticeTxt: 'Error Code (404) User Not Found.'});
               }
         }
         catch(err){
