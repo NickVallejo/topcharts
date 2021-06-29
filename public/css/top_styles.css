@@ -1413,3 +1413,12 @@ header #profile-img-display {
 .desk-footer-wrap .soc-icons i:hover {
   opacity: 0.75;
 }
+
+.logo-footer-anc img {
+  max-width: 150px;
+  opacity: 0.6;
+}
+
+.logo-footer-anc {
+  max-height: 17.11px;
+}
