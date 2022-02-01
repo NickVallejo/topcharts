@@ -41,8 +41,6 @@ function recoveryGen(req, res, next) {
             user.resetPasswordExpires = Date.now() + 3600000
 
             user.save(() => {
-              console.log("we saved")
-              console.log(user.resetPasswordToken)
               req.user = user
               req.token = token
               next()
@@ -58,6 +56,9 @@ function recoveryGen(req, res, next) {
 
 //! CHECK HERE
 async function recoverySend(req, res, next) {
+  const {hostname, protocol} = req
+  const recoveryUrl = `${protocol}://${hostname}.com`
+
   const smtpTransport = nodemailer.createTransport({
     service: process.env.EMAIL_SERVICE,
     auth: {
@@ -70,17 +71,20 @@ async function recoverySend(req, res, next) {
     to: req.user.email,
     from: process.env.GMAIL_EMAIL,
     subject: "Topsters Password Reset",
-    text: `Check this link to reset your password. /reset/${req.token}`,
+    text: `Check this link to reset your password. ${recoveryUrl}/reset/${req.token}. Not you? Ignore this email.`,
   }
 
+  console.log(mailOptions.text)
+
   smtpTransport.sendMail(mailOptions, (err) => {
+
     if (!err) {
       res.send({ errorNotice: "success", noticeTxt: "Your confirmation email has been sent!" })
     } else {
       console.log(err)
       res
         .status(500)
-        .send({ errorNotice: "error", noticeTxt: "Error Code (500) Internal Server Error. Email failed to send." })
+        .send({ errorNotice: "error", noticeTxt: "recoverySend() Error" })
     }
   })
 }
