@@ -11,7 +11,6 @@ const chartSchema = mongoose.Schema({
     required: true,
   },
   author: {
-
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Users',
       required: true

@@ -8,7 +8,6 @@ async function artistRefresh(req, res, next) {
 
     const user = await User.findById(req.session.userId).populate('musicCharts')
 
-
       if (user.musicCharts.length) { //pushes every single artist from every single album in the user's charts to an array
       await new Promise((resolve, reject) => {
         

@@ -28,7 +28,6 @@ const db_connect = mongoose.createConnection(
 
 const Chart = db_connect.model('Topsters Charts', require("./models/chart_model"), "topsters-chart-data")
 const User = db_connect.model('Users', require("./models/user_model"), "topsters-user-data")
-// const Sessions = db_connect.model('Sessions', new mongoose.Schema({}, {strict: false, lean: true}), process.env.SESSION_COLLECTION)
 
 exports.User = User
 exports.Chart = Chart

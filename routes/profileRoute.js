@@ -59,4 +59,10 @@ console.log('looking for user from header')
   })
 })
 
+profile.get('/user-src', async (req, res) => {
+  console.log('route pinged')
+  res.send({pet: 'cat'})
+  res.end()
+})
+
 module.exports = profile
