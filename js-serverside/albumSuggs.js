@@ -5,7 +5,7 @@ async function albumSuggs(req, res, next) {
 
   const artistNames = JSON.parse(req.query.artistNames);
 
-  if(!req.session.userId){res.render('404-data', {layout: './layouts/404'});}
+  if(!req.user.id){res.render('404-data', {layout: './layouts/404'});}
   
   //if the user's list of artists is defined and greater than 5 and the suggestions haven't loaded yet, execute the function
   

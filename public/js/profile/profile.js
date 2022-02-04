@@ -75,13 +75,13 @@ if (profImgSubmit) {
     req.setRequestHeader('Accept', 'multipart/form-data')
 
     req.onload = () => {
-      console.log('REQ', req)
       if (req.status !== 200) {
         const data = JSON.parse(req.responseText)
         const noticeType =  data.noticeType ? data.noticeType : req.status
         const noticeTxt = data.noticeTxt ? data.noticeTxt : 'Error Uploading Image'
         noticeInit(noticeType, noticeTxt)
       } else {
+        console.log('RESPONSE TEXT', req.responseText)
         const myNewProfImg = req.responseText.replace(/\\/g, "/")
         profImgDisplay.style.backgroundImage = `url(${myNewProfImg})`
         profImgDisplayLg.style.backgroundImage = `url(${myNewProfImg})`

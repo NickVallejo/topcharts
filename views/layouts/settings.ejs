@@ -3,7 +3,7 @@
 
 <%- include('../partials/head-settings') %>
 
-<%- include('../partials/header', {logged: logged, userInfo: userInfo}) %>
+<%- include('../partials/header', {userInfo: userInfo}) %>
   <% const userImage=userInfo.profileImage.replace(/\\/g, "/" ) %>
 
     <body>
@@ -72,10 +72,10 @@
       <div class="notice-wrap"></div>
 
       <%- include('../partials/desk-footer') %>
-        <%- include('../partials/footer', {logged: logged, userInfo: userInfo}) %>
+        <%- include('../partials/footer', {userInfo: userInfo}) %>
 
-          <script src="js/profile/settings-ui.js"></script>
-          <script src="js/profile/profile.js"></script>
+          <script src="/js/profile/settings-ui.js"></script>
+          <script src="/js/profile/profile.js"></script>
     </body>
 
 </html>

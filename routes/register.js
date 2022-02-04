@@ -5,22 +5,10 @@ const path = require("path")
 const {User} = require("../index")
 const validator = require("validator")
 const bcrypt = require('bcrypt')
-
-//! MIDDLEWARE FUNCTION TO CHECK IF USER IS ALREADY LOGGED IN WHEN TRYING TO ACCESS THE REGISTER PAGE
-function logCheck(req, res, next) { //checks to see if a user session is set. If so, redirect to the dashboard. If not, go to the desired register or login page.
-  if (req.session.userId) {
-    res.redirect("/dashboard")
-  } else {
-    next()
-  }
-}
+const authBlock = require('../js-serverside/utility/authMiddleware').authBlock
 
 //! MIDDLEWARE FUNCTION TO VALIDATE REGISTER CREDENTIALS
 async function regWare(req, res, next) {
-
-  console.log(User);
-  
-  console.log('posted', req.body)
 
   const { email, password, password2, username } = req.body //pulls the email, the password, and the retyped password from the request body
 
@@ -35,7 +23,6 @@ async function regWare(req, res, next) {
     if (!emailValid) {
       errs.push({ msg: "Invalid email" }) //if email does not contain valid syntax, push an error to the error array
     } else {
-      console.log('we got here')
       await User.findOne({ email: emailI }, (err, user) => { //if email is valid syntax, check to see if the db already contains a user with that email
         if(err){
           console.log(err)
@@ -92,7 +79,7 @@ async function regWare(req, res, next) {
 
   if (errs.length > 0) { //if the error array is greater than 1, keep the user on the register page and display the errors
     const errorInputs = [username, email, password]
-    res.render('dashView-register', {layout: './layouts/dashboard', home: false, errs: errs, logged: false, userInfo: '', inputs: errorInputs})
+    res.render('dashView-register', {layout: './layouts/dashboard', home: false, errs: errs, userInfo: false, inputs: errorInputs})
   } else {
     console.log('no errors, moving on')
     next() //if the error array is empty, move on
@@ -100,17 +87,14 @@ async function regWare(req, res, next) {
 }
 
 //! GET ROUTE FOR THE REGISTER PAGE
-regPages.get("/", logCheck, (req, res) => { //check if already logged in, and if not, send the user to the register page
-    res.render('dashView-register', {home: false, errs: false, inputs: false, logged: false, userInfo: '', layout: './layouts/dashboard', })
+regPages.get("/", authBlock, (req, res) => { //check if already logged in, and if not, send the user to the register page
+    res.render('dashView-register', {home: false, errs: false, inputs: false, userInfo: false, layout: './layouts/dashboard', })
 })
 
 //! POST ROUTE THAT REDIRECTS USER TO DASHBOARD IF REGISTERED CORRECTLY
 regPages.post("/", regWare, async (req, res, next) => { //the request body will be validated by the regWare middleware, then passed to this function
 
   const { email, password, username } = req.body //pull the email and password from the request body
-  if( res.locals.errs){
-    res.redirect('/register')
-  }
   try{
     const salt = await bcrypt.genSalt()
     const hashedPass = await bcrypt.hash(password, salt)
@@ -121,13 +105,13 @@ regPages.post("/", regWare, async (req, res, next) => { //the request body will 
       password: hashedPass,
     })
   
-    await newUser.save().then(console.log(newUser, 'NEW USER')) //save the new instance of the user class to the database with mongoose
-    req.session.userId = newUser._id   //the userId property == the user's default ._id property, making it easy to find the user by the current session
-    res.redirect("/dashboard") //finally, after saving the registered user to the database and creating the session property, the user is brought to the dashboard
+    await newUser.save() //save the new instance of the user class to the database with mongoose
+    //req.session.userId = newUser._id   //the userId property == the user's default ._id property, making it easy to find the user by the current session
+    res.redirect("/login") //finally, after saving the registered user to the database and creating the session property, the user is brought to the dashboard
   } catch{
+    console.log('we got a problem')
     res.status(500).send()
   }
-  
 })
 
 module.exports = regPages

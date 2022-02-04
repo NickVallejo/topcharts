@@ -1,63 +1,33 @@
 const express = require("express")
 const userPages = express.Router()
-const path = require("path")
 const bcrypt = require('bcrypt')
-
+const passport = require('passport')
 const {User} = require("../index")
-
-//! MIDDLEWARE FUNCTION TO CHECK IF USER IS ALREADY LOGGED IN WHEN TRYING TO ACCESS THE LOGIN PAGE
-function logCheck(req, res, next) {
-  if (req.session.userId) {
-    res.redirect("/dashboard")
-  } else {
-    next()
-  }
-}
+const authBlock = require('../js-serverside/utility/authMiddleware').authBlock
 
 //! GET ROUTE FOR THE LOGIN PAGE
-userPages.get("/", logCheck, (req, res) => { //check if already logged in, and if not, send the user to the login page
-  // res.sendFile(path.join(__dirname, "../pages/login.html"))
-
-  console.log('Pass Change Session', req.session.passChangeComplete);
+userPages.get("/", authBlock, (req, res) => { //check if already logged in, and if not, send the user to the login page
   const passChanged = req.session.passChangeComplete ? true : false
+  const logErrors = req.session.login_error ? req.session.login_error : false
+
+  console.log('logErrors', logErrors)
+
+  if(req.session.login_error){
+    delete req.session.login_error
+  }
 
   if(passChanged == true){
     delete req.session.passChangeComplete
   }
 
-    res.render('dashView-login', {home: false, passChanged, username: '', errs: false, logged: false, userInfo: '', layout: './layouts/dashboard'})
+  res.render('dashView-login', {home: false, passChanged, username: '', errs: logErrors, userInfo: false, layout: './layouts/dashboard'})
 })
 
 
 //!POST ROUTE THAT REDIRECTS USER TO DASHBOARD AFTER VALID LOGIN
-userPages.post("/", async (req, res, next) => {
-  const { username, password } = req.body //pulls the email and password from the body of the post request
-  const errs = [];
-  
-  const userI = new RegExp(username, 'i')
-
-  await User.findOne({$or: [{ username: userI }, {email: userI}]}, async (err, user) => { //uses mongoose to findOne certain email from the user database model
-    try{
-      if (user) {
-        console.log('USER FOUND IN LOGIN PATH')
-        if (await bcrypt.compare(password, user.password)) { //if a user is found and the password matches, create the userId session property and redirect to dashboard
-          console.log("password match")
-          req.session.userId = user._id
-          res.redirect("/dashboard")
-          res.end()
-        } else { //this else stament fires when the email matches but the password is incorrect. Redirects user back to login page
-          errs.push({msg:"Invalid credentials"})
-          res.render('dashView-login', {layout: './layouts/dashboard', username, passChanged: false, home: false, logged: false, userInfo: '', errs: errs})
-        }
-      } else { //this else statement fires when there was no user with that email found. Redirects user back to login page
-        errs.push({msg: "Invalid credentials"})
-        res.render('dashView-login', {layout: './layouts/dashboard', username, passChanged: false, home: false, logged: false, userInfo: '', errs: errs})
-      }
-    } catch{
-      res.status(500).send();
-    }
-    
-  })
-})
+userPages.post("/", passport.authenticate('local', {
+  failureRedirect: '/login',
+  successRedirect: '/dashboard'
+}))
 
 module.exports = userPages

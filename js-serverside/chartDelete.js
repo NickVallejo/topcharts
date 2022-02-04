@@ -6,7 +6,7 @@ async function chartDelete(req, res, next) {
     const title = req.body.name
 
           //find current user by their id
-          const user = await User.findById(req.session.userId)
+          const user = await User.findById(req.user.id)
           //find chart with the query string title and user's id as the author
           console.log(`looking for chart with ${title} and ${user._id}`);
           
@@ -26,7 +26,7 @@ async function chartDelete(req, res, next) {
                 console.log('INDEX OF CHART', index)
                 user.musicCharts.splice(index, 1);
                 user.save(()=> {
-                  next();
+                  res.end(res.locals.indexOfChart)
                 });
               } else{
                 console.log('no doc found')

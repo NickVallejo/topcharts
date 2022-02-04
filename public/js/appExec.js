@@ -95,8 +95,6 @@ async function list_load() {
       req.open("GET", "/my-lists", true)
       req.setRequestHeader("Content-Type", "application/x-www-form-urlencoded")
       req.onload = () => {
-        console.log("Get request sent to database...")
-
         loaded_lists = JSON.parse(req.responseText)
 
         loaded_lists.forEach((load) => {

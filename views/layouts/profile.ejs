@@ -12,7 +12,7 @@
   </div> -->
 
   <body>
-    <%- include('../partials/header', {logged: logged, userInfo: userInfo}) %>
+    <%- include('../partials/header', {userInfo: userInfo}) %>
 
       <div class="prof-padding">
         <section class="profile-row prof-sec">
@@ -47,13 +47,13 @@
       </div>
 
       <%- include('../partials/desk-footer') %>
-        <%- include('../partials/footer', {logged: logged, userInfo: userInfo}) %>
+        <%- include('../partials/footer', {userInfo: userInfo}) %>
 
           <!--<h2>Favourite Artists</h2>
     <h2>Listen List</h2> -->
 
-          <script src="js/trashOrDisplay.js"></script>
-          <script src="js/profile/profile.js"></script>
+          <script src="/js/trashOrDisplay.js"></script>
+          <script src="/js/profile/profile.js"></script>
   </body>
 
 </html>

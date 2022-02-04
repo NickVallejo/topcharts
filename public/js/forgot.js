@@ -77,8 +77,7 @@ forgotForm.addEventListener('submit', (e) => {
         }
 
         req.onerror = () => {
-            //noticeInit('error', req.responseText);
-            console.log(req.responseText, 'posting here')
+            noticeInit('error', req.responseText);
         }
 
         req.send(`recoveryEmail=${formData.get('recovery-email')}`)

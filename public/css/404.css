@@ -74,3 +74,13 @@ body a {
   align-items: center;
   flex-flow: column;
 }
+
+.logo {
+  object-fit: contain;
+  max-width: 200px;
+  image-rendering: -moz-crisp-edges; /* Firefox */
+  image-rendering: -o-crisp-edges; /* Opera */
+  image-rendering: -webkit-optimize-contrast; /* Webkit (non-standard naming) */
+  image-rendering: crisp-edges;
+  -ms-interpolation-mode: nearest-neighbor; /* IE (non-standard property) */
+}

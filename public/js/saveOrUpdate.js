@@ -19,8 +19,6 @@ function consolidate() {
   } else {
     console.log("DENIED the sugg load because suggsLoaded = " + suggsLoaded)
   }
-
-  console.log("FROM CONSOLIDATE", savedNames)
 }
 
 //! FUNCTION TO UPDATE A CHART
@@ -99,7 +97,6 @@ function chartSave(fromTyped) {
       req.setRequestHeader("Content-Type", "application/x-www-form-urlencoded")
       //onload, log the post request as sent
       req.onload = function () {
-        console.log("post request sent...")
         consolidate()
       }
 

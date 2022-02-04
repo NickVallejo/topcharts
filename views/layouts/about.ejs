@@ -6,7 +6,7 @@
 <% if(userInfo !='' ){ const userImage=userInfo.profileImage.replace(/\\/g, "/" ); } %>
 
   <body>
-    <%- include('../partials/header', {logged: logged, userInfo: userInfo}) %>
+    <%- include('../partials/header', {userInfo: userInfo}) %>
 
       <section class="about-hero">
         <div class="about-wrap">
@@ -62,7 +62,7 @@
       </section>
 
       <%- include('../partials/desk-footer') %>
-        <%- include('../partials/footer', {logged: logged, userInfo: userInfo}) %>
+        <%- include('../partials/footer', {userInfo: userInfo}) %>
   </body>
 
 </html>

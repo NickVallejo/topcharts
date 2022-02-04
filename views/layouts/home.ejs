@@ -7,7 +7,7 @@
   <%- include('../partials/head-logreg') %>
 <% } %>
 
-  <%- include('../partials/header', {logged: logged, userInfo: userInfo}) %>
+  <%- include('../partials/header', {userInfo: userInfo}) %>
 
 <body>
     <div class="notice-wrap"></div>
@@ -16,6 +16,6 @@
     </section>
 
     <%- include('../partials/desk-footer') %>
-    <%- include('../partials/footer', {logged: logged, userInfo: userInfo}) %>
+    <%- include('../partials/footer', {userInfo: userInfo}) %>
 </body>
 </html>

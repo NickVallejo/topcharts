@@ -6,14 +6,11 @@ const nodemailer = require("nodemailer")
 require("dotenv").config()
 
 const { User } = require("../index")
+const { authBlockSettings } = require("../js-serverside/utility/authMiddleware")
 
 //! CHECK HERE
-forgot.get("/", (req, res) => {
-  if (req.session.userId) {
-    res.redirect("/settings")
-  } else {
-    res.render("dashView-forgot", { home: true, logged: false, userInfo: "", layout: "./layouts/dashboard" })
-  }
+forgot.get("/", authBlockSettings, (req, res) => {
+    res.render("dashView-forgot", { home: true, userInfo: false, layout: "./layouts/dashboard" })
 })
 
 //! CHECK HERE
@@ -57,24 +54,25 @@ function recoveryGen(req, res, next) {
 //! CHECK HERE
 async function recoverySend(req, res, next) {
   const {hostname, protocol} = req
-  const recoveryUrl = `${protocol}://${hostname}.com`
+  const recoveryUrl = `${protocol}s://${hostname}`
+
+  console.log('RECOVERY EMAIL', req.body.recoveryEmail)
 
   const smtpTransport = nodemailer.createTransport({
     service: process.env.EMAIL_SERVICE,
+    secure: true,
     auth: {
-      user: process.env.GMAIL_EMAIL,
-      pass: process.env.GMAIL_PASS,
+      user: process.env.EMAIL_EMAIL,
+      pass: process.env.EMAIL_PASS,
     },
   })
 
   const mailOptions = {
-    to: req.user.email,
+    to: req.body.recoveryEmail,
     from: process.env.GMAIL_EMAIL,
     subject: "Topsters Password Reset",
     text: `Check this link to reset your password. ${recoveryUrl}/reset/${req.token}. Not you? Ignore this email.`,
   }
-
-  console.log(mailOptions.text)
 
   smtpTransport.sendMail(mailOptions, (err) => {
 

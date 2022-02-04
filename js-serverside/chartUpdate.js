@@ -8,7 +8,7 @@ async function chartUpdate(req, res, next) {
   
     try {
       //find current user by their id
-      const user = await User.findById(req.session.userId)
+      const user = await User.findById(req.user.id)
       //find chart with the query string title and user's id as the author
       const chart = await (Chart.findOne({title, author: user._id}));
 
@@ -16,7 +16,7 @@ async function chartUpdate(req, res, next) {
         chart.chart = updatedChart;
         chart.save();
       }
-      next()
+      res.end()
       }
      catch (err) {
       console.log(err)

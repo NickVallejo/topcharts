@@ -1,6 +1,6 @@
 const express = require('express');
 const profile = express.Router();
-const path = require('path');
+const isAuth = require('../js-serverside/utility/authMiddleware').isAuth
 
 const {User} = require("../index")
 
@@ -9,39 +9,51 @@ const {User} = require("../index")
 profile.post('/charts', async (req, res) => {
 
   const {username} = req.body
-    await User.findOne({username}, (err, user) => {
+  try{
+    if(username){
+      await User.findOne({username}, (err, user) => {
         if (user) {
           res.send(user)
+        } else{
+          res.status(404).send()
         }
       })
+    } else{throw new Error('Invalid request body')}
+  } catch(err){
+    res.send(err.message)
+  }
 })
 
 profile.get('/onechart', async (req, res) => {
 
 const username = req.query.username
 const chartname = req.query.chartname
-  
-  await User.findOne({username}, (err, userFound) => {
-
-    if(userFound){
-      userFound.musicCharts.forEach(chartFound => {
-        if(chartFound.title == chartname){
-          res.send({user: userFound.username, chart: chartFound})
-          res.end()
+try{
+  if(username && chartname){
+      await User.findOne({username}, (err, userFound) => {
+        if(userFound){
+          userFound.musicCharts.forEach(chartFound => {
+            if(chartFound.title == chartname){
+              res.send({user: userFound.username, chart: chartFound})
+              res.end()
+            }
+          })
+        } else{
+          res.status(404).send();
         }
-      })
-    } else{
-      console.log('NO USER FOUND')
-      res.end();
-    }
-  }).populate('musicCharts')
+      }).populate('musicCharts')
+  } else{
+    throw new Error('Invalid request body')
+  }
+} catch(err){
+  res.send(err.message)
+}
 
 })
 
 //! SENDS BACK THE USERNAME OF THE CURRENT USER LOGGED IN
 profile.get('/username', async (req, res) => {
-console.log('looking for user from header')
-  await User.findById(req.session.userId, (err, user) => {
+  await User.findById(req.user.id, (err, user) => {
     try{
       if(!user){
         console.log('no id has been set')
@@ -57,12 +69,6 @@ console.log('looking for user from header')
       res.end();
     }
   })
-})
-
-profile.get('/user-src', async (req, res) => {
-  console.log('route pinged')
-  res.send({pet: 'cat'})
-  res.end()
 })
 
 module.exports = profile

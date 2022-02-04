@@ -1,12 +1,11 @@
 
 const express = require("express")
 const settings = express.Router()
-const path = require("path")
 const {User} = require("../index")
 const multer = require('multer');
 const fs = require('fs');
 const bcrypt = require('bcrypt');
-const { resolveMx } = require("dns");
+const isAuth = require('../js-serverside/utility/authMiddleware').isAuth
 
 //var created called storage
 //takes the request, the file object, and a callback as arguments
@@ -45,12 +44,8 @@ const upload = multer({
   fileFilter: fileFilterer
 });
 
-settings.get('/', (req, res) => {
-    if(!req.session.userId){
-      res.redirect('/login')
-    } else{
-      res.render('dashView-mine', {home: true, logged: true, userInfo: req.session.userInfo, layout: './layouts/settings'})
-    }           
+settings.get('/', isAuth, (req, res) => {
+    res.render('dashView-mine', {home: true, userInfo: req.session.userInfo, layout: './layouts/settings'})       
 })
 
 // function multerErr(err, req, res, next){
@@ -69,7 +64,7 @@ settings.get('/', (req, res) => {
 //a method called .single is called as middleware during the /image post process
 //since this is a method of the upload object, all our parameters that were set previously
 //are magically used and processed with the function
-settings.post('/image', upload.single('profileImage'), async (req, res, next) => {
+settings.post('/image', isAuth, upload.single('profileImage'), async (req, res, next) => {
   //when the upload.single middleware is complete, the file property is appended to the request object
 
   if(req.fileValidationError){
@@ -78,9 +73,8 @@ settings.post('/image', upload.single('profileImage'), async (req, res, next) =>
     delete req.fileValidationError
   } 
  else{
-      await User.findById(req.session.userId, async (err, user) => {
+      await User.findById(req.user.id, async (err, user) => {
         try{
-          console.log(req.session.userInfo)
             if(user && req.file){
               //finds you, the user, and makes your profileImage property = the path property appended to the file object
               if(user.profileImage != ''){
@@ -91,9 +85,6 @@ settings.post('/image', upload.single('profileImage'), async (req, res, next) =>
               user.profileImage = req.file.path
               user.save()
                 .then(() => {
-                  console.log('saved', user.profileImage)
-                  req.session.userInfo.profileImage = user.profileImage;
-                  //returns the path to the image
                   res.send(user.profileImage);
                 }
                   )
@@ -110,16 +101,15 @@ settings.post('/image', upload.single('profileImage'), async (req, res, next) =>
   }
 })
 
-settings.post('/email', (req, res, next) => {
+settings.post('/email', isAuth, (req, res, next) => {
   const { email, confirmPass } = req.body
 
-  User.findById(req.session.userId, async (err, user) => {
+  User.findById(req.user.id, async (err, user) => {
     try{
       //no user? redirect to login
       if(!user){res.redirect('/login')}
       //if there is a user we jump to this statement
       if(user){
-
         if(email == user.email){
           res.send({noticeType: 'error', noticeTxt: 'You cannot update your email with your current email.'})
         } else{
@@ -132,7 +122,7 @@ settings.post('/email', (req, res, next) => {
                 res.send({noticeType: 'error', noticeTxt: 'Incorrect password. Please try again.'})
               }
             else{
-                req.session.userInfo.email = email
+                // req.session.userInfo.email = email
                 user.email = email;
                 user.save(()=> {
                   res.send({noticeType: 'success', noticeTxt: 'Email successfully changed!'})
@@ -145,21 +135,19 @@ settings.post('/email', (req, res, next) => {
         }
       }
     } catch(err){
-      res.send({noticeType: 'error', noticeTxt: 'Error Code (500) Internal Server Error.'})
+      res.send({noticeType: 'error', noticeTxt: err.message})
     }
   })
-
 })
 
 //!PASSCHANGE FUNCTION WAS HERE
-settings.post('/password', (req, res, next) => {
-  console.log(req.body)
+settings.post('/password', isAuth, (req, res, next) => {
 if(req.body.auth){
   const query = {}
 } else{
   const { current, newPass, confirmPass } = req.body
 
-  User.findById(req.session.userId, async (err, user) => {
+  User.findById(req.user.id, async (err, user) => {
     try{
       console.log(user.password)
       if(!user){
