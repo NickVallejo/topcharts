@@ -10,7 +10,6 @@ userPages.get("/", authBlock, (req, res) => { //check if already logged in, and 
   const passChanged = req.session.passChangeComplete ? true : false
   const logErrors = req.session.login_error ? req.session.login_error : false
 
-  console.log('logErrors', logErrors)
 
   if(req.session.login_error){
     delete req.session.login_error
