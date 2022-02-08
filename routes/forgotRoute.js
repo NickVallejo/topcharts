@@ -52,7 +52,7 @@ function recoveryGen(req, res, next) {
 //! CHECK HERE
 async function recoverySend(req, res, next) {
   const {hostname, protocol} = req
-  const recoveryUrl = `${protocol}s://${hostname}`
+  const recoveryUrl = `${protocol}://${hostname}`
 
   const smtpTransport = nodemailer.createTransport({
     service: process.env.EMAIL_SERVICE,
