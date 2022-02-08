@@ -57,8 +57,8 @@ passport.deserializeUser((req, userId, done) => {
           req.session.suggsLoaded = false
           done(null, user)
         } else{
-          done(null, false)
           req.session.userInfo = false
+          done(null, false)
         }
     })
 })
