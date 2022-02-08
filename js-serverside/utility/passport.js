@@ -58,6 +58,7 @@ passport.deserializeUser((req, userId, done) => {
           done(null, user)
         } else{
           done(null, false)
+          req.session.userInfo = false
         }
     })
 })
