@@ -10,7 +10,7 @@
         <li><a href="/login">Login</a></li>
         <li><a href="/register">Register</a></li>
         <% } else { %>
-          <% const userImage=userInfo.profileImage.replace(/\\/g, "/" ) %>
+          <% const userImage = userInfo.profileImage ? userInfo.profileImage.replace(/\\/g, "/" ) : '' %>
             <li><a href="/dashboard">Dashboard</a></li>
             <li><a href="/settings">Settings</a></li>
             <li><a href="/logout">Logout</a></li>
