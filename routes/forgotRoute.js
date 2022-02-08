@@ -18,7 +18,6 @@ forgot.post("/", recoveryGen, recoverySend)
 
 //! CHECK HERE
 function recoveryGen(req, res, next) {
-
   try{
     const recoveryEmail = req.body.recoveryEmail
     const emailValid = validator.isEmail(recoveryEmail)
@@ -68,7 +67,7 @@ async function recoverySend(req, res, next) {
     to: req.body.recoveryEmail,
     from: process.env.GMAIL_EMAIL,
     subject: "Topsters Password Reset",
-    text: `Check this link to reset your password. ${recoveryUrl}/reset/${req.token}. Not you? Ignore this email.`,
+    text: `Check this link to reset your password. ${recoveryUrl}/reset/${req.token}. Not you? Ignore this email. Modified here.`,
   }
 
   smtpTransport.sendMail(mailOptions, (err) => {
