@@ -270,9 +270,8 @@ root.get('/:username/chart/:chartname', async (req, res) => {
 
       if (user) {
         const theChart = user.musicCharts.find(chart => chart.title == chartname).populate('musicCharts')
-
         if (theChart) {
-          if (!req.user.id) {
+          if (!req.user) {
             res.render('dashView-user', { home: true, userInfo: false, layout: './layouts/dashboard-visit' })
           } else {
               if (req.user.username == username) {
@@ -324,7 +323,7 @@ root.get('/:username', async (req, res) => {
     //! A USER HAS BEEN FOUND. THIS PART IS JUST FOR AUTHORIZATION
 
     //if no id youre not logged in so it's not your account. Show visitor view
-    if (!req.user.id) {
+    if (!req.user) {
       // getFollowerData(false, username, true)
       const profileInfo = { username: theUser.username, musicCharts: theUser.musicCharts, profileImage: theUser.profileImage }
       res.render('user-data', { profileInfo, username: theUser.username, profileCharts: theUser.musicCharts, followers: theUser.followers.length, following: theUser.following.length, myProf: false, userInfo: false, layout: './layouts/profile' })

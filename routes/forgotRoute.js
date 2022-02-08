@@ -18,36 +18,35 @@ forgot.post("/", recoveryGen, recoverySend)
 
 //! CHECK HERE
 function recoveryGen(req, res, next) {
-  const recoveryEmail = req.body.recoveryEmail
-  const emailValid = validator.isEmail(recoveryEmail)
 
-  console.log(recoveryEmail)
-
-  if (!emailValid) {
-    res.send({ errorNotice: "error", noticeTxt: "Invalid Email." })
-  } else {
-    User.findOne({ email: recoveryEmail }, async (err, user) => {
-      try {
-        if (!user) {
-          res.send({ errorNotice: "error", noticeTxt: "No user with this email found." })
-        } else {
-          await crypto.randomBytes(20, (err, buf) => {
-            const token = buf.toString("hex")
-
-            user.resetPasswordToken = token
-            user.resetPasswordExpires = Date.now() + 3600000
-
-            user.save(() => {
-              req.user = user
-              req.token = token
-              next()
+  try{
+    const recoveryEmail = req.body.recoveryEmail
+    const emailValid = validator.isEmail(recoveryEmail)
+    
+    if (!emailValid) {
+      res.send({ errorNotice: "error", noticeTxt: "Invalid Email." })
+    } else {
+      User.findOne({ email: recoveryEmail }, async (err, user) => {
+          if (!user) {
+            res.send({ errorNotice: "error", noticeTxt: "No user with this email found." })
+          } else {
+            await crypto.randomBytes(20, (err, buf) => {
+              const token = buf.toString("hex")
+  
+              user.resetPasswordToken = token
+              user.resetPasswordExpires = Date.now() + 3600000
+  
+              user.save(() => {
+                req.user = user
+                req.token = token
+                next()
+              })
             })
-          })
-        }
-      } catch (err) {
-        res.status(500).send({ errorNotice: "error", noticeTxt: "Error Code (500) Internal Server Error." })
-      }
-    })
+          }
+      })
+    }
+  } catch(err){
+    res.send({ errorNotice: "error", noticeTxt: err.message })
   }
 }
 
