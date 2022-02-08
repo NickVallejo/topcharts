@@ -55,8 +55,6 @@ async function recoverySend(req, res, next) {
   const {hostname, protocol} = req
   const recoveryUrl = `${protocol}s://${hostname}`
 
-  console.log('RECOVERY EMAIL', req.body.recoveryEmail)
-
   const smtpTransport = nodemailer.createTransport({
     service: process.env.EMAIL_SERVICE,
     secure: true,
