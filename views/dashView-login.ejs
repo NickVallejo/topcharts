@@ -8,19 +8,11 @@
         <% } %>
           <% if(errs) {%>
             <div class="errs">
-              <h5>Invalid Credentials:</h5>
-              <ul>
-                <% for(i=0; i < errs.length; i++) {%>
-                  <li>
-                    <%- errs[i].msg %>
-                  </li>
-                  <% } %>
-              </ul>
+              <h5><%- errs.msg %></h5>
             </div>
             <% } %>
-
               <h1>Welcome to Top Charts</h1>
-              <form class="" action="/login" method="post">
+              <form action="/login" method="post">
                 <input placeholder="Username" type="text" name="username" value="<%= username %>" />
                 <div class="eye">
                   <input placeholder="Password" type="password" name="password" value="" />
@@ -28,6 +20,9 @@
                 </div>
                 <button class="new-btn" type="submit">Login</button>
               </form>
+              
+              <a href="/auth/google" class="google">Google+</a>
+              <a href="/auth/facebook" class="facebook">Facebook</a>
 
               <div class="log-opts">
                 <a href="/register">Register</a>

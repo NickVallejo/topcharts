@@ -1,4 +1,6 @@
 const eyes = document.querySelectorAll('.fa-eye');
+const regForm = document.querySelector('.reg-form')
+const captchaInput = document.getElementById('g-recaptcha-response')
 
 eyes.forEach(eye => {
     eye.addEventListener('click', (e) => {

@@ -12,7 +12,7 @@ const userSchema = mongoose.Schema({
   },
   password: {
     type: String,
-    required: true,
+    required: false,
   },
   musicCharts: [
       {
@@ -31,6 +31,14 @@ const userSchema = mongoose.Schema({
   profileImage: {
     type: String,
     default: ''
+  },
+  googleId: {
+    type: Number,
+    required: false
+  },
+  facebookId: {
+    type: Number,
+    required: false
   },
   resetPasswordToken: String,
   resetPasswordExpires: Date,

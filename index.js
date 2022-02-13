@@ -2,17 +2,14 @@ require("dotenv").config()
 const express = require("express")
 const root = express()
 const mongoose = require("mongoose")
-const path = require("path")
-const passport = require("passport")
 const session = require("express-session")
+const passport = require("passport")
 const ytSearch = require('youtube-search')
 const expressLayouts = require('express-ejs-layouts')
 const bcrypt = require('bcrypt')
 const isAuth = require('./js-serverside/utility/authMiddleware').isAuth
 
-let sessionArray = []
-let added_chart
-const lettersNumbers = "/^[0-9a-zA-Z]+$/"
+const inProd = process.env.IN_PROD === "production"
 
 //! CREATES CONNECTION TO MONGO DATABASE USING MONGOOSE
 const db_connect = mongoose.createConnection(
@@ -30,6 +27,7 @@ exports.User = User
 exports.Chart = Chart
 
 //Imported Routes
+const auth_route = require("./routes/authRoute")
 const login_route = require("./routes/login")
 const reg_route = require("./routes/register")
 const logout_route = require("./routes/logout")
@@ -75,6 +73,7 @@ const sessionStore = new MongoStore({
 //! ESTABLISHES THE SESSION MIDDLEWARE THAT PLANTS A SESSION COOKIE ON THE BRWOSER & ADDS A NEW ENTRY TO SESSION STORAGE ON THE SERVER
 root.use(
   session({
+    name: 'topsters-session',
     secret: process.env.SESS_SECRET,
     resave: true,
     saveUninitialized: true,
@@ -82,17 +81,23 @@ root.use(
     strict: false,
     cookie: {
       maxAge: SESS_AGE,
-      sameSite: true,
-      secure: false,
+      sameSite: inProd ? 'none' : 'lax',
+      secure: inProd ? 'true' : 'auto'
     },
   })
 )
 
-require('./js-serverside/utility/passport');
 root.use(passport.initialize());
 root.use(passport.session());
+require('./js-serverside/utility/passport');
+
+root.use((req, res, next) => {
+  console.log('sessionID: ' + req.session.id)
+  next()
+})
 
 //! ROUTES ESTABLISHED FOR LOGIN, LOGOUT, AND REGISTER
+root.use("/auth", auth_route)
 root.use("/login", login_route)
 root.use("/logout", logout_route)
 root.use("/register", reg_route)
@@ -300,9 +305,9 @@ root.get('/:username/chart/:chartname', async (req, res) => {
 root.get('/:username', async (req, res) => {
 
   const username = req.params.username
-  const userI = new RegExp(username, 'i')
+  // const userI = new RegExp(username, 'i')
   
-  await User.findOne({ username: userI }, (err, user) => {
+  await User.findOne({ username }, (err, user) => {
     try{
       if (user) {
         console.log('USER IS FOUND')
@@ -315,7 +320,7 @@ root.get('/:username', async (req, res) => {
     } catch(err){
       error.log('Caught an error on /:username route')
     }
-  }).populate('musicCharts')
+  }).populate('musicCharts').collation({locale: 'en', strength: 2})
 
   // BEFORE CHECKING IF ITS YOUR PROFILE, CHECK IF IT EXISTS WITH ANOTHER SEARCH BY req.params
   async function userFound(theUser) {
