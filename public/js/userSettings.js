@@ -1,4 +1,5 @@
 const notice = document.querySelector('.notice-wrap')
+const globalUser = document.querySelector('body[name]').getAttribute('name')
 
 function numToggle(e) {
 

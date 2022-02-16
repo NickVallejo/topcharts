@@ -105,8 +105,8 @@ if(my_list.chart == undefined){
   }
 
   //if an unsaved list was on the project board when you changed charts, it will be deleted
-  if (localStorage.getItem("unsavedList")) {
-    localStorage.removeItem("unsavedList")
+  if (localStorage.getItem(`${globalUser}-unsavedList`)) {
+    localStorage.removeItem(`${globalUser}-unsavedList`)
   }
 
   //add new listeners depending on if the chart selected increased or decreased in tile size

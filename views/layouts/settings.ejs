@@ -4,18 +4,18 @@
 <%- include('../partials/head-settings') %>
 
 <%- include('../partials/header', {userInfo: userInfo}) %>
-  <% const userImage=userInfo.profileImage.replace(/\\/g, "/" ) %>
-
     <body>
       <div class="section">
         <div class="settings">
           <div class="profile-display">
+            <% const profileImage = userInfo.profileImage.length > 0 ? userInfo.profileImage.replace(/\\/g, `/` ) : 'images/default-icon.png' %>
             <div id="profile-img-display" class="profile-img-display-lg"
-              style="background-image: url('/<%= userImage %>')">
+              style="background-image: url('/<%= profileImage %>')">
               <label class="edit-wrap" for="profile-image-submit">
                 <i class="far fa-edit fa-2x"></i>
               </label>
               <input id="profile-image-submit" type="file" />
+              <div class="delete-profile-img"><i class="fa-solid fa-x trash"></i></div>
             </div>
           </div>
 

@@ -64,8 +64,6 @@ function chartSave(fromTyped) {
 
     let new_array = Array.from(my_list) //User is prompted for a title for their new list
 
-    console.log(typeof fromTyped)
-
     typeof fromTyped == "string" ? (title = fromTyped) : (title = prompt("What is the name of this list?"))
 
     console.log(title)
@@ -82,7 +80,7 @@ function chartSave(fromTyped) {
       //Create an html string with the title as an attr and as title on front end
       frontEndTitle.innerText = symbolFilterTitle
       var saved_front =
-        `<div class="saved_item"><h2 class="saved_title" name=${title_}>${symbolFilterTitle}</h2><div class="saved-opts"><i class="fas fa-link share"></i><i class="far fa-trash trash"></i></div></div>`
+        `<div class="saved_item"><h2 class="saved_title" name=${title_}>${symbolFilterTitle}</h2><div class="saved-opts"><i class="fas fa-link share"></i><i class="fa-solid fa-x trash"></i></div></div>`
       //add saved_front to list of front end saved lists
       saved_div.insertAdjacentHTML("beforeend", saved_front)
       //add a listener to the saved_div element, to execute func on click
@@ -104,8 +102,8 @@ function chartSave(fromTyped) {
       req.send("title=" + title_ + "&chart=" + JSON.stringify(new_array))
 
       my_list = { title: title_, chart: new_array }
-      console.log("new list is now complete", my_list)
-      localStorage.removeItem("unsavedList")
+      
+      localStorage.removeItem(`${globalUser}-unsavedList`)
       addTitleListener(symbolFilterTitle)
       return true
     } else {

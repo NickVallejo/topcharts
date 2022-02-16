@@ -14,6 +14,27 @@ const emailChangeForm = document.querySelector("#emailChangeForm")
 
 const formSubmit = document.querySelectorAll(".popup .new-btn")
 
+const delProfIcon = document.querySelector('.delete-profile-img')
+delProfIcon.addEventListener('click', deleteProfileIcon)
+
+async function deleteProfileIcon(){
+  if(profImgDisplay.style.backgroundImage != 'url("/images/default-icon.png")'){
+    const del = new XMLHttpRequest()
+    del.open('DELETE', '/settings/image', true)
+    del.onload = () => {
+        if(del.status !== 200){
+          const data = JSON.parse(req.responseText)
+          noticeInit(data.noticeType, data.noticeTxt)
+        } else{
+          profImgDisplay.style.backgroundImage = `url(images/default-icon.png)`
+          profImgDisplayLg.style.backgroundImage = `url(images/default-icon.png)`
+          noticeInit("success", "Profile picture deleted!")
+        }
+    }
+    del.send()
+  }
+}
+
 if (emailChangeForm) {
   emailChangeForm.addEventListener("submit", (e) => {
     e.preventDefault()
@@ -77,18 +98,14 @@ if (profImgSubmit) {
     req.onload = () => {
       if (req.status !== 200) {
         const data = JSON.parse(req.responseText)
-        const noticeType =  data.noticeType ? data.noticeType : req.status
-        const noticeTxt = data.noticeTxt ? data.noticeTxt : 'Error Uploading Image'
-        noticeInit(noticeType, noticeTxt)
+        noticeInit(data.noticeType, data.noticeTxt)
       } else {
-        console.log('RESPONSE TEXT', req.responseText)
         const myNewProfImg = req.responseText.replace(/\\/g, "/")
         profImgDisplay.style.backgroundImage = `url(${myNewProfImg})`
         profImgDisplayLg.style.backgroundImage = `url(${myNewProfImg})`
         noticeInit("success", "Profile picture successfully changed!")
       }
     }
-
     req.send(formData)
   })
 }

@@ -8,11 +8,12 @@ label,
 span,
 p,
 a,
-input {
+.settings input {
   color: white;
   margin: 0px;
   font-family: "Montserrat", sans-serif !important;
 }
+
 body {
   min-height: 100vh;
 }

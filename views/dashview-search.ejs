@@ -1,0 +1,30 @@
+<section class="search-results">
+    <% if(users.length) { %>
+        <% users.forEach(user => { 
+        // const profileImage = user.profileImage ? user.profileImage.replace(/\\/g, `/` ) : 'images/default-icon.png' 
+        %>
+            <div class="user-row">
+                <div class="user-row__left">
+                    <a class="user-icon" href="/<%- user.username %>">
+                        <% const profileImage = user.profileImage.length > 0 ? user.profileImage.replace(/\\/g, `/` ) : 'images/default-icon.png' %>
+                        <div id="profile-img-display" style="background-image: url('/<%- profileImage %>')"></div>
+                    </a>
+                    <div class="user-row__info">
+                        <a class="user-row__name" href="/<%- user.username %>"><h3><%- user.username %></h5></a>
+                        <span class="user-row__charts">Charts: <%- user.musicCharts.length %></span>
+                    </div>
+                </div>
+                <div class="user-row__right">
+                    <a class="new-btn" href="/<%- user.username %>">View Profile</a>
+                </div>
+            </div>
+    <% })} else{ %>
+        <div class="user-row">
+                <div class="user-row__left">
+                    <div class="user-row__info">
+                        <h4 class="user-row__name"><h3>No users found.</h5></a>
+                    </div>
+                </div>
+            </div>
+    <% } %>
+</section>

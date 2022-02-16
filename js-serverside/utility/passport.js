@@ -22,7 +22,6 @@ try{
       if (user && user.password) {
         console.log('FOUND A USER TOO')
           if (await bcrypt.compare(password, user.password)) { //if a user is found and the password matches, create the userId session property and redirect to dashboard
-            console.log('WE IN HERE')
             return done(null, user)
           } else { //this else stament fires when the email matches but the password is incorrect. Redirects user back to login page
             req.session.login_error = {msg: "Invalid username or password."}
@@ -51,6 +50,8 @@ const verifyCallbackGoogle = async(req, accessToken, refreshToken, profile, done
     let id = profile.id
     const facebookRoute = req.route.path.includes('facebook')
     const googleRoute = req.route.path.includes('google')
+
+    console.log('callback pinged')
 
     if(facebookRoute){
       name = profile.name
@@ -121,8 +122,8 @@ const strategy = new LocalStrategy(options, verifyCallback)
 const registerStrategy = new LocalStrategy(options, verifyCallback)
 
 const strategyGoogle = new GoogleStrategy({
-  clientID: process.env.GOOGLE_CLIENT_ID,
-  clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+  clientID: "229441451169-5sa9b25dq62cjea11mislqjcfdmad2qb.apps.googleusercontent.com",
+  clientSecret: "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",
   passReqToCallback: true,
   callbackURL: '/auth/google/redirect',
 }, verifyCallbackGoogle)
@@ -138,7 +139,6 @@ const strategyFacebook = new FacebookStrategy({
 //! binds the user id to the express session cookie to persist the login across pages
 //! this is only called when successfully logging in, or whenever an authenticated session is created
 passport.serializeUser((req, user, done) => {
-  console.log('USER SERILAIZIED')
     done(null, user._id)
 })
 

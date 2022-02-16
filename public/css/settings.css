@@ -71,6 +71,37 @@ input {
   border-radius: 100px;
 }
 
+.profile-display .delete-profile-img {
+  z-index: 999;
+  cursor: pointer;
+  width: 25px;
+  height: 25px;
+  background: darkred;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  border-radius: 100%;
+  position: absolute;
+  right: 10px;
+  top: 15px;
+  opacity: 0.7;
+}
+
+.profile-display .delete-profile-img:hover {
+  opacity: 0.95;
+}
+
+.profile-display .delete-profile-img i {
+  font-size: 10px;
+  color: white;
+}
+
 .edit-wrap {
   padding: 10px;
   background: #13191b;
@@ -120,6 +151,10 @@ input {
 
 .change-fields .change-wrap {
   position: relative;
+}
+
+.change-fields .change-wrap input {
+  background: #030708;
 }
 
 .change-fields label {
@@ -237,7 +272,6 @@ input {
 input[type="email"],
 input[type="password"] {
   width: 100%;
-  background-color: #030708;
   border: none;
   border-radius: 3px;
   color: rgba(255, 255, 255, 0.623);
@@ -247,7 +281,7 @@ input[type="password"] {
           box-sizing: border-box;
 }
 
-.new-btn {
+.coming-soon .new-btn {
   display: inline-block;
   background-color: #329920;
   padding: 10px 30px;
@@ -263,7 +297,7 @@ input[type="password"] {
   cursor: pointer;
 }
 
-.new-btn:hover {
+.coming-soon .new-btn:hover {
   opacity: 0.8;
 }
 

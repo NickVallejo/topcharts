@@ -11,8 +11,6 @@ passEdit.addEventListener('click', showEditOverlay);
 emailEdit.addEventListener('click', showEditOverlay);
 
 function showEditOverlay(e){
-
-
     if(e.target.classList.contains('email-edit')){
         emailForm.classList.add('setting-form-show');
     } else if(e.target.classList.contains('password-edit')){

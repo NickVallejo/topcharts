@@ -8,6 +8,12 @@
   </div>
 
   <div class="mob-settings mob-slider profile-slide">
+    <form class="prof-src prof-src__mob">
+      <input class="prof-src__input" type="text">
+      <button type="submit" class="prof-src__submit">
+        <i class="fa-solid fa-magnifying-glass"></i>
+    </button>
+    </form>
     <ul>
       <% if(userInfo == false) { %>
         <li><a href="/login">Login</a></li>
@@ -16,7 +22,7 @@
           <li class="dash-li"><a href="/dashboard">Dashboard</a></li>
           <li class="profile-li"><a href="/<%= userInfo.username %>">Profile</a></li>
           <li class="settings-li"><a href="/settings">Settings</a></li>
-          <li class="logout-li"><a href="/logout">Logout</a></li>
+          <form id="logout-form" action="/logout" method="POST"><li class="logout-li" onclick="document.getElementById('logout-form').submit()"; type="submit"><a>Logout</a></li></form>
           <% } %>
     </ul>
   </div>

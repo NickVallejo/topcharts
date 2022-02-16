@@ -12,7 +12,8 @@
 
       <div class="ico-group">
         <i class="fas fa-cog fa-2x"></i>
-        <div id="profile-img-display" class="prof-img-mob" style="background-image: url('/<%= userImage %>')"></div>
+        <% const profileImage = userInfo.profileImage.length > 0 ? userInfo.profileImage.replace(/\\/g, `/` ) : 'images/default-icon.png' %>
+        <div id="profile-img-display" name="<%= userInfo.username %>" class="prof-img-mob" style="background-image: url('/<%= profileImage %>')"></div>
       </div>
     </div>
   </div>
@@ -22,8 +23,8 @@
       <li class="dash-li"><a href="/dashboard">Dashboard</a></li>
       <li class="profile-li"><a href="/<%= userInfo.username %>">Profile</a></li>
       <li class="settings-li"><a href="/settings">Settings</a></li>
-      <li class="logout-li"><a href="/logout">Logout</a></li>
-    </ul>
+      <form id="logout-form" action="/logout" method="POST"><li class="logout-li" onclick="document.getElementById('logout-form').submit()"; type="submit"><a>Logout</a></li></form>
+      </ul>
   </div>
 
   <div class="mob-settings mob-slider setting-slide">

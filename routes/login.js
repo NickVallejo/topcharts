@@ -22,7 +22,6 @@ userPages.get("/", authBlock, (req, res) => { //check if already logged in, and 
     res.render('dashView-login', {home: false, passChanged, username: '', errs: logErrors, userInfo: false, layout: './layouts/dashboard'})
 })
 
-
 //!POST ROUTE THAT REDIRECTS USER TO DASHBOARD AFTER VALID LOGIN
 userPages.post("/", passport.authenticate('local', {
   failureRedirect: '/login',

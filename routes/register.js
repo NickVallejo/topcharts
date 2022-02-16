@@ -1,3 +1,4 @@
+require('dotenv').config()
 const mongoose = require('mongoose')
 const express = require("express")
 const regPages = express.Router()
@@ -20,7 +21,7 @@ async function regWare(req, res, next) {
   console.log('CONFIRMING TOKEN', token)
   
   if(token){
-    const secret = '6Ld_33ceAAAAAKGrBmhc5iNg-uZrEaHy-J0dxQJG'
+    const secret = process.env.GOOGLE_SERVER_SECRET
     const verify = new XMLHttpRequest()
     verify.open('POST', `https://www.google.com/recaptcha/api/siteverify?secret=${secret}&response=${token}`)
     verify.send()

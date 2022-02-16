@@ -11,7 +11,7 @@
               <%- include('../partials/header', {userInfo: userInfo}) %>
             </div>
 
-            <body style="min-height: 100vh">
+            <body style="min-height: 100vh" name="<%= userInfo.username %>">
               <div class="notice-wrap"></div>
 
               <%- body %>

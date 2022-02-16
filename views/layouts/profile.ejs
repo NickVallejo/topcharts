@@ -17,7 +17,8 @@
       <div class="prof-padding">
         <section class="profile-row prof-sec">
           <div class="profile-row-info">
-            <div class="profile-img" style="background-image: url('/<%= userImage %>')">
+            <% const profileImage = userInfo.profileImage.length > 0 ? userInfo.profileImage.replace(/\\/g, `/` ) : 'images/default-icon.png' %>
+            <div class="profile-img" style="background-image: url('/<%= profileImage %>')">
             </div>
             <div>
               <h1 class="profile-title">

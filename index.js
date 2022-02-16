@@ -247,7 +247,6 @@ root.get("/yt-listen", (req, res) => {
   ytSearch(`${artist} - ${album}`, opts, (err, results) => {
     if (err) return console.log(err)
 
-
     else {
       for (i = 0; i < 10; i++) {
         if (!results[i].link.includes('playlist?')) {
@@ -259,6 +258,16 @@ root.get("/yt-listen", (req, res) => {
       }
     }
   })
+})
+
+root.get('/search/:query', async(req, res, next) => {
+  const query = new RegExp("^"+req.params.query, "i")
+  const users = await User.find({username: query})
+  const userInfo = req.session.userInfo ? req.session.userInfo : false
+  console.log(users)
+  if(users){
+    res.render('dashView-search', { home: true, userInfo: userInfo, users: users, layout: './layouts/dashboard-visit' })
+  }
 })
 
 //! LEADS TO A VIEW OF A CERTAIN CHART
