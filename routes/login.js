@@ -10,21 +10,21 @@ userPages.get("/", authBlock, (req, res) => { //check if already logged in, and 
   const passChanged = req.session.passChangeComplete ? true : false
   const logErrors = req.session.login_error ? req.session.login_error : false
 
-
-  if(req.session.login_error){
-    delete req.session.login_error
-  }
-
-  if(passChanged == true){
-    delete req.session.passChangeComplete
-  }
-
-  res.render('dashView-login', {home: false, passChanged, username: '', errs: logErrors, userInfo: false, layout: './layouts/dashboard'})
+    console.log('LOG ERRORS/??', logErrors, req.session.id)
+    if(req.session.login_error){
+      delete req.session.login_error
+    }
+  
+    if(passChanged == true){
+      delete req.session.passChangeComplete
+    }
+  
+    res.render('dashView-login', {home: false, passChanged, username: '', errs: logErrors, userInfo: false, layout: './layouts/dashboard'})
 })
-
 
 //!POST ROUTE THAT REDIRECTS USER TO DASHBOARD AFTER VALID LOGIN
 userPages.post("/", passport.authenticate('local', {
+  session: true,
   failureRedirect: '/login',
   successRedirect: '/dashboard'
 }))

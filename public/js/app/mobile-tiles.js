@@ -214,8 +214,8 @@ function touchStart(e){
           chartUpdate()
         } else {
           my_list.splice(positionToDel, 1, null)
-          console.log(my_list)
-          localStorage.setItem("unsavedList", JSON.stringify(my_list))
+          const user = document.querySelector('.mobile-nav #profile-img-display').getAttribute("name")
+          localStorage.setItem(`${globalUser}-unsavedList`, JSON.stringify(my_list))
         }
         addtileListeners();
       } else if(e.target.classList.contains("frontPlay")){

@@ -1,3 +1,6 @@
+<script src="https://www.google.com/recaptcha/api.js"></script>
+
+
 <section class="logreg-hero">
   <div class="logreg-wrap">
     <div class="logreg-box">
@@ -28,8 +31,14 @@
                 <input type="password" name="password2" placeholder="Confirm Password..." />
                 <i class="far fa-eye"></i>
               </div>
-              <button class="new-btn" type="submit" name="button">Register</button>
+              <button class="new-btn reg-btn" type="submit" name="button">Register</button>
+              <div class="g-recaptcha" data-sitekey="6Ld_33ceAAAAABBCAROL7qxMWE2tpl688xXDmHjJ"></div>
             </form>
+
+            <div class="sso-btns">
+              <a href="/auth/google" class="new-btn google sso-btn">Google+</a>
+              <a href="/auth/facebook" class="new-btn facebook sso-btn">Facebook</a>
+            </div>
 
             <div class="log-opts">
               <a href="/login">Login</a>
@@ -38,4 +47,4 @@
   </div>
 </section>
 
-<script type="text/javascript" src="/js/logreg/logreg.js"></script>
+<script type="text/javascript" src="/js-prod/logreg/logreg.js"></script>

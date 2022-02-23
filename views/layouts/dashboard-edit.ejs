@@ -11,28 +11,12 @@
               <%- include('../partials/header', {userInfo: userInfo}) %>
             </div>
 
-            <body style="min-height: 100vh">
+            <body style="min-height: 100vh" name="<%= userInfo.username %>">
               <div class="notice-wrap"></div>
 
               <%- body %>
                 <%- include('../partials/desk-footer') %>
                   <%- include('../partials/mobile-nav', {userInfo: userInfo, userImage: userImage}) %>
-
-                    <script src="https://code.jquery.com/jquery-3.4.1.js"
-                      integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
-                    <script type="text/javascript" src="/js/userSettings.js"></script>
-                    <script type="text/javascript" src="/js/tileSettings.js"></script>
-                    <script type="text/javascript" src="/js/trashOrDisplay.js"></script>
-                    <script type="text/javascript" src="/js/saveOrUpdate.js"></script>
-                    <script type="text/javascript" src="/js/mobile-tiles.js"></script>
-                    <script type="text/javascript" src="/js/searchAndAdd.js"></script>
-                    <script type="text/javascript" src="/js/unsavedChart.js"></script>
-                    <script type="text/javascript" src="/js/appExec.js"></script>
-                    <script type="text/javascript" src="/js/tileListeners.js"></script>
-                    <script type="text/javascript" src="/js/chartSizeSet.js"></script>
-                    <script type="text/javascript" src="/js/addCustomAlbum.js"></script>
-                    <script type="text/javascript" src="/js/html2canvas.js"></script>
-                    <script type="text/javascript" src="/js/screencap.js"></script>
-            </body>/
-/
-</html>/
+                    <script type="text/javascript" src="/js-prod/app/scripts.js"></script>
+            </body>
+</html>

@@ -32,26 +32,30 @@ function toggleMobChartList(){
 }
 
 function saved_list_closer(){
-    setTimeout(() => {
-        saved.classList.remove('set-slide-up');
-        savedBtn.classList.remove('nav-tapped');
-    },200)
+    if(saved && savedBtn){
+        setTimeout(() => {
+            saved.classList.remove('set-slide-up');
+            savedBtn.classList.remove('nav-tapped');
+        },200)
+    }
 }
 
-profBtn.addEventListener('click', () => {
-    ytExit()
-    const slidUp =  document.querySelector('.set-slide-up');
-    const navTapped = document.querySelector('.nav-tapped')
+if(profBtn){
+    profBtn.addEventListener('click', () => {
+        ytExit()
+        const slidUp =  document.querySelector('.set-slide-up');
+        const navTapped = document.querySelector('.nav-tapped')
+        
+        profile.classList.add('set-slide-up');
+        profBtn.classList.add('nav-tapped');
     
-    profile.classList.add('set-slide-up');
-    profBtn.classList.add('nav-tapped');
-
-    if(slidUp){
-        slidUp.classList.remove('set-slide-up')
-        navTapped.classList.remove('nav-tapped')
-    }
-    
-})
+        if(slidUp){
+            slidUp.classList.remove('set-slide-up')
+            navTapped.classList.remove('nav-tapped')
+        }
+        
+    })
+}
 
 if(setBtn){
     setBtn.addEventListener('click', () => {

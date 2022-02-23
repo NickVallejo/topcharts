@@ -1,6 +1,5 @@
 function checkForUnsaved() {
-  // console.log("suggs laoded " + suggsLoaded)
-  let unsavedList = JSON.parse(localStorage.getItem("unsavedList"))
+  let unsavedList = JSON.parse(localStorage.getItem(`${globalUser}-unsavedList`))
 
   //Checks if an unsaved list was added last session
   if (unsavedList) {
@@ -29,6 +28,10 @@ function checkForUnsaved() {
     }
     }
    else{
-    list_new()
+    if(loaded_lists.length > 0){
+      list_display(loaded_lists[0].title)
+    } else{
+      list_new()
+    }
   }
 }

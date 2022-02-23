@@ -13,7 +13,7 @@ const displayProfileCharts = async (myProfile, username, profileCharts) => {
         profileCharts.forEach((chart) => {
             const title = chart.title.replace(/_/g, ' ');
             const firstFour = [];
-            const albums = JSON.parse(chart.chart);
+            const albums = chart.chart;
 
             albums.forEach(album => {
                 console.log(album)
@@ -31,8 +31,8 @@ const displayProfileCharts = async (myProfile, username, profileCharts) => {
 
             %>
             <div class="prof-chart"><a href="/<%=username%>/chart/<%=chart.title %>" name="<%= chart.title.replace(/ /g, "_") %>"><h3 class="prof-chart-title"><%= title %></h3><div class="prof-chart-wrapper"><div class="prof-chart-cover"></div><img src="<%= firstFour[0] %>"><img src="<%= firstFour[1] %>"><img src="<%= firstFour[2] %>"><img src="<%= firstFour[3] %>"></div></a><% if(myProfile){%> <img class="prof-chart-del" src="/images/topsters-exit.svg"> <%} %></div>
-        <%
-        })
+        <%         
+    })
     } else{
         %>
         <div class="no-charts-wrap">

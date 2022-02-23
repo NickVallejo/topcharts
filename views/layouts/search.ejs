@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+  <%- include('../partials/head-visit') %>
+  <%- include('../partials/header', {userInfo: userInfo}) %>
+
+<body style="min-height: 100vh;">
+    <div class="notice-wrap"></div>
+
+    <%- body %>
+
+    <%- include('../partials/desk-footer') %>
+    <%- include('../partials/footer', {userInfo: userInfo}) %>
+  </body>
+</html>

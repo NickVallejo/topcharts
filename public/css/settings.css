@@ -33,6 +33,12 @@ input {
   width: 100%;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
 .settings {
@@ -71,6 +77,37 @@ input {
   border-radius: 100px;
 }
 
+.profile-display .delete-profile-img {
+  z-index: 999;
+  cursor: pointer;
+  width: 25px;
+  height: 25px;
+  background: darkred;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  border-radius: 100%;
+  position: absolute;
+  right: 10px;
+  top: 15px;
+  opacity: 0.7;
+}
+
+.profile-display .delete-profile-img:hover {
+  opacity: 0.95;
+}
+
+.profile-display .delete-profile-img i {
+  font-size: 10px;
+  color: white;
+}
+
 .edit-wrap {
   padding: 10px;
   background: #13191b;
@@ -90,7 +127,7 @@ input {
 }
 
 .fa-edit {
-  color: #329920;
+  color: #3e8914;
   cursor: pointer;
   -webkit-transition: 0.2s all;
   transition: 0.2s all;
@@ -122,6 +159,10 @@ input {
   position: relative;
 }
 
+.change-fields .change-wrap input {
+  background: #030708;
+}
+
 .change-fields label {
   display: block;
   margin-bottom: 15px;
@@ -151,7 +192,7 @@ input {
 }
 
 .coming-soon h3 span {
-  color: #329920;
+  color: #3e8914;
   font-weight: 600;
 }
 
@@ -237,7 +278,6 @@ input {
 input[type="email"],
 input[type="password"] {
   width: 100%;
-  background-color: #030708;
   border: none;
   border-radius: 3px;
   color: rgba(255, 255, 255, 0.623);
@@ -247,9 +287,9 @@ input[type="password"] {
           box-sizing: border-box;
 }
 
-.new-btn {
+.coming-soon .new-btn {
   display: inline-block;
-  background-color: #329920;
+  background-color: #3e8914;
   padding: 10px 30px;
   text-decoration: none;
   font-weight: 200;
@@ -263,13 +303,23 @@ input[type="password"] {
   cursor: pointer;
 }
 
-.new-btn:hover {
+.coming-soon .new-btn:hover {
   opacity: 0.8;
 }
 
 #emailChangeForm,
 #passChangeForm {
   display: none;
+}
+
+#emailChangeForm input,
+#passChangeForm input {
+  color: #030708;
+}
+
+.no-settings__txt {
+  padding: 50px;
+  text-align: center;
 }
 
 .setting-form-show {

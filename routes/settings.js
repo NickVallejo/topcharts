@@ -44,6 +44,14 @@ const upload = multer({
   fileFilter: fileFilterer
 });
 
+// const showUser = (req, res, next) => {
+//   console.log('pingu')
+//   console.log(req.session.userInfo)
+//   next()
+// }
+
+// settings.use(showUser)
+
 settings.get('/', isAuth, (req, res) => {
     res.render('dashView-mine', {home: true, userInfo: req.session.userInfo, layout: './layouts/settings'})       
 })
@@ -64,17 +72,15 @@ settings.get('/', isAuth, (req, res) => {
 //a method called .single is called as middleware during the /image post process
 //since this is a method of the upload object, all our parameters that were set previously
 //are magically used and processed with the function
-settings.post('/image', isAuth, upload.single('profileImage'), async (req, res, next) => {
+settings.post('/image', isAuth, upload.single('profileImage'), async(req, res, next) => {
   //when the upload.single middleware is complete, the file property is appended to the request object
-
   if(req.fileValidationError){
-    console.log(req.fileValidationError, 'ERROR')
     res.status(400).send({noticeType: 'error', noticeTxt: req.fileValidationError});
     delete req.fileValidationError
-  } 
+ } 
  else{
+    try{
       await User.findById(req.user.id, async (err, user) => {
-        try{
             if(user && req.file){
               //finds you, the user, and makes your profileImage property = the path property appended to the file object
               if(user.profileImage != ''){
@@ -86,18 +92,16 @@ settings.post('/image', isAuth, upload.single('profileImage'), async (req, res, 
               user.save()
                 .then(() => {
                   res.send(user.profileImage);
-                }
-                  )
-                .catch(err => console.log(err));
+                })
+                .catch(err => {throw err});
               } else{
-                res.status(404).send({noticeType: 'error', noticeTxt: 'Error Code (404) User Not Found.'});
+                throw new Error('Internal Server Error. User not found.')              
               }
-        }
-        catch(err){
-            console.log(err)
-            res.status(500).send({noticeType: 'error', noticeTxt: 'Error Code (500) Internal Server Error.'});
-        }
-    })
+      })
+    }
+    catch(err){
+        res.status(500).send({noticeType: 'error', noticeTxt: err.message});
+    }
   }
 })
 
@@ -149,7 +153,6 @@ if(req.body.auth){
 
   User.findById(req.user.id, async (err, user) => {
     try{
-      console.log(user.password)
       if(!user){
         res.send({noticeType: 'error', notice:'No user found.'});
         return;
@@ -177,4 +180,29 @@ if(req.body.auth){
   }
 })
 
-  module.exports = settings;
+settings.delete('/image', isAuth, async(req, res, next) => {
+  try{
+    await User.findById(req.user.id, (err, user) => {
+          if(user){
+            //finds you, the user, and makes your profileImage property = the path property appended to the file object
+            if(user.profileImage != ''){
+              if(fs.existsSync(user.profileImage)){
+                fs.unlinkSync(`${user.profileImage}`);
+              }
+            }
+            user.profileImage = 'images/default-icon.png'
+            user.save()
+              .then(() => {
+                res.end()
+              })
+              .catch(err => {throw err});
+            } else{
+              throw new Error('Internal Server Error. User not found.')
+            }
+    })
+  }catch(err){
+      res.status(500).send({noticeType: 'error', noticeTxt: err.message});
+  }
+})
+
+module.exports = settings;

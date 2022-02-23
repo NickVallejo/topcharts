@@ -11,6 +11,12 @@ module.exports.isAuth = (req, res, next) => {
         } else{
             res.status(401).send();
         }
+    } else{
+        if(req.isAuthenticated()){
+            next()
+        } else{
+            res.status(401).send();
+        }
     }
 }
 

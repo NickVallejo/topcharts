@@ -12,7 +12,8 @@
 
       <div class="ico-group">
         <i class="fas fa-cog fa-2x"></i>
-        <div id="profile-img-display" class="prof-img-mob" style="background-image: url('/<%= userImage %>')"></div>
+        <% const profileImage = userInfo.profileImage.length > 0 ? userInfo.profileImage.replace(/\\/g, `/` ) : 'images/default-icon.png' %>
+        <div id="profile-img-display" name="<%= userInfo.username %>" class="prof-img-mob" style="background-image: url('/<%= profileImage %>')"></div>
       </div>
     </div>
   </div>
@@ -22,8 +23,9 @@
       <li class="dash-li"><a href="/dashboard">Dashboard</a></li>
       <li class="profile-li"><a href="/<%= userInfo.username %>">Profile</a></li>
       <li class="settings-li"><a href="/settings">Settings</a></li>
+      <li class="donate-li"><a href="https://www.paypal.com/donate/?business=RTKNM5MJB73WA&no_recurring=0&item_name=Money+goes+directly+to+server+costs+and+site+maintenance.&currency_code=CAD">Donate</a></li>
       <li class="logout-li"><a href="/logout">Logout</a></li>
-    </ul>
+      </ul>
   </div>
 
   <div class="mob-settings mob-slider setting-slide">
@@ -40,4 +42,4 @@
   </div>
 </div>
 
-<script type="text/javascript" src="/js/interactive.js"></script>
+<script type="text/javascript" src="/js-prod/global/interactive.js"></script>

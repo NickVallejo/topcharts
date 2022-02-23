@@ -1,6 +1,6 @@
 $lightblack: #13191b;
 $darkblack: #030708;
-$green: #329920;
+$green: #3e8914;
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap");
 
 h1,
@@ -31,6 +31,8 @@ input {
   padding: 0px 30px;
   width: 100%;
   box-sizing: border-box;
+  flex: 1;
+  align-items: center;
 }
 
 .settings {
@@ -55,6 +57,28 @@ input {
     height: 180px;
     background-color: $darkblack;
     border-radius: 100px;
+  }
+  .delete-profile-img {
+    z-index: 999;
+    cursor: pointer;
+    width: 25px;
+    height: 25px;
+    background: darkred;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 100%;
+    position: absolute;
+    right: 10px;
+    top: 15px;
+    opacity: 0.7;
+    &:hover {
+      opacity: 0.95;
+    }
+    i {
+      font-size: 10px;
+      color: white;
+    }
   }
 }
 
@@ -92,6 +116,9 @@ input {
   padding: 30px;
   .change-wrap {
     position: relative;
+    input {
+      background: $darkblack;
+    }
   }
   label {
     display: block;
@@ -186,7 +213,6 @@ input {
 input[type="email"],
 input[type="password"] {
   width: 100%;
-  background-color: $darkblack;
   border: none;
   border-radius: 3px;
   color: rgba(255, 255, 255, 0.623);
@@ -195,27 +221,37 @@ input[type="password"] {
   box-sizing: border-box;
 }
 
-.new-btn {
-  display: inline-block;
-  background-color: $green;
-  padding: 10px 30px;
-  text-decoration: none;
-  font-weight: 200;
-  margin-top: 20px;
-  color: white !important;
-  border: none;
-  font-size: 14px;
-  border-radius: 3px;
-  transition: 0.3s all;
-  &:hover {
-    opacity: 0.8;
+.coming-soon {
+  .new-btn {
+    display: inline-block;
+    background-color: $green;
+    padding: 10px 30px;
+    text-decoration: none;
+    font-weight: 200;
+    margin-top: 20px;
+    color: white !important;
+    border: none;
+    font-size: 14px;
+    border-radius: 3px;
+    transition: 0.3s all;
+    &:hover {
+      opacity: 0.8;
+    }
+    cursor: pointer;
   }
-  cursor: pointer;
 }
 
 #emailChangeForm,
 #passChangeForm {
   display: none;
+  input {
+    color: #030708;
+  }
+}
+
+.no-settings__txt {
+  padding: 50px;
+  text-align: center;
 }
 
 .setting-form-show {

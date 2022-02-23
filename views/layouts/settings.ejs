@@ -4,34 +4,38 @@
 <%- include('../partials/head-settings') %>
 
 <%- include('../partials/header', {userInfo: userInfo}) %>
-  <% const userImage=userInfo.profileImage.replace(/\\/g, "/" ) %>
-
     <body>
       <div class="section">
         <div class="settings">
           <div class="profile-display">
+            <% const profileImage = userInfo.profileImage.length > 0 ? userInfo.profileImage.replace(/\\/g, `/` ) : 'images/default-icon.png' %>
             <div id="profile-img-display" class="profile-img-display-lg"
-              style="background-image: url('/<%= userImage %>')">
+              style="background-image: url('/<%= profileImage %>')">
               <label class="edit-wrap" for="profile-image-submit">
                 <i class="far fa-edit fa-2x"></i>
               </label>
               <input id="profile-image-submit" type="file" />
+              <div class="delete-profile-img"><i class="fa-solid fa-x trash"></i></div>
             </div>
           </div>
 
-          <div class="change-fields">
-            <div class="change-wrap email-change-wrap">
-              <label for="email-change">Email</label>
-              <input disabled type="email" value="<%= userInfo.email %>" />
-              <i class="far email-edit fa-edit fa-2x"></i>
-            </div>
+          <% if(userInfo.password !== undefined){ %>
+            <div class="change-fields">
+              <div class="change-wrap email-change-wrap">
+                <label for="email-change">Email</label>
+                <input disabled type="email" value="<%= userInfo.email %>" />
+                <i class="far email-edit fa-edit fa-2x"></i>
+              </div>
 
-            <div class="change-wrap password-change-wrap">
-              <label for="password-change">Password</label>
-              <input disabled type="password" value="<%= userInfo.password %>" />
-              <i class="far password-edit fa-edit fa-2x"></i>
+              <div class="change-wrap password-change-wrap">
+                <label for="password-change">Password</label>
+                <input disabled type="password" value="<%= userInfo.password %>" />
+                <i class="far password-edit fa-edit fa-2x"></i>
+              </div>
             </div>
-          </div>
+          <% } else{ %>
+            <h3 class="no-settings__txt">There are no applicable settings that currently need to be configured for Facebook or Google Accounts.</h3>
+          <% } %>
 
           <div class="coming-soon">
             <h3>Followers, Bios, Favorite Artists, and much more with Topsters <span>Premium.</span></h3>
@@ -74,8 +78,8 @@
       <%- include('../partials/desk-footer') %>
         <%- include('../partials/footer', {userInfo: userInfo}) %>
 
-          <script src="/js/profile/settings-ui.js"></script>
-          <script src="/js/profile/profile.js"></script>
+          <script src="/js-prod/profile/settings-ui.js"></script>
+          <script src="/js-prod/profile/profile.js"></script>
     </body>
 
 </html>

@@ -81,13 +81,10 @@ function touchStart(e) {
         !e.target.classList.contains("frontRank") &&
         !e.target.classList.contains("tile-title")
       ) {
-        console.log("inside second conditional")
 
         const toBox = e.target
         const toIndex = e.target.getAttribute("rank")
         const theBox = toBox.childNodes[1] == undefined ? toBox : fromBox
-
-        //! THIS IS THE SAME
 
         if (fromBox.childNodes[1] != undefined) {
           fromBox.classList.remove("tile-inspect")

@@ -48,7 +48,6 @@ try{
 } catch(err){
   res.send(err.message)
 }
-
 })
 
 //! SENDS BACK THE USERNAME OF THE CURRENT USER LOGGED IN

@@ -27,13 +27,52 @@ li {
   font-weight: 300;
 }
 
+#logout-form {
+  cursor: pointer;
+}
+
+.donate-banner {
+  background-color: #3e8914;
+}
+
+.donate-banner p,
+.donate-banner a {
+  color: white;
+  font-weight: 400;
+}
+
+.donate-banner a {
+  margin-left: 25px;
+  text-decoration: none;
+  background-color: #13191b;
+  color: white;
+  padding: 9px 20px;
+  border-radius: 3px;
+  transition: 0.3s ease;
+}
+
+.donate-banner a:hover {
+  opacity: 0.7;
+}
+
+.donate-banner .donate-banner__wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 7px;
+}
+
+input {
+  background-color: #e8f0fe;
+}
+
 .select-border {
   border: 2px solid #23b12a !important;
 }
 
 .list-burg {
   display: none !important;
-  background: #329920;
+  background: #3e8914;
   position: fixed;
   bottom: 80px;
   left: 20px;
@@ -49,6 +88,56 @@ li {
 
 .list-burg i {
   color: white;
+}
+
+.prof-src {
+  display: flex;
+  max-width: 500px;
+  width: 100%;
+  position: relative;
+}
+
+.prof-src__desk {
+  margin: 0px 20px;
+}
+
+.prof-src .prof-src__input {
+  width: 100%;
+  border-radius: 6px;
+  border: none;
+  padding: 8.5px;
+  padding-left: 10px;
+}
+
+.prof-src .prof-src__submit {
+  background: transparent;
+  border: none;
+  position: absolute;
+  right: 0;
+  top: 6px;
+  right: 5px;
+  cursor: pointer;
+}
+
+.prof-src .prof-src__submit:hover {
+  opacity: 0.7;
+}
+
+.prof-src .prof-src__submit i {
+  color: #3e8914;
+  font-size: 18px;
+}
+
+.prof-src .new-btn {
+  padding: 7px 0px;
+  width: 120px;
+  border-top-left-radius: 0px;
+  border-bottom-left-radius: 0px;
+  border-left: 0px;
+}
+
+.prof-src .new-btn:hover {
+  border-left: 0px;
 }
 
 .home-body {
@@ -75,21 +164,21 @@ li {
 .prim-btn {
   text-decoration: none;
   font-size: 16px;
-  background-color: #329920;
+  background-color: #3e8914;
   border: none;
   color: white !important;
   font-family: "Montserrat", sans-serif !important;
   font-weight: 300;
   padding: 6px 15px;
   transition: 0.3s all;
-  border: 1px solid #329920;
+  border: 1px solid #3e8914;
   cursor: pointer;
   border-radius: 3px;
 }
 
 .prim-btn:hover,
 .new-btn:hover {
-  border: 1px solid #329920;
+  border: 1px solid #3e8914;
   background: transparent;
 }
 
@@ -298,7 +387,7 @@ nav {
 
 .head-wrap a {
   color: white;
-  margin-right: 15px;
+  margin-left: 15px;
   text-decoration: none;
   font-weight: 400;
 }
@@ -339,7 +428,7 @@ nav {
   text-align: right;
   padding: 5px 7px;
   padding-bottom: 3px;
-  background: #329920;
+  background: #3e8914;
   display: inline;
   margin-bottom: 8px;
   border-radius: 1px;
@@ -357,7 +446,7 @@ nav {
 }
 
 .chartNameNum {
-  color: #329920;
+  color: #3e8914;
   font-weight: 600;
 }
 
@@ -371,19 +460,38 @@ h2 {
   display: flex;
 }
 
-fieldset {
+.input-suggs_fieldset {
   height: 450px;
-  overflow-y: scroll;
+  overflow-y: auto;
   padding: 0px;
   border: none;
   background: rgb(31, 43, 49);
+  border-radius: 5px;
+}
+
+.input-suggs_fieldset::-webkit-scrollbar {
+  width: 5px;
+}
+
+.input-suggs_fieldset::-webkit-scrollbar-thumb {
+  background: #3e8914;
+  border-radius: 10px;
+}
+
+.input-suggs_fieldset::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 10px;
 }
 
 .field-info {
-  background-color: #040c0e;
-  padding: 20px;
+  margin-bottom: 20px;
   display: flex;
   align-items: center;
+}
+
+.field-info i {
+  position: relative;
+  top: 1px;
 }
 
 .click-to-add {
@@ -393,7 +501,7 @@ fieldset {
 
 .add-btn {
   margin-left: 10px;
-  color: #23b12a;
+  color: #3e8914;
   cursor: pointer;
 }
 
@@ -409,8 +517,9 @@ fieldset {
   width: 92%;
   padding: 0px;
   padding-left: 10px;
-  height: 25px;
   border: none;
+  padding: 6px;
+  border-radius: 3px;
 }
 
 .field-btn {
@@ -444,7 +553,22 @@ fieldset {
 
 .saved {
   height: 255px;
-  overflow-y: scroll;
+  overflow-y: auto;
+  margin-top: 15px;
+}
+
+.saved::-webkit-scrollbar {
+  width: 5px;
+}
+
+.saved::-webkit-scrollbar-thumb {
+  background: #3e8914;
+  border-radius: 10px;
+}
+
+.saved::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 10px;
 }
 
 .control-btns {
@@ -459,6 +583,7 @@ fieldset {
 .numbers-wrap p {
   font-size: 14px;
   margin: 0px 10px;
+  opacity: 0.85;
 }
 
 .input_suggs {
@@ -474,19 +599,18 @@ fieldset {
 }
 
 .albumInfo {
-  margin-bottom: 6px;
+  margin-bottom: 20px;
   font-size: 12px;
+  line-height: 21px;
   text-transform: uppercase;
   font-weight: 400;
 }
 
-.fa-trash,
-.fa-link {
+.saved-opts i {
   padding-right: 10px;
 }
 
-.fa-trash:hover,
-.fa-link:hover,
+.saved-opts i:hover,
 .saved_title:hover {
   opacity: 0.7;
 }
@@ -508,7 +632,11 @@ fieldset {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  border-bottom: 1px solid #329920;
+  border-bottom: 1px solid #3e8914;
+}
+
+.saved_item .saved-opts {
+  display: flex;
 }
 
 .chart_title {
@@ -521,7 +649,7 @@ fieldset {
 .chart_title i {
   margin-left: 20px;
   cursor: pointer;
-  color: #329920;
+  color: #3e8914;
 }
 
 .title-hide {
@@ -536,6 +664,7 @@ fieldset {
   white-space: nowrap;
   overflow: hidden;
   margin-left: 7px;
+  opacity: 0.85;
 }
 
 .saved_item h2 {
@@ -562,7 +691,7 @@ fieldset {
 }
 
 .view-username {
-  color: #329920;
+  color: #3e8914;
   text-decoration: none;
   font-weight: 400;
 }
@@ -616,7 +745,7 @@ fieldset {
   z-index: 1000;
   opacity: 0.5;
   cursor: pointer;
-  color: #329920;
+  color: #3e8914;
 }
 
 .recc-show:hover {
@@ -704,7 +833,7 @@ fieldset {
   padding: 6px 12px;
   font-size: 14px;
   border: 1px solid #1f2b31;
-  color: #329920;
+  color: #3e8914;
   background-color: #1f2b31;
   cursor: pointer;
   border-radius: 3px;
@@ -730,8 +859,7 @@ fieldset {
 .mob-settings,
 .mob-slider {
   bottom: -100%;
-  padding: 10px 30px;
-  height: 200px;
+  padding: 30px;
   position: fixed;
   background-color: #13191b;
   width: 100%;
@@ -743,13 +871,17 @@ fieldset {
   box-shadow: 0px -6px 30px -8px rgba(0, 0, 0, 0.75);
 }
 
+.mob-settings .prof-src__mob {
+  margin-bottom: 10px;
+}
+
 .mob-settings ul {
   padding: 0px;
 }
 
 .mob-settings li {
   width: 100%;
-  border-bottom: 1px solid #3299206b;
+  border-bottom: 1px solid #3e89146b;
   color: white;
   list-style: none;
   cursor: pointer;
@@ -771,14 +903,17 @@ fieldset {
 
 .mob-settings li:hover {
   opacity: 0.65;
-  border-bottom: 1px solid #329920b0;
+  border-bottom: 1px solid #3e8914b0;
 }
 
 .forgot-wrap {
   max-width: 1100px;
   margin: 0 auto;
-  margin-top: 80px;
   padding: 0px 30px;
+  flex: 1;
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
 }
 
 .forgot-title {
@@ -797,8 +932,12 @@ fieldset {
 }
 
 .forgot-wrap .success-txt {
-  color: #329920;
+  color: #3e8914;
   font-weight: 400;
+}
+
+.popup-wrap form {
+  box-sizing: border-box;
 }
 
 #forgotForm input[type="email"] {
@@ -854,7 +993,7 @@ fieldset {
 
 .new-btn {
   display: inline-block;
-  background-color: #329920;
+  background-color: #3e8914;
   padding: 10px 30px;
   text-decoration: none;
   font-weight: 200;
@@ -866,7 +1005,7 @@ fieldset {
   transition: 0.3s all;
   cursor: pointer;
   font-family: "Montserrat";
-  border: 1px solid #329920;
+  border: 1px solid #3e8914;
 }
 
 @media (max-width: 1400px) {
@@ -914,7 +1053,9 @@ fieldset {
   }
 
   .field-info {
-    padding: 7px 20px;
+    padding: 20px;
+    margin-bottom: 0px;
+    background: #040c0e;
   }
 
   .top i,
@@ -1074,7 +1215,7 @@ fieldset {
   .mob-profile-nav i {
     padding: 10px;
     cursor: pointer;
-    color: #329920;
+    color: #3e8914;
   }
 
   .mob-profile-nav {
@@ -1133,7 +1274,7 @@ fieldset {
 
   .round-up i,
   .round-down-btn i {
-    color: #329920;
+    color: #3e8914;
   }
 
   .round-up:hover i,
@@ -1167,6 +1308,11 @@ fieldset {
     bottom: -100%;
   }
 
+  .set-search-up {
+    bottom: 0px;
+    background: transparent;
+  }
+
   #desk-screenie {
     display: none;
   }
@@ -1194,16 +1340,12 @@ fieldset {
     bottom: 60px;
   }
 
-  .set-search-up {
-    bottom: 0px;
-  }
-
-  fieldset {
-    height: 25vh;
+  .input-suggs_fieldset {
+    height: 35vh;
     position: relative;
   }
 
-  fieldset::-webkit-scrollbar {
+  .input-suggs_fieldset::-webkit-scrollbar {
     display: none;
   }
 
@@ -1223,11 +1365,14 @@ fieldset {
   }
 
   .top_input {
-    height: 20px;
+    padding: 10px;
+    border-radius: 3px;
   }
 
   .fa-plus-square {
-    font-size: 1.5em !important;
+    font-size: 2.3em !important;
+    position: relative;
+    top: 0.5px;
   }
 }
 
@@ -1251,10 +1396,6 @@ header #profile-img-display {
 
 .prof-go:hover {
   opacity: 0.7;
-}
-
-.pass-change input {
-  color: black;
 }
 
 .prof-img-mob {
@@ -1388,7 +1529,7 @@ header #profile-img-display {
   margin: 0 auto;
   justify-content: space-between;
   align-items: center;
-  padding: 7px 30px;
+  padding: 20px 30px;
 }
 
 .desk-footer-wrap .footer-menu {
@@ -1416,10 +1557,98 @@ header #profile-img-display {
 }
 
 .logo-footer-anc img {
-  max-width: 150px;
+  max-width: 200px;
   opacity: 0.6;
 }
 
 .logo-footer-anc {
   max-height: 17.11px;
+}
+
+.search-results {
+  flex: 1;
+  max-width: 1400px;
+  margin: 0 auto;
+  width: 100%;
+  padding: 80px 40px;
+  box-sizing: border-box;
+}
+
+.user-row {
+  display: flex;
+  padding: 32px 0px;
+  border-bottom: 1px solid #364246;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.user-row .user-icon {
+  margin-right: 35px;
+}
+
+.user-row .user-row__charts {
+  font-size: 14px;
+  color: #3e8914;
+  font-weight: 600;
+}
+
+.user-row .user-row__left {
+  display: flex;
+  align-items: center;
+}
+
+.user-row .user-row__name {
+  text-decoration: none;
+}
+
+.user-row .user-row__name h3 {
+  margin-left: 0px;
+  margin-bottom: 12px;
+}
+
+.user-row .user-row__name h3:hover {
+  opacity: 0.85;
+}
+
+@media (max-width: 500px) {
+  .user-row .user-icon {
+    margin-right: 15px;
+  }
+
+  .user-row {
+    flex-flow: column;
+    align-items: flex-start;
+  }
+
+  .user-row .new-btn {
+    margin-top: 15px;
+  }
+}
+
+.page-body {
+  display: flex;
+  flex-flow: column;
+  min-height: 100vh;
+}
+
+.page-sec .page-wrap {
+  max-width: 1500px;
+  margin: 0 auto;
+  padding: 50px 0px;
+}
+
+.page-sec .page-wrap h1 {
+  margin-bottom: 25px;
+  font-weight: 600;
+}
+
+.page-sec .page-wrap p span {
+  color: #3e8914;
+  font-weight: 600;
+}
+
+.page-sec .page-wrap p {
+  font-size: 16px;
+  line-height: 30px;
 }

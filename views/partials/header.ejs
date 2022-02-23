@@ -1,23 +1,33 @@
 <header>
+  <div class="donate-banner">
+    <div class="donate-banner__wrap">
+      <p class="dono-txt">Chart Toppers is a One-Man project. Help fund server costs and keep the site around for years to come.</p>
+      <a class="dono-btn" href="https://www.paypal.com/donate/?business=RTKNM5MJB73WA&no_recurring=0&item_name=Money+goes+directly+to+server+costs+and+site+maintenance.&currency_code=CAD">Donate</a>
+    </div>
+  </div>
   <div class="head-wrap">
     <a class="logo-anc" href="/"><img class="logo" src="/images/logo.png" alt="" /></a>
-    <!-- <form class="prof-src" action="/">
-      <input class="prof-src__input" type="text">
-      <input type="submit" value="Search">
-    </form> -->
+    <form class="prof-src prof-src__desk">
+      <input class="prof-src__input" type="text" placeholder="Search for a user...">
+      <button type="submit" class="prof-src__submit">
+        <i class="fa-solid fa-magnifying-glass"></i>
+    </button>
+    </form>
     <nav>
-      <% if(userInfo == false) { %>
+      <% if(userInfo === false) { %>
         <li><a href="/login">Login</a></li>
         <li><a href="/register">Register</a></li>
+        <li><a href="https://www.paypal.com/donate/?business=RTKNM5MJB73WA&no_recurring=0&item_name=Money+goes+directly+to+server+costs+and+site+maintenance.&currency_code=CAD">Donate</a></li>
         <% } else { %>
-          <% const userImage = userInfo.profileImage ? userInfo.profileImage.replace(/\\/g, "/" ) : '' %>
+            <% const profileImage = userInfo.profileImage.length > 0 ? userInfo.profileImage.replace(/\\/g, `/` ) : 'images/default-icon.png' %>
             <li><a href="/dashboard">Dashboard</a></li>
             <li><a href="/settings">Settings</a></li>
+            <li><a href="https://www.paypal.com/donate/?business=RTKNM5MJB73WA&no_recurring=0&item_name=Money+goes+directly+to+server+costs+and+site+maintenance.&currency_code=CAD">Donate</a></li>
             <li><a href="/logout">Logout</a></li>
-            <a class="prof-go" href="/<%= userInfo.username %>">
-              <div id="profile-img-display" style="background-image: url('/<%= userImage %>')"></div>
+            <a class="prof-go" href="/<%= userInfo.username %>" name="<%= userInfo.username %>">
+              <div id="profile-img-display" style="background-image: url('/<%= profileImage %>')"></div>
             </a>
-            <% } %>
+        <% } %>
     </nav>
   </div>
 </header>

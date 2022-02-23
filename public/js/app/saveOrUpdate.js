@@ -25,15 +25,16 @@ function consolidate() {
 function chartUpdate() {
   const listToUpdate = saved_list.find((saved) => saved.title == my_list.title)
   listToUpdate.chart = my_list.chart
+  console.log('LSIT TO UPDATE', listToUpdate.chart)
 
   req = new XMLHttpRequest()
   req.open("POST", "/update", true)
-  req.setRequestHeader("Content-Type", "application/x-www-form-urlencoded")
+  req.setRequestHeader("Content-Type", "application/json")
   req.onload = () => {
     consolidate()
   }
 
-  req.send(`title=${listToUpdate.title}&updatedChart=${JSON.stringify(listToUpdate.chart)}`)
+  req.send(JSON.stringify({title: listToUpdate.title, updatedChart: listToUpdate.chart}))
 }
 
 //! FUNCTION TO SAVE A CHART
@@ -64,8 +65,6 @@ function chartSave(fromTyped) {
 
     let new_array = Array.from(my_list) //User is prompted for a title for their new list
 
-    console.log(typeof fromTyped)
-
     typeof fromTyped == "string" ? (title = fromTyped) : (title = prompt("What is the name of this list?"))
 
     console.log(title)
@@ -82,7 +81,7 @@ function chartSave(fromTyped) {
       //Create an html string with the title as an attr and as title on front end
       frontEndTitle.innerText = symbolFilterTitle
       var saved_front =
-        `<div class="saved_item"><h2 class="saved_title" name=${title_}>${symbolFilterTitle}</h2><div class="saved-opts"><i class="fas fa-link share"></i><i class="far fa-trash trash"></i></div></div>`
+        `<div class="saved_item"><h2 class="saved_title" name=${title_}>${symbolFilterTitle}</h2><div class="saved-opts"><i class="fas fa-link share"></i><i class="fa-solid fa-x trash"></i></div></div>`
       //add saved_front to list of front end saved lists
       saved_div.insertAdjacentHTML("beforeend", saved_front)
       //add a listener to the saved_div element, to execute func on click
@@ -94,18 +93,18 @@ function chartSave(fromTyped) {
       req = new XMLHttpRequest()
       req.open("POST", "/", true)
       //Use regular urlencoding as request header content type
-      req.setRequestHeader("Content-Type", "application/x-www-form-urlencoded")
+      req.setRequestHeader("Content-Type", "application/json")
       //onload, log the post request as sent
       req.onload = function () {
         consolidate()
       }
 
       //Send the title and new chart array as the request body
-      req.send("title=" + title_ + "&chart=" + JSON.stringify(new_array))
+      req.send(JSON.stringify({title: title_, chart: new_array}))
 
       my_list = { title: title_, chart: new_array }
-      console.log("new list is now complete", my_list)
-      localStorage.removeItem("unsavedList")
+      
+      localStorage.removeItem(`${globalUser}-unsavedList`)
       addTitleListener(symbolFilterTitle)
       return true
     } else {
@@ -166,6 +165,7 @@ function titleTester(title){
   } else if(title == ''){
     return false;
   }
+  return true
 }
 
 //! UPDATE AN EXISTING CHART'S TITLE
@@ -173,13 +173,14 @@ function titleChange(e, titleChanger, textCapture) {
   const titleChanger2 = document.querySelector(".title-change") //the input field that shows up
   titleChanger2.classList.remove("show-change")
 
+  console.log('so far so good::', textCapture)
   if (my_list.title == undefined) {
-    console.log("new list unsaved")
     chartSave(titleChanger.value)
   } else {
     e.stopPropagation()
 
-    textCapture = titleChanger.placeholder //need to update the textcapture value idk why
+    const titleName = document.querySelector('.chart_title h3').innerText
+    textCapture = titleName
 
     const currentTitle = document.querySelector(".chart_title h3")
     const savedOnFront = document.querySelectorAll(".saved_title")

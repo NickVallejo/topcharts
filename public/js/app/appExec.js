@@ -17,6 +17,8 @@ const topHundred = document.getElementById("top-hundred")
 const topWrapper = document.querySelector(".top_wrapper")
 const numRadios = document.querySelectorAll(".chartNums")
 const suggLoader = document.querySelector(".sugg-loader")
+const user = document.querySelector("header #profile-img-display").getAttribute("name")
+
 let sugg_array
 
 let savedOnFrontEnd
@@ -50,12 +52,20 @@ function list_new() {
   if (my_list.chart == undefined) {
     const allEmpty = my_list.every((album) => album == undefined)
     if (!allEmpty) {
-      const saveOrNot = confirm("You are exiting an unsaved chart. Do you wish to save?")
-      if (saveOrNot == true) {
-        const chartName = prompt("Enter Chart Title Here:")
-        chartSave(chartName)
-        alert(`${chartName.replace(/&/g, "and")} saved!`)
+      const saveOrNot = confirm("Hey! You are exiting an unsaved chart. Do you wish to save?")
+      const saver = () => {
+        if (saveOrNot == true) {
+          const chartName = prompt("Enter Chart Title Here:")
+          const valid = titleTester(chartName)
+          if(valid){
+            chartSave(chartName)
+            alert(`${chartName.replace(/&/g, "and")} saved!`)
+          } else{
+            saver()
+          }
+        }
       }
+      saver()
     }
   }
 
@@ -80,8 +90,8 @@ function list_new() {
     )
   }
 
-  frontEndTitle.textContent = "Chart Title:"
-  localStorage.removeItem("unsavedList")
+  frontEndTitle.textContent = "Name chart to save:"
+  localStorage.removeItem(`${globalUser}-unsavedList`)
   addtileListeners()
   addTitleListener("Enter Title Here...")
   numToggle()
@@ -95,12 +105,13 @@ async function list_load() {
       req.open("GET", "/my-lists", true)
       req.setRequestHeader("Content-Type", "application/x-www-form-urlencoded")
       req.onload = () => {
+        console.log(JSON.parse(req.responseText))
         loaded_lists = JSON.parse(req.responseText)
-
+        
         loaded_lists.forEach((load) => {
-          saved_list.push({ title: load.title, chart: JSON.parse(load.chart) })
+          saved_list.push({ title: load.title, chart: load.chart })
           var space_title = load.title.replace(/_/g, " ")
-          var saved_front = `<div class="saved_item"><h2 class="saved_title" name="${load.title}">${space_title}</h2><div class="saved-opts"><i class="fas fa-link share"></i><i class="far fa-trash trash"></i></div></div>`
+          var saved_front = `<div class="saved_item"><h2 class="saved_title" name="${load.title}">${space_title}</h2><div class="saved-opts"><i class="fas fa-link share"></i><i class="fa-solid fa-x trash"></i></div></div>`
           saved_div.insertAdjacentHTML("beforeend", saved_front)
           saved_div.addEventListener("click", saved_click)
         })
@@ -117,8 +128,6 @@ async function list_load() {
 }
 
 function sugg_load(savedNames) {
-  console.log("SAVED NAMES IN SUGG_LOAD", savedNames)
-
   sugg_loader = new XMLHttpRequest()
   sugg_loader.open(
     "GET",
@@ -146,7 +155,6 @@ function sugg_load(savedNames) {
       })
 
       suggsLoaded = true
-      console.log("SUGGS LOADED HAS BEEN MADE TRUE")
     }
     document.removeEventListener("click", suggLoadAborter)
   }

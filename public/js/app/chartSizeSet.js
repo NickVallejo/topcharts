@@ -88,7 +88,8 @@ function chartSizeSet(e){
         chartUpdate();
       } 
       else{
-        localStorage.setItem("unsavedList", JSON.stringify(my_list))
+        const user = document.querySelector("header #profile-img-display").getAttribute("name")
+        localStorage.setItem(`${globalUser}-unsavedList`, JSON.stringify(my_list))
       }
 
       //add event listeners to new tiles

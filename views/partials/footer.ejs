@@ -8,19 +8,29 @@
   </div>
 
   <div class="mob-settings mob-slider profile-slide">
+    <form class="prof-src prof-src__mob">
+      <input class="prof-src__input" type="text" placeholder="Search for a user...">
+      <button type="submit" class="prof-src__submit">
+        <i class="fa-solid fa-magnifying-glass"></i>
+    </button>
+    </form>
     <ul>
       <% if(userInfo == false) { %>
         <li><a href="/login">Login</a></li>
         <li><a href="/register">Register</a></li>
+        <li><a href="/about">About</a></li>
+        <li><a href="https://www.paypal.com/donate/?business=RTKNM5MJB73WA&no_recurring=0&item_name=Money+goes+directly+to+server+costs+and+site+maintenance.&currency_code=CAD">Donate</a></li>
         <% } else { %>
           <li class="dash-li"><a href="/dashboard">Dashboard</a></li>
           <li class="profile-li"><a href="/<%= userInfo.username %>">Profile</a></li>
           <li class="settings-li"><a href="/settings">Settings</a></li>
+          <li class="about-li"><a href="/about">About</a></li>
+          <li class="donate-li"><a href="https://www.paypal.com/donate/?business=RTKNM5MJB73WA&no_recurring=0&item_name=Money+goes+directly+to+server+costs+and+site+maintenance.&currency_code=CAD">Donate</a></li>
           <li class="logout-li"><a href="/logout">Logout</a></li>
           <% } %>
     </ul>
   </div>
 </div>
 
-<script type="text/javascript" src="/js/src-profile.js"></script>
-<script type="text/javascript" src="/js/interactive.js"></script>
+<script type="text/javascript" src="/js-prod/global/src-profile.js"></script>
+<script type="text/javascript" src="/js-prod/global/interactive.js"></script>

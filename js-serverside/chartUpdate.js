@@ -14,9 +14,11 @@ async function chartUpdate(req, res, next) {
 
       if(user && chart){
         chart.chart = updatedChart;
-        chart.save();
+        await chart.save()
+        .then(() => {
+          res.end()
+        })
       }
-      res.end()
       }
      catch (err) {
       console.log(err)
