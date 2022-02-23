@@ -33,6 +33,12 @@ input {
   width: 100%;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
 .settings {
@@ -121,7 +127,7 @@ input {
 }
 
 .fa-edit {
-  color: #329920;
+  color: #3e8914;
   cursor: pointer;
   -webkit-transition: 0.2s all;
   transition: 0.2s all;
@@ -186,7 +192,7 @@ input {
 }
 
 .coming-soon h3 span {
-  color: #329920;
+  color: #3e8914;
   font-weight: 600;
 }
 
@@ -283,7 +289,7 @@ input[type="password"] {
 
 .coming-soon .new-btn {
   display: inline-block;
-  background-color: #329920;
+  background-color: #3e8914;
   padding: 10px 30px;
   text-decoration: none;
   font-weight: 200;
@@ -304,6 +310,16 @@ input[type="password"] {
 #emailChangeForm,
 #passChangeForm {
   display: none;
+}
+
+#emailChangeForm input,
+#passChangeForm input {
+  color: #030708;
+}
+
+.no-settings__txt {
+  padding: 50px;
+  text-align: center;
 }
 
 .setting-form-show {

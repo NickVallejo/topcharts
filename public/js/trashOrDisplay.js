@@ -118,7 +118,6 @@ if(my_list.chart == undefined){
 //! FUNCTION TO TRASH THE LIST
 function list_trash(save_clicked, profile) {
   var del_title = save_clicked.childNodes[0].getAttribute("name")
-  console.log(profile)
 
   var del = new XMLHttpRequest()
   del.open("POST", "/list-delete", true)
@@ -126,7 +125,6 @@ function list_trash(save_clicked, profile) {
 
   del.onload = function () {
     if(profile == undefined){
-      console.log(del.responseText)
       let savedOnFrontEnd = document.querySelectorAll(".saved_item")
       savedOnFrontEnd[del.responseText].remove()
       saved_list.splice(del.responseText, 1)

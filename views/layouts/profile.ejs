@@ -3,8 +3,6 @@
 
 <%- include('../partials/head-profile') %>
 
-<% const userImage=profileInfo.profileImage.replace(/\\/g, "/" ) %>
-
   <!-- <div class="prof-settings">
     <p>Followers: <%- followers %></p>
     <p>Following: <%- following %></p>
@@ -17,8 +15,8 @@
       <div class="prof-padding">
         <section class="profile-row prof-sec">
           <div class="profile-row-info">
-            <% const profileImage = userInfo.profileImage.length > 0 ? userInfo.profileImage.replace(/\\/g, `/` ) : 'images/default-icon.png' %>
-            <div class="profile-img" style="background-image: url('/<%= profileImage %>')">
+            <% const userImage = profileInfo.profileImage.length > 0 ? profileInfo.profileImage.replace(/\\/g, `/` ) : 'images/default-icon.png' %>
+            <div class="profile-img" style="background-image: url('/<%= userImage %>')">
             </div>
             <div>
               <h1 class="profile-title">

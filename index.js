@@ -91,11 +91,6 @@ root.use(passport.initialize());
 root.use(passport.session());
 require('./js-serverside/utility/passport');
 
-root.use((req, res, next) => {
-  console.log('sessionID: ' + req.session.id)
-  next()
-})
-
 //! ROUTES ESTABLISHED FOR LOGIN, LOGOUT, AND REGISTER
 root.use("/auth", auth_route)
 root.use("/login", login_route)
@@ -209,7 +204,6 @@ root.post('/title-change', async (req, res) => {
   const newtitle_ = newtitle.replace(/ /g, "_");
   const user = await User.findById(req.user.id).populate('musicCharts')
 
-
   if (user) {
     const doesNotHaveNewName = user.musicCharts.every(chart => chart.title !== newtitle_)
 
@@ -233,6 +227,11 @@ root.post('/title-change', async (req, res) => {
     }
   }
 
+})
+
+root.get("/privacy-policy", (req, res, next) => {
+  const userInfo = req.user ? req.session.userInfo : false
+  res.render('privacy-policy', {userInfo: userInfo, title: 'Privacy Policy', layout: './layouts/page' });
 })
 
 root.get("/yt-listen", (req, res) => {
@@ -262,9 +261,8 @@ root.get("/yt-listen", (req, res) => {
 
 root.get('/search/:query', async(req, res, next) => {
   const query = new RegExp("^"+req.params.query, "i")
-  const users = await User.find({username: query})
-  const userInfo = req.session.userInfo ? req.session.userInfo : false
-  console.log(users)
+  const users = await User.find({username: query}).limit(20)
+  const userInfo = req.user ? req.session.userInfo : false
   if(users){
     res.render('dashView-search', { home: true, userInfo: userInfo, users: users, layout: './layouts/dashboard-visit' })
   }
@@ -283,7 +281,7 @@ root.get('/:username/chart/:chartname', async (req, res) => {
       }
 
       if (user) {
-        const theChart = user.musicCharts.find(chart => chart.title == chartname).populate('musicCharts')
+        const theChart = await user.musicCharts.find(chart => chart.title == chartname).populate('musicCharts')
         if (theChart) {
           if (!req.user) {
             res.render('dashView-user', { home: true, userInfo: false, layout: './layouts/dashboard-visit' })
@@ -335,14 +333,12 @@ root.get('/:username', async (req, res) => {
   async function userFound(theUser) {
 
     //! A USER HAS BEEN FOUND. THIS PART IS JUST FOR AUTHORIZATION
-
     //if no id youre not logged in so it's not your account. Show visitor view
     if (!req.user) {
       // getFollowerData(false, username, true)
       const profileInfo = { username: theUser.username, musicCharts: theUser.musicCharts, profileImage: theUser.profileImage }
       res.render('user-data', { profileInfo, username: theUser.username, profileCharts: theUser.musicCharts, followers: theUser.followers.length, following: theUser.following.length, myProf: false, userInfo: false, layout: './layouts/profile' })
     } else {
-
       await User.findById(req.user.id, (err, user) => {
         try {
           if (user) {
@@ -354,7 +350,6 @@ root.get('/:username', async (req, res) => {
             } else {
               //youre logged in but this is not your profile. show visitor view
               const profileInfo = { username: theUser.username, musicCharts: theUser.musicCharts, profileImage: theUser.profileImage }
-              console.log('This is NOT your profile page');
               res.render('user-data', { profileInfo, username: theUser.username, profileCharts: theUser.musicCharts, followers: theUser.followers.length, following: theUser.following.length, myProf: false, userInfo: req.session.userInfo, layout: './layouts/profile' })
             }
           }

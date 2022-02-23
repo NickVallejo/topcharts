@@ -25,15 +25,16 @@ function consolidate() {
 function chartUpdate() {
   const listToUpdate = saved_list.find((saved) => saved.title == my_list.title)
   listToUpdate.chart = my_list.chart
+  console.log('LSIT TO UPDATE', listToUpdate.chart)
 
   req = new XMLHttpRequest()
   req.open("POST", "/update", true)
-  req.setRequestHeader("Content-Type", "application/x-www-form-urlencoded")
+  req.setRequestHeader("Content-Type", "application/json")
   req.onload = () => {
     consolidate()
   }
 
-  req.send(`title=${listToUpdate.title}&updatedChart=${JSON.stringify(listToUpdate.chart)}`)
+  req.send(JSON.stringify({title: listToUpdate.title, updatedChart: listToUpdate.chart}))
 }
 
 //! FUNCTION TO SAVE A CHART
@@ -92,14 +93,14 @@ function chartSave(fromTyped) {
       req = new XMLHttpRequest()
       req.open("POST", "/", true)
       //Use regular urlencoding as request header content type
-      req.setRequestHeader("Content-Type", "application/x-www-form-urlencoded")
+      req.setRequestHeader("Content-Type", "application/json")
       //onload, log the post request as sent
       req.onload = function () {
         consolidate()
       }
 
       //Send the title and new chart array as the request body
-      req.send("title=" + title_ + "&chart=" + JSON.stringify(new_array))
+      req.send(JSON.stringify({title: title_, chart: new_array}))
 
       my_list = { title: title_, chart: new_array }
       
@@ -164,6 +165,7 @@ function titleTester(title){
   } else if(title == ''){
     return false;
   }
+  return true
 }
 
 //! UPDATE AN EXISTING CHART'S TITLE
@@ -171,13 +173,14 @@ function titleChange(e, titleChanger, textCapture) {
   const titleChanger2 = document.querySelector(".title-change") //the input field that shows up
   titleChanger2.classList.remove("show-change")
 
+  console.log('so far so good::', textCapture)
   if (my_list.title == undefined) {
-    console.log("new list unsaved")
     chartSave(titleChanger.value)
   } else {
     e.stopPropagation()
 
-    textCapture = titleChanger.placeholder //need to update the textcapture value idk why
+    const titleName = document.querySelector('.chart_title h3').innerText
+    textCapture = titleName
 
     const currentTitle = document.querySelector(".chart_title h3")
     const savedOnFront = document.querySelectorAll(".saved_title")

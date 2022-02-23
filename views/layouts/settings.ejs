@@ -19,19 +19,23 @@
             </div>
           </div>
 
-          <div class="change-fields">
-            <div class="change-wrap email-change-wrap">
-              <label for="email-change">Email</label>
-              <input disabled type="email" value="<%= userInfo.email %>" />
-              <i class="far email-edit fa-edit fa-2x"></i>
-            </div>
+          <% if(userInfo.password !== undefined){ %>
+            <div class="change-fields">
+              <div class="change-wrap email-change-wrap">
+                <label for="email-change">Email</label>
+                <input disabled type="email" value="<%= userInfo.email %>" />
+                <i class="far email-edit fa-edit fa-2x"></i>
+              </div>
 
-            <div class="change-wrap password-change-wrap">
-              <label for="password-change">Password</label>
-              <input disabled type="password" value="<%= userInfo.password %>" />
-              <i class="far password-edit fa-edit fa-2x"></i>
+              <div class="change-wrap password-change-wrap">
+                <label for="password-change">Password</label>
+                <input disabled type="password" value="<%= userInfo.password %>" />
+                <i class="far password-edit fa-edit fa-2x"></i>
+              </div>
             </div>
-          </div>
+          <% } else{ %>
+            <h3 class="no-settings__txt">There are no applicable settings that currently need to be configured for Facebook or Google Accounts.</h3>
+          <% } %>
 
           <div class="coming-soon">
             <h3>Followers, Bios, Favorite Artists, and much more with Topsters <span>Premium.</span></h3>

@@ -6,8 +6,6 @@ const FacebookStrategy = require('passport-facebook').Strategy
 const {User} = require('../../index')
 const bcrypt = require('bcrypt')
 
-const inProd = process.env.IN_PROD === "production"
-
 const options = {
     passReqToCallback: true
 }
@@ -16,12 +14,11 @@ const verifyCallback = async(req, username, password, done) => {
 try{
   // const userI = new RegExp(username, 'i')
   await User.findOne({$or: [{ username }, { email: username }]}, async(err, user) => { //uses mongoose to findOne certain email from the user database model
-
       if(err){throw err}
-    
-      if (user && user.password) {
-        console.log('FOUND A USER TOO')
-          if (await bcrypt.compare(password, user.password)) { //if a user is found and the password matches, create the userId session property and redirect to dashboard
+      req.session.save(async() => {
+        if (user && user.password) {
+          const passMatch = await bcrypt.compare(password, user.password)
+          if (passMatch) { //if a user is found and the password matches, create the userId session property and redirect to dashboard
             return done(null, user)
           } else { //this else stament fires when the email matches but the password is incorrect. Redirects user back to login page
             req.session.login_error = {msg: "Invalid username or password."}
@@ -33,7 +30,8 @@ try{
         } else { 
           req.session.login_error = {msg: "Invalid username or password."}
           return done(null, false)
-        }
+        }  
+      })
   }).collation({locale: 'en', strength: 2})
 } catch(err){
     req.session.login_error = {msg: err.message}
@@ -41,8 +39,7 @@ try{
   }
 }
 
-const verifyCallbackGoogle = async(req, accessToken, refreshToken, profile, done) => {
-  
+const verifycallbackSSO = async(req, accessToken, refreshToken, profile, done) => {
   try{
     let user
     let name
@@ -50,8 +47,6 @@ const verifyCallbackGoogle = async(req, accessToken, refreshToken, profile, done
     let id = profile.id
     const facebookRoute = req.route.path.includes('facebook')
     const googleRoute = req.route.path.includes('google')
-
-    console.log('callback pinged')
 
     if(facebookRoute){
       name = profile.name
@@ -107,15 +102,12 @@ const verifyCallbackGoogle = async(req, accessToken, refreshToken, profile, done
           return done(null, false)
         }
       }
-
       nameLoop()
     }
   } catch(err){
-    console.log('INSIDE BIGGER ERROR')
     req.session.login_error = {msg: err.message}
     return done(null, false)
   }
-
 }
 
 const strategy = new LocalStrategy(options, verifyCallback)
@@ -126,7 +118,7 @@ const strategyGoogle = new GoogleStrategy({
   clientSecret: "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",
   passReqToCallback: true,
   callbackURL: '/auth/google/redirect',
-}, verifyCallbackGoogle)
+}, verifycallbackSSO)
 
 const strategyFacebook = new FacebookStrategy({
   clientID: process.env.FB_CLIENT_ID,
@@ -134,18 +126,21 @@ const strategyFacebook = new FacebookStrategy({
   passReqToCallback: true,
   callbackURL: '/auth/facebook/redirect',
   profileFields: ['id', 'emails', 'name']
-}, verifyCallbackGoogle)
+}, verifycallbackSSO)
 
 //! binds the user id to the express session cookie to persist the login across pages
 //! this is only called when successfully logging in, or whenever an authenticated session is created
-passport.serializeUser((req, user, done) => {
-    done(null, user._id)
+passport.serializeUser(async(req, user, done) => {
+    req.session.save(() => {
+      done(null, user._id)
+    })
 })
 
 //! calls whenever it needs to check if user is authenticated. Grabs the user id set by passport inside the express session cookie
 //! and then checks if a user with that id is in the db. If not, error, if yes, continue
-passport.deserializeUser((req, userId, done) => {
-    User.findById(userId, (err, user) => {
+passport.deserializeUser(async(req, userId, done) => {
+    await User.findById(userId, async(err, user) => {
+      req.session.save(() => {
         err && done(err)
         if(user){
           req.session.userInfo = { profileImage: user.profileImage, username: user.username, password: user.password, email: user.email, musicCharts: user.musicCharts }
@@ -155,6 +150,7 @@ passport.deserializeUser((req, userId, done) => {
           req.session.userInfo = false
           done(null, false)
         }
+      })
     })
 })
 

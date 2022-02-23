@@ -14,20 +14,16 @@ const chartNameNums = document.querySelectorAll('.chartNameNum')
       num.style.display = 'none';
     })
     frontRanks.forEach(rank => {
-      console.log('changing')
     rank.style.opacity = '0%'
   })  
-  console.log('its false')
   } else if(numRadio.checked == true){
     chartNameNums.forEach(num => {
       num.style.display = 'inline';
     })
 
     frontRanks.forEach(rank => {
-      console.log('changing')
       rank.style.opacity = "100%"
-    })  -
-    console.log('its true')    
+    })
   }
 }
 

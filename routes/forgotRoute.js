@@ -26,8 +26,11 @@ function recoveryGen(req, res, next) {
       res.send({ errorNotice: "error", noticeTxt: "Invalid Email." })
     } else {
       User.findOne({ email: recoveryEmail }, async (err, user) => {
+          
           if (!user) {
             res.send({ errorNotice: "error", noticeTxt: "No user with this email found." })
+          } else if(user && !user.password){
+            res.send({ errorNotice: "error", noticeTxt: "Password recovery is not applicable to Google/Facebook Accounts" })
           } else {
             await crypto.randomBytes(20, (err, buf) => {
               const token = buf.toString("hex")

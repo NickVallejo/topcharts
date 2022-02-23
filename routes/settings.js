@@ -44,6 +44,14 @@ const upload = multer({
   fileFilter: fileFilterer
 });
 
+// const showUser = (req, res, next) => {
+//   console.log('pingu')
+//   console.log(req.session.userInfo)
+//   next()
+// }
+
+// settings.use(showUser)
+
 settings.get('/', isAuth, (req, res) => {
     res.render('dashView-mine', {home: true, userInfo: req.session.userInfo, layout: './layouts/settings'})       
 })

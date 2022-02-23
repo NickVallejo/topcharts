@@ -161,20 +161,21 @@ header .head-wrap {
 .no-charts-wrap .profile-btn {
   text-decoration: none;
   font-size: 17px;
-  background-color: #329920;
+  background-color: #3e8914;
   border: none;
   color: white;
   font-family: "Montserrat", sans-serif !important;
   font-weight: 300;
   padding: 9px 45px;
   transition: 0.3s all;
-  border: 1px solid #329920;
+  border: 1px solid #3e8914;
   display: inline-block;
+  border-radius: 3px;
 }
 
 .profile-row .profile-btn:hover,
 .no-charts-wrap .profile-btn:hover {
-  border: 1px solid #329920;
+  border: 1px solid #3e8914;
   background: transparent;
 }
 
@@ -190,7 +191,7 @@ header .head-wrap {
 }
 
 .profile-row .profile-title {
-  border-right: 1px solid #329920;
+  border-right: 1px solid #3e8914;
   padding-right: 20px;
 }
 
@@ -200,7 +201,7 @@ header .head-wrap {
 }
 
 .profile-row .profile-charts-title .chart-amnt {
-  color: #329920;
+  color: #3e8914;
   font-weight: 400;
 }
 
@@ -219,6 +220,7 @@ header .head-wrap {
   /* padding: 45px 65px; */
   padding-bottom: 65px;
   margin-bottom: 100px;
+  border-radius: 20px;
 }
 
 .profile-box h2 {

@@ -15,7 +15,7 @@ const emailChangeForm = document.querySelector("#emailChangeForm")
 const formSubmit = document.querySelectorAll(".popup .new-btn")
 
 const delProfIcon = document.querySelector('.delete-profile-img')
-delProfIcon.addEventListener('click', deleteProfileIcon)
+if(delProfIcon) delProfIcon.addEventListener('click', deleteProfileIcon)
 
 async function deleteProfileIcon(){
   if(profImgDisplay.style.backgroundImage != 'url("/images/default-icon.png")'){

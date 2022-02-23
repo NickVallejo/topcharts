@@ -1,6 +1,6 @@
 $lightblack: #13191b;
 $darkblack: #030708;
-$green: #329920;
+$green: #3e8914;
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap");
 
 h1,
@@ -31,6 +31,8 @@ input {
   padding: 0px 30px;
   width: 100%;
   box-sizing: border-box;
+  flex: 1;
+  align-items: center;
 }
 
 .settings {
@@ -242,6 +244,14 @@ input[type="password"] {
 #emailChangeForm,
 #passChangeForm {
   display: none;
+  input {
+    color: #030708;
+  }
+}
+
+.no-settings__txt {
+  padding: 50px;
+  text-align: center;
 }
 
 .setting-form-show {

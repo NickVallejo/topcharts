@@ -77,7 +77,6 @@ body {
 
 .logreg-box a {
   display: block;
-  margin-top: 25px;
   text-decoration: none;
 }
 
@@ -85,7 +84,7 @@ body {
   opacity: 0.6;
 }
 
-input {
+.logreg-hero input {
   border: none;
   padding: 7px 0px;
   margin-bottom: 20px;
@@ -131,6 +130,47 @@ h1 {
   font-size: 14px;
   margin: 10px;
   text-decoration: underline;
+  opacity: 0.8;
+}
+
+.sso-btns {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.sso-btn {
+  padding: 10px;
+  background: blue;
+  border-radius: 3px;
+  font-weight: 400;
+  width: 44.5%;
+  border: none;
+}
+
+.sso-btn:hover {
+  border: none;
+}
+
+form .login-btn,
+form .reg-btn {
+  width: 100%;
+}
+
+.g-recaptcha {
+  margin-top: 20px;
+  width: 100%;
+}
+
+.sso-btns .sso-btn.google {
+  background-color: #f9f9f9;
+  color: #040c0e !important;
+  margin-right: 9px;
+}
+
+.sso-btns .sso-btn.facebook {
+  background-color: #4064ac;
+  margin-left: 9px;
 }
 
 @media (max-width: 450px) {
@@ -140,5 +180,9 @@ h1 {
 
   input {
     width: 100%;
+  }
+
+  .log-opts a {
+    font-size: 12px;
   }
 }

@@ -5,7 +5,6 @@ function tileSettings(e) {
   if (e.target.classList.contains("frontDel")) {
     const position = e.target
     const positionToDel = position.parentNode.getAttribute("rank")
-    console.log(positionToDel)
     //deletes the background image
     topWrapper.childNodes[positionToDel].style.backgroundImage = ""
     //loops through the element, deleting everything but the rank number
@@ -21,21 +20,17 @@ function tileSettings(e) {
     //removes the element from the list array nad updates
     if (my_list.title !== undefined) {
       my_list.chart.splice(positionToDel, 1, null)
-      console.log("list after splice", my_list)
       chartUpdate()
     } else {
       my_list.splice(positionToDel, 1, null)
-      console.log(my_list)
       localStorage.setItem(`${globalUser}-unsavedList`, JSON.stringify(my_list))
     }
     addtileListeners()
   } else if (e.target.classList.contains("frontPlay")) {
-    console.log("you clicked yt play")
     let myListVariable = my_list.chart == undefined ? my_list : my_list.chart
 
     const artist = myListVariable[e.target.parentNode.getAttribute("rank")].artist
     const album = myListVariable[e.target.parentNode.getAttribute("rank")].album_name
-    console.log(artist, album)
     ytPlay(artist, album)
   }
 }

@@ -57,15 +57,14 @@ const getViewData = async () => {
   req.onload = () => {
     const view = JSON.parse(req.responseText)
     showViewData(view.user, view.chart)
-    window.viewChart = JSON.parse(view.chart.chart)
-    console.log(window.viewChart, "YA")
+    window.viewChart = view.chart.chart
   }
 
   req.send()
 }
 
 const showViewData = (user, chart) => {
-  const viewChart = JSON.parse(chart.chart)
+  const viewChart = chart.chart
   const chartNoScores = chart.title.replace(/_/g, " ")
 
   //check if the name attr of the clicked save matches one in the saved array, then add it to a new array

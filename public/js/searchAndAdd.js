@@ -15,7 +15,6 @@ function search(input) {
     const input = document.querySelector('.top_input')
     input.value = ''
     albums = JSON.parse(req.response).results.albummatches.album
-    console.log('HEREE ARE THE UNTOUCHED ALBUMS', albums)
     for (i = 0; i < 50; i++) {
       if (albums[0] === undefined) {
         break;
@@ -24,12 +23,12 @@ function search(input) {
         continue;
       }
       else {
-        if (albums[i].name.includes("&")) {
-          albums[i].name = albums[i].name.replaceAll("&", "and")
-        }
-        if (albums[i].artist.includes("&")) {
-          albums[i].artist = albums[i].artist.replaceAll("&", "and")
-        }
+        // if (albums[i].name.includes("&")) {
+        //   albums[i].name = albums[i].name.replaceAll("&", "and")
+        // }
+        // if (albums[i].artist.includes("&")) {
+        //   albums[i].artist = albums[i].artist.replaceAll("&", "and")
+        // }
 
         sugg_array.push({
           artist: albums[i].artist,
@@ -41,7 +40,6 @@ function search(input) {
       }
     }
 
-    console.log("SUGGESTED ARRAY IS HEREs", sugg_array)
     const loadedSuggs = document.querySelectorAll(".sugg_album")
 
     loadedSuggs.forEach((sugg) => {
@@ -59,7 +57,6 @@ function search(input) {
 
 function dragSearchDeskMob(e){
   e.dataTransfer.setData("text/plain", e.target.getAttribute("index"))
-  console.log('drag search desk mob!', e.target.getAttribute("index"))
 }
 
 //! DROPS A TILE FROM SEARCH BOX ONTO A TOP TILE
@@ -69,7 +66,6 @@ function tileDrop(suggIndex, tileIndex){
   const topWrapper = document.querySelector('.top_wrapper')
 
   const myListVariable = my_list.chart == undefined ? my_list : my_list.chart;
-    console.log('DROPPED', sugg_array[suggIndex])
     //updates my_list with new addition to list
     myListVariable.splice(tileIndex, 1, sugg_array[suggIndex])
 
@@ -85,7 +81,7 @@ function tileDrop(suggIndex, tileIndex){
     
     //updates front end words for album info on right sidebar
     chartNamesWrapper.childNodes[tileIndex].innerHTML = `<span class="chartNameNum">${parseInt(tileIndex)+1}. </span> ${sugg_array[suggIndex].artist} - ${sugg_array[suggIndex].album_name}`
-    console.log(myListVariable)
+
     index = ""
 
     if(myListVariable === my_list){

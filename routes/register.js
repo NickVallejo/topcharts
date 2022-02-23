@@ -11,6 +11,8 @@ const XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest
 
 let errs = []
 
+const blacklist = ['settings', 'donate', 'login', 'register', 'about', 'forgot']
+
 //! MIDDLEWARE FUNCTION TO VALIDATE REGISTER CREDENTIALS
 async function regWare(req, res, next) {
   errs = []
@@ -54,20 +56,26 @@ async function regWare(req, res, next) {
 
     if(username){
 
-      var format = /[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
+      var format = /[ `!@#$%^&*()+\-=\[\]{};':"\\|,.<>\/?~]/;
 
       if(format.test(username)){
-        errs.push({msg: "username contains special characters"})
+        errs.push({msg: "Username contains special characters"})
       }
 
-      if(username.length > 12){
+      const found = blacklist.find(el => el.toUpperCase() === username.toUpperCase())
+
+      if(found){
+        errs.push({ msg: "Invalid username" })
+      }
+
+      if(username.length > 20){
         errs.push({ msg: "Username too long" }) //if email, password, or retyped password is missing from the request body, push an error to the error array   
       }
 
       else{
         await User.findOne({username}, (err, user) => {
           if(user){
-            errs.push({msg: "username taken"})
+            errs.push({msg: "Username taken"})
           }
         }).collation({locale: 'en', strength: 2})
       }
@@ -97,7 +105,7 @@ async function regWare(req, res, next) {
       next() //if the error array is empty, move on
     }
   } catch(err){
-    errs.push({msg: 'Internal Server Error: ' + err.message})
+    errs.push({msg: 'Internal Server Error'})
     const errorInputs = [username, email, password]
     res.render('dashView-register', {layout: './layouts/dashboard', home: false, errs: errs, userInfo: false, inputs: errorInputs})
   }
@@ -123,7 +131,7 @@ const regSave = async(req, res, next) => {
     //finally, after saving the registered user to the database and creating the session property, the user is brought to the dashboard
   } catch(err){
     const errorInputs = [username, email, password]
-    errs.push({msg: err.message})
+    errs.push({msg: 'Internal Server Error'})
     res.render('dashView-register', {layout: './layouts/dashboard', home: false, errs: errs, userInfo: false, inputs: errorInputs})
   }
 }
@@ -136,6 +144,7 @@ regPages.get("/", authBlock, (req, res) => { //check if already logged in, and i
 
 //! POST ROUTE THAT REDIRECTS USER TO DASHBOARD IF REGISTERED CORRECTLY
 regPages.post("/", regWare, regSave, passport.authenticate('local-register', {
+  session: true,
   failureRedirect: '/register',
   successRedirect: '/dashboard'
 }))
