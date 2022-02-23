@@ -48,6 +48,8 @@ const verifycallbackSSO = async(req, accessToken, refreshToken, profile, done) =
     const facebookRoute = req.route.path.includes('facebook')
     const googleRoute = req.route.path.includes('google')
 
+    console.log('profile', profile)
+
     if(facebookRoute){
       name = profile.name
       user = await User.findOne({facebookId: id})
@@ -72,7 +74,7 @@ const verifycallbackSSO = async(req, accessToken, refreshToken, profile, done) =
       let idType
 
       if(googleRoute){
-        baseName = displayName.replace(/\s+/g, '')
+        baseName = name.replace(/\s+/g, '')
         idType = 'googleId'
       } else if(facebookRoute){
         baseName = name.givenName+name.familyName
@@ -105,6 +107,7 @@ const verifycallbackSSO = async(req, accessToken, refreshToken, profile, done) =
       nameLoop()
     }
   } catch(err){
+    console.log(err)
     req.session.login_error = {msg: err.message}
     return done(null, false)
   }

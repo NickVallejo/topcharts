@@ -36,5 +36,11 @@
     "validator": "^13.1.1",
     "xmlhttprequest": "^1.8.0",
     "youtube-search": "^1.1.4"
+  },
+  "devDependencies": {
+    "gulp": "^4.0.2",
+    "gulp-concat": "^2.6.1",
+    "gulp-sourcemaps": "^3.0.0",
+    "gulp-terser": "^2.1.0"
   }
 }
