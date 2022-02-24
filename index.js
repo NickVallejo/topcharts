@@ -81,6 +81,8 @@ root.use(
     strict: false,
     cookie: {
       maxAge: SESS_AGE,
+      // sameSite: inProd ? 'none' : 'lax',
+      // secure: inProd ? 'true' : 'auto'
       sameSite: 'lax',
       secure: 'auto'
     },
@@ -263,9 +265,7 @@ root.get('/search/:query', async(req, res, next) => {
   const query = new RegExp("^"+req.params.query, "i")
   const users = await User.find({username: query}).limit(20)
   const userInfo = req.user ? req.session.userInfo : false
-  if(users){
-    res.render('dashView-search', { home: true, userInfo: userInfo, users: users, layout: './layouts/dashboard-visit' })
-  }
+  res.render('dashView-search', { home: true, userInfo: userInfo, users: users, layout: './layouts/dashboard-visit' })
 })
 
 //! LEADS TO A VIEW OF A CERTAIN CHART
