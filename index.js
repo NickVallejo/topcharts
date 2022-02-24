@@ -81,8 +81,8 @@ root.use(
     strict: false,
     cookie: {
       maxAge: SESS_AGE,
-      sameSite: inProd ? 'none' : 'lax',
-      secure: inProd ? 'true' : 'auto'
+      sameSite: 'lax',
+      secure: 'auto'
     },
   })
 )
