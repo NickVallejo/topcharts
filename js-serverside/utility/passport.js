@@ -121,17 +121,17 @@ const strategy = new LocalStrategy(options, verifyCallback)
 const registerStrategy = new LocalStrategy(options, verifyCallback)
 
 const strategyGoogle = new GoogleStrategy({
-  clientID: "229441451169-5sa9b25dq62cjea11mislqjcfdmad2qb.apps.googleusercontent.com",
-  clientSecret: "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",
+  clientID: process.env.GOOGLE_CLIENT_ID,
+  clientSecret: process.env.GOOGLE_CLIENT_SECRET,
   passReqToCallback: true,
-  callbackURL: '/auth/google/redirect',
+  callbackURL: 'https://charttoppers.net/auth/google/redirect',
 }, verifycallbackSSO)
 
 const strategyFacebook = new FacebookStrategy({
   clientID: process.env.FB_CLIENT_ID,
   clientSecret: process.env.FB_CLIENT_SECRET,
   passReqToCallback: true,
-  callbackURL: '/auth/facebook/redirect',
+  callbackURL: 'https://charttoppers.net/auth/facebook/redirect',
   profileFields: ['id', 'emails', 'name']
 }, verifycallbackSSO)
 
