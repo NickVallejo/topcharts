@@ -11,14 +11,17 @@ const options = {
 }
 
 const verifyCallback = async(req, username, password, done) => {
+  console.log('verify callback')
 try{
   // const userI = new RegExp(username, 'i')
   await User.findOne({$or: [{ username }, { email: username }]}, async(err, user) => { //uses mongoose to findOne certain email from the user database model
       if(err){throw err}
+      console.log('user found')
       req.session.save(async() => {
         if (user && user.password) {
           const passMatch = await bcrypt.compare(password, user.password)
           if (passMatch) { //if a user is found and the password matches, create the userId session property and redirect to dashboard
+            console.log('serializing')
             return done(null, user)
           } else { //this else stament fires when the email matches but the password is incorrect. Redirects user back to login page
             req.session.login_error = {msg: "Invalid username or password."}
@@ -34,6 +37,7 @@ try{
       })
   }).collation({locale: 'en', strength: 2})
 } catch(err){
+  console.log('ERROR')
     req.session.login_error = {msg: err.message}
     return done(err)
   }
