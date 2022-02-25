@@ -19,17 +19,10 @@ function search(input) {
       if (albums[0] === undefined) {
         break;
       }
-      else if(albums[i] == undefined){
+      else if(albums[i] == undefined || albums[i].image[3]["#text"] == ''){
         continue;
       }
       else {
-        // if (albums[i].name.includes("&")) {
-        //   albums[i].name = albums[i].name.replaceAll("&", "and")
-        // }
-        // if (albums[i].artist.includes("&")) {
-        //   albums[i].artist = albums[i].artist.replaceAll("&", "and")
-        // }
-
         sugg_array.push({
           artist: albums[i].artist,
           album_name: albums[i].name,
