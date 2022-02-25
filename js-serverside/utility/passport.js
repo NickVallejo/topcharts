@@ -121,8 +121,8 @@ const strategy = new LocalStrategy(options, verifyCallback)
 const registerStrategy = new LocalStrategy(options, verifyCallback)
 
 const strategyGoogle = new GoogleStrategy({
-  clientID: "229441451169-5sa9b25dq62cjea11mislqjcfdmad2qb.apps.googleusercontent.com",
-  clientSecret: "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",
+  clientID: process.env.GOOG_ID,
+  clientSecret: process.env.GOOG_SECRET,
   passReqToCallback: true,
   callbackURL: 'https://charttoppers.net/auth/google/redirect',
 }, verifycallbackSSO)
