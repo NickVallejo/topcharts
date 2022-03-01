@@ -1,6 +1,6 @@
 <i class="fas fa-chevron-circle-up recc-show fa-3x"></i>
 <div id="primary" class="content-area">
-  <main id="main" class="site-main">
+  <main id="main" class="site-main" style="margin-top: 20px;">
     <div class="set-wrap">
       <div class="set">
         <div class="field-wrap">
@@ -25,12 +25,20 @@
       </div>
     </div>
 
-    <section class="display-screen">
+    <section class="display-screen" style="padding-top: 20px;">
       <div class="display">
-        <div class="control-wrap">
-          <div class="numbers-wrap" data-html2canvas-ignore="true">
-            <p>Numbers?</p>
-            <input id="desk-numRadio" type="checkbox" checked="true" class="chartNums" name="chartNums" value="true" />
+        <div class="control-wrap" data-html2canvas-ignore="true">
+
+          <div class="radio-toggles-wrap">
+            <div class="numbers-wrap">
+              <p>Numbers?</p>
+              <input id="desk-numRadio" type="checkbox" checked="true" class="chartNums" name="chartNums" value="true" />
+            </div>
+  
+            <div class="namelist-wrap" data-html2canvas-ignore="true">
+              <p>List?</p>
+              <input id="listRadio" type="checkbox" checked="true" name="listRadioToggle" value="true" />
+            </div>
           </div>
 
           <div class="top-radio-wrap" data-html2canvas-ignore="true">
@@ -44,10 +52,10 @@
             <label value="top-hundred" for="top-hundred" class="top-select">Top 100</label><br />
           </div>
         </div>
-        <div class="title-wrap">
+        <div class="title-wrap" data-html2canvas-ignore="true">
           <div class="chart_title">
             <h3>Name chart to save:</h3>
-            <i class="far fa-edit edit" data-html2canvas-ignore="true"></i>
+            <i class="far fa-edit edit"></i>
             <input class="title-change" type="text" />
           </div>
 
