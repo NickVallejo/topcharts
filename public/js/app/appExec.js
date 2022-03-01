@@ -16,6 +16,7 @@ const topFifty = document.getElementById("top-fifty")
 const topHundred = document.getElementById("top-hundred")
 const topWrapper = document.querySelector(".top_wrapper")
 const numRadios = document.querySelectorAll(".chartNums")
+const listRadio = document.querySelector("#listRadio")
 const suggLoader = document.querySelector(".sugg-loader")
 const user = document.querySelector("header #profile-img-display").getAttribute("name")
 
@@ -36,6 +37,13 @@ clears.forEach((clear) => {
 
 numRadios.forEach((radio) => {
   radio.addEventListener("click", numToggle)
+})
+
+listRadio.addEventListener("click", numToggle)
+
+window.addEventListener('resize', () => {
+  listRadio.checked = true
+  numToggle()
 })
 
 //! DETECTS A PRESS OF "ENTER"

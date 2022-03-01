@@ -210,7 +210,6 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding-top: 20px;
   padding-bottom: 20px;
 }
 
@@ -410,9 +409,6 @@ nav {
   display: none;
 }
 
-.yt-wrap {
-}
-
 .yt-vid {
   display: flex;
   flex-flow: column;
@@ -448,6 +444,7 @@ nav {
 .chartNameNum {
   color: #3e8914;
   font-weight: 600;
+  margin-right: 7px;
 }
 
 h3,
@@ -575,12 +572,18 @@ h2 {
   margin-right: 10px;
 }
 
-.numbers-wrap {
+.radio-toggles-wrap {
+  display: flex;
+}
+
+.numbers-wrap,
+.namelist-wrap {
   display: flex;
   align-items: center;
 }
 
-.numbers-wrap p {
+.numbers-wrap p,
+.namelist-wrap p {
   font-size: 14px;
   margin: 0px 10px;
   opacity: 0.85;
@@ -599,11 +602,12 @@ h2 {
 }
 
 .albumInfo {
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   font-size: 12px;
   line-height: 21px;
   text-transform: uppercase;
   font-weight: 400;
+  display: flex;
 }
 
 .saved-opts i {
@@ -705,13 +709,19 @@ h2 {
 }
 
 .display {
-  width: 80%;
-  padding: 0px 20px;
+  width: 100%;
+  /* margin: 0px 20px; */
   /* display: flex;
   flex-flow: column;
   align-items: flex-start; */
   display: inline-block;
   position: relative;
+  margin-left: 5px;
+  margin-right: 20px;
+}
+
+.display-full {
+  width: 100%;
 }
 
 .top_wrapper {
@@ -822,11 +832,15 @@ h2 {
 }
 
 .chart_names {
-  margin-top: 93px;
+  /* margin-top: 117.5px; */
   display: inline;
   max-width: 240px;
   width: 100%;
   padding-right: 20px;
+}
+
+.hide-chartlist {
+  display: none;
 }
 
 .top-radio-wrap {
@@ -1061,6 +1075,10 @@ h2 {
     display: none;
   }
 
+  .namelist-wrap {
+    display: none;
+  }
+
   .chart_title {
     max-width: 350px;
     width: 100%;
@@ -1167,7 +1185,7 @@ h2 {
     display: none;
   }
   .display {
-    padding: 0px 10px;
+    margin: 0px 10px;
     width: 100%;
   }
   .chart_names {

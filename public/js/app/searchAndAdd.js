@@ -15,34 +15,36 @@ function search(input) {
     const input = document.querySelector('.top_input')
     input.value = ''
     albums = JSON.parse(req.response).results.albummatches.album
-    for (i = 0; i < 50; i++) {
-      if (albums[0] === undefined) {
-        break;
-      }
-      else if(albums[i] == undefined || albums[i].image[3]["#text"] == ''){
-        continue;
-      }
-      else {
-        sugg_array.push({
-          artist: albums[i].artist,
-          album_name: albums[i].name,
-          album_image: albums[i].image[3]["#text"],
-        })
-        var album_sugg = '<img class="sugg_album" index=' + i + " src=" + albums[i].image[3]["#text"] + ">"
-        suggs_box.insertAdjacentHTML("beforeend", album_sugg)
-      }
+
+    if(albums.length){
+      let counter = 0 
+      albums.forEach((album) => {
+        if(album === undefined || album.image[3]["#text"] == ''){
+          return
+        } else {
+          sugg_array.push({
+            artist: album.artist,
+            album_name: album.name,
+            album_image: album.image[3]["#text"],
+          })
+          var album_sugg = '<img class="sugg_album" index=' + counter + " src=" + album.image[3]["#text"] + ">"
+          suggs_box.insertAdjacentHTML("beforeend", album_sugg)
+          counter++
+        }
+      })
+
+      const loadedSuggs = document.querySelectorAll(".sugg_album")
+
+      loadedSuggs.forEach((sugg) => {
+        if('ontouchstart' in document.body){
+          sugg.addEventListener("touchend", mobSearchAdd)
+        } else{
+          sugg.addEventListener("dragstart", dragSearchDeskMob)
+        }
+      })
+    } else{
+      suggs_box.insertAdjacentHTML("beforeend", '<p style="padding: 7px;">No albums found.</p>')
     }
-
-    const loadedSuggs = document.querySelectorAll(".sugg_album")
-
-    loadedSuggs.forEach((sugg) => {
-      if('ontouchstart' in document.body){
-        sugg.addEventListener("touchend", mobSearchAdd)
-      } else{
-        sugg.addEventListener("dragstart", dragSearchDeskMob)
-      }
-    })
-
   }
 
   req.send()
